@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { cleanProductName } from "@/lib/format";
 
 export const revalidate = 0;
 
@@ -32,7 +33,7 @@ export default async function Home() {
               className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 flex flex-col gap-1 hover:border-[#1de03c]/40 transition"
             >
               <span className="text-xs text-white/50">{p.brand.name}</span>
-              <span className="text-sm font-semibold">{p.name}</span>
+              <span className="text-sm font-semibold">{cleanProductName(p.name, p.brand.name)}</span>
               {cheapest && (
                 <span className="mt-2 text-[#1de03c] font-medium">
                   desde ${cheapest.price.toLocaleString("es-AR")}

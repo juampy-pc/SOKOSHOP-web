@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCart } from "@/lib/cart-context";
 
 type Variant = {
   id: string;
@@ -16,11 +17,34 @@ const typeLabel: Record<string, string> = {
   body_splash: "Body Splash",
 };
 
-export default function VariantSelector({ variants }: { variants: Variant[] }) {
+export default function VariantSelector({
+  variants,
+  productName,
+  brandName,
+}: {
+  variants: Variant[];
+  productName: string;
+  brandName: string;
+}) {
   const [selected, setSelected] = useState(0);
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
   const v = variants[selected];
 
   if (!v) return <p className="text-white/40 text-sm">Sin variantes cargadas.</p>;
+
+  function handleAdd() {
+    const label = `${typeLabel[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
+    addItem({
+      variantId: v.id,
+      productName,
+      brandName,
+      variantLabel: label,
+      price: v.price,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  }
 
   return (
     <div>
@@ -57,8 +81,11 @@ export default function VariantSelector({ variants }: { variants: Variant[] }) {
         ))}
       </div>
 
-      <button className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 hover:bg-[#17a930] transition">
-        Agregar al carrito
+      <button
+        onClick={handleAdd}
+        className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 hover:bg-[#17a930] transition"
+      >
+        {added ? "¡Agregado!" : "Agregar al carrito"}
       </button>
     </div>
   );

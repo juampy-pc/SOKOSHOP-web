@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import VariantSelector from "@/components/VariantSelector";
+import { cleanProductName } from "@/lib/format";
 
 export const revalidate = 0;
 
@@ -38,8 +39,8 @@ export default async function ProductPage({
         </div>
 
         <div>
-          <p className="text-[#1de03c] text-sm font-semibold">{product.brand.name}</p>
-          <h1 className="text-2xl md:text-3xl font-semibold mt-1 mb-4">{product.name}</h1>
+          <Link href={`/marcas/${product.brand.slug}`} className="text-[#1de03c] text-sm font-semibold hover:underline">{product.brand.name}</Link>
+          <h1 className="text-2xl md:text-3xl font-semibold mt-1 mb-4">{cleanProductName(product.name, product.brand.name)}</h1>
 
           <div className="flex flex-wrap gap-2 mb-6">
             <span className="text-xs border border-white/15 rounded-full px-3 py-1 text-white/70">
@@ -52,7 +53,7 @@ export default async function ProductPage({
             )}
           </div>
 
-          <VariantSelector variants={product.variants} />
+          <VariantSelector variants={product.variants} productName={cleanProductName(product.name, product.brand.name)} brandName={product.brand.name} />
 
           {product.notesStructure === "sin_datos" && (
             <p className="text-xs text-white/30 mt-10">

@@ -12,6 +12,12 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-40 bg-[#0b0d0c]/90 backdrop-blur-md border-b border-white/10">
         <div className="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+          <nav className="hidden md:flex gap-5 text-sm text-white/60">
+            <Link href="/perfumes-arabes" className="hover:text-[#1de03c]">Árabes</Link>
+            <Link href="/perfumes-de-disenador" className="hover:text-[#1de03c]">Diseñador</Link>
+            <Link href="/perfumes-de-nicho" className="hover:text-[#1de03c]">Nicho</Link>
+            <Link href="/marcas-independientes" className="hover:text-[#1de03c]">Independientes</Link>
+          </nav>
           <Link href="/" className="text-lg font-semibold">
             Soko<span className="text-[#1de03c]">Shop</span>
           </Link>

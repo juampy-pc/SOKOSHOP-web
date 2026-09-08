@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export const revalidate = 0;
 
@@ -25,9 +26,10 @@ export default async function Home() {
         {products.map((p) => {
           const cheapest = p.variants[0];
           return (
-            <div
+            <Link
               key={p.id}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 flex flex-col gap-1"
+              href={`/marcas/${p.brand.slug}/${p.slug}`}
+              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 flex flex-col gap-1 hover:border-[#1de03c]/40 transition"
             >
               <span className="text-xs text-white/50">{p.brand.name}</span>
               <span className="text-sm font-semibold">{p.name}</span>
@@ -36,7 +38,7 @@ export default async function Home() {
                   desde ${cheapest.price.toLocaleString("es-AR")}
                 </span>
               )}
-            </div>
+            </Link>
           );
         })}
       </div>

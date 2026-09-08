@@ -1,0 +1,4361 @@
+{
+  "brands": [
+    {
+      "slug": "afnan",
+      "name": "Afnan",
+      "origin": "arabe"
+    },
+    {
+      "slug": "al-haramain",
+      "name": "Al Haramain",
+      "origin": "arabe"
+    },
+    {
+      "slug": "armaf",
+      "name": "Armaf",
+      "origin": "arabe"
+    },
+    {
+      "slug": "azzaro",
+      "name": "Azzaro",
+      "origin": "disenador"
+    },
+    {
+      "slug": "bharara",
+      "name": "Bharara",
+      "origin": "nicho"
+    },
+    {
+      "slug": "carolina-herrera",
+      "name": "Carolina Herrera",
+      "origin": "disenador"
+    },
+    {
+      "slug": "chanel",
+      "name": "Chanel",
+      "origin": "disenador"
+    },
+    {
+      "slug": "french-avenue",
+      "name": "French Avenue",
+      "origin": "arabe"
+    },
+    {
+      "slug": "giorgio-armani",
+      "name": "Giorgio Armani",
+      "origin": "disenador"
+    },
+    {
+      "slug": "emporio-armani",
+      "name": "Emporio Armani",
+      "origin": "disenador"
+    },
+    {
+      "slug": "hugo-boss",
+      "name": "Hugo Boss",
+      "origin": "disenador"
+    },
+    {
+      "slug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier",
+      "origin": "disenador"
+    },
+    {
+      "slug": "lattafa",
+      "name": "Lattafa",
+      "origin": "arabe"
+    },
+    {
+      "slug": "maison-alhambra",
+      "name": "Maison Alhambra",
+      "origin": "arabe"
+    },
+    {
+      "slug": "moschino",
+      "name": "Moschino",
+      "origin": "disenador"
+    },
+    {
+      "slug": "paco-rabanne",
+      "name": "Paco Rabanne",
+      "origin": "disenador"
+    },
+    {
+      "slug": "rasasi",
+      "name": "Rasasi",
+      "origin": "arabe"
+    },
+    {
+      "slug": "stallion-53",
+      "name": "Stallion 53",
+      "origin": "arabe"
+    },
+    {
+      "slug": "valentino-uomo",
+      "name": "Valentino Uomo",
+      "origin": "disenador"
+    },
+    {
+      "slug": "versace",
+      "name": "Versace",
+      "origin": "disenador"
+    },
+    {
+      "slug": "xerjoff",
+      "name": "Xerjoff",
+      "origin": "disenador"
+    },
+    {
+      "slug": "yves-saint-laurent",
+      "name": "Yves Saint Laurent",
+      "origin": "disenador"
+    },
+    {
+      "slug": "zakat-parfums",
+      "name": "Zakat Parfums",
+      "origin": "arabe"
+    },
+    {
+      "slug": "riiffs",
+      "name": "Riiffs",
+      "origin": "arabe"
+    },
+    {
+      "slug": "victoria-s-secret",
+      "name": "Victoria's Secret",
+      "origin": "disenador"
+    }
+  ],
+  "products": [
+    {
+      "slug": "afnan-afnan-9pm-night-out-eau-de-parfum-100-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan 9PM Night Out Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-9am-dive-eau-de-parfum-100-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan 9AM Dive Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-9pm-eau-de-parfum-100-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan 9PM Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-9pm-elixir-eau-de-parfum-100-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan 9PM Elixir Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-9pm-rebel-eau-de-parfum-100-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan 9PM Rebel Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-turathi-blue-eau-de-parfum-90-ml",
+      "brandSlug": "afnan",
+      "name": "Afnan Turathi Blue Eau de Parfum 90 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "al-haramain-al-haramain-amber-oud-aqua-dubai-eau-de-parfum-100-ml",
+      "brandSlug": "al-haramain",
+      "name": "Al Haramain Amber Oud Aqua Dubai Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "al-haramain-al-haramain-amber-oud-dubai-night-eau-de-parfum-100-ml",
+      "brandSlug": "al-haramain",
+      "name": "Al Haramain Amber Oud Dubai Night Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "al-haramain-al-haramain-amber-oud-gold-edition-eau-de-parfum-120-ml",
+      "brandSlug": "al-haramain",
+      "name": "Al Haramain Amber Oud Gold Edition Eau de Parfum 120 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "al-haramain-al-haramain-amber-oud-gold-999-9-dubai-edition-eau-de-parfum-100-ml",
+      "brandSlug": "al-haramain",
+      "name": "Al Haramain Amber Oud Gold 999.9 Dubai Edition Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-iconic-eau-de-parfum-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Iconic Eau de Parfum 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-odyssey-aqua-edition-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Odyssey Aqua Edition Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-odyssey-limoni-fresh-edition-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Odyssey Limoni Fresh Edition Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-intense-man-eau-de-toilette-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Intense Man Eau de Toilette 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-maleka-eau-de-parfum-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Maleka Eau de Parfum 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-sillage-eau-de-parfum-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Sillage Eau de Parfum 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-untold-eau-de-parfum-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Untold Eau de Parfum 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-club-de-nuit-urban-man-elixir-eau-de-parfum-105-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Club de Nuit Urban Man Elixir Eau de Parfum 105 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-odyssey-mandarin-sky-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Odyssey Mandarin Sky Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-odyssey-homme-white-edition-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Odyssey Homme White Edition Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-odyssey-mega-man-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Odyssey Mega Man Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "armaf-armaf-yum-yum-eau-de-parfum-100-ml",
+      "brandSlug": "armaf",
+      "name": "Armaf Yum Yum Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "azzaro-azzaro-the-most-wanted-intense-eau-de-parfum-100-ml",
+      "brandSlug": "azzaro",
+      "name": "Azzaro The Most Wanted Intense Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "azzaro-azzaro-wanted-the-most-parfum-100-ml",
+      "brandSlug": "azzaro",
+      "name": "Azzaro Wanted The Most Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "bharara-bharara-king-chocolate-eau-de-parfum-100-ml",
+      "brandSlug": "bharara",
+      "name": "Bharara King Chocolate Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "bharara-bharara-king-eau-de-parfum-100-ml",
+      "brandSlug": "bharara",
+      "name": "Bharara King Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "carolina-herrera-carolina-herrera-212-vip-black-elixir-eau-de-parfum-100-ml",
+      "brandSlug": "carolina-herrera",
+      "name": "Carolina Herrera 212 VIP Black Elixir Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "carolina-herrera-carolina-herrera-212-vip-men-eau-de-toilette-100-ml",
+      "brandSlug": "carolina-herrera",
+      "name": "Carolina Herrera 212 VIP Men Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "chanel-chanel-allure-homme-sport-eau-de-toilette-100-ml",
+      "brandSlug": "chanel",
+      "name": "Chanel Allure Homme Sport Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "french-avenue-french-avenue-liquid-brun-eau-de-parfum-100-ml",
+      "brandSlug": "french-avenue",
+      "name": "French Avenue Liquid Brun Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "french-avenue-french-avenue-vulcan-feu-eau-de-parfum-100-ml",
+      "brandSlug": "french-avenue",
+      "name": "French Avenue Vulcan Feu Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "giorgio-armani-giorgio-armani-acqua-di-gio-parfum-100-ml",
+      "brandSlug": "giorgio-armani",
+      "name": "Giorgio Armani Acqua di Giò Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "emporio-armani-emporio-armani-stronger-with-you-intensely-eau-de-parfum-100-ml",
+      "brandSlug": "emporio-armani",
+      "name": "Emporio Armani Stronger With You Intensely Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "hugo-boss-hugo-boss-boss-bottled-eau-de-parfum-100-ml",
+      "brandSlug": "hugo-boss",
+      "name": "Hugo Boss Boss Bottled Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-le-beau-paradise-garden-eau-de-parfum-125-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Le Beau Paradise Garden Eau de Parfum 125 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-le-male-elixir-parfum-125-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Le Male Elixir Parfum 125 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-scandal-absolu-pour-homme-parfum-concentre-100-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Scandal Absolu Pour Homme Parfum Concentré 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-scandal-intense-eau-de-parfum-100-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Scandal Intense Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-scandal-pour-homme-eau-de-toilette-100-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Scandal Pour Homme Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "jean-paul-gaultier-jean-paul-gaultier-scandal-pour-homme-le-parfum-100-ml",
+      "brandSlug": "jean-paul-gaultier",
+      "name": "Jean Paul Gaultier Scandal Pour Homme Le Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-angham-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Angham Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-atlas-eau-de-parfum-55-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Atlas Eau de Parfum 55 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-bade-e-al-oud-amethyst-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Bade'e Al Oud Amethyst Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-fakhar-platinum-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Fakhar Platinum Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-fakhar-rose-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Fakhar Rose Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-hayaati-al-maleky-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Hayaati Al Maleky Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-hayaati-florence-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Hayaati Florence Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-her-confession-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Her Confession Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-khamrah-dukhan-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Khamrah Dukhan Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-yara-tous-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Yara Tous Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-afeef-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Afeef Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-asad-bourbon-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Asad Bourbon Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-asad-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Asad Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-asad-zanzibar-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Asad Zanzibar Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-eclaire-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Eclaire Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-emeer-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Emeer Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-fakhar-gold-extrait-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Fakhar Gold Extrait Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-fakhar-eau-de-parfum-for-men-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Fakhar Eau de Parfum for Men 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-hayaati-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Hayaati Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-his-confession-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa His Confession Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-honor-glory-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Honor & Glory Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-khamrah-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Khamrah Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-khamrah-qahwa-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Khamrah Qahwa Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-maahir-legacy-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Maahir Legacy Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-mayar-cherry-intense-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Mayar Cherry Intense Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-mayar-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Mayar Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-musamam-white-intense-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Musamam White Intense Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-musamam-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Musamam Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-noble-blush-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Noble Blush Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-bade-e-al-oud-oud-for-glory-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Bade'e Al Oud Oud for Glory Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-pisa-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Pisa Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-qaed-al-fursan-eau-de-parfum-90-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Qaed Al Fursan Eau de Parfum 90 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-qaed-al-fursan-untamed-eau-de-parfum-90-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Qaed Al Fursan Untamed Eau de Parfum 90 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-rave-now-women-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Rave Now Women Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-sehr-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Sehr Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-bade-e-al-oud-sublime-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Bade'e Al Oud Sublime Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-the-kingdom-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa The Kingdom Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-winners-trophy-silver-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Winners Trophy Silver Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-yara-candy-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Yara Candy Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-yara-rose-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Yara Rose Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-mayar-natural-intense-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Mayar Natural Intense Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-liam-blue-shine-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa Liam Blue Shine Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "lattafa-lattafa-the-kingdom-for-women-eau-de-parfum-100-ml",
+      "brandSlug": "lattafa",
+      "name": "Lattafa The Kingdom for Women Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-jean-lowe-immortel-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Jean Lowe Immortel Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-maitre-de-blue-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Maître de Blue Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-philos-pura-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Philos Pura Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-rose-seduction-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Rose Seduction Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-salvo-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Salvo Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-salvo-elixir-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Salvo Elixir Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-salvo-intense-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Salvo Intense Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-yeah-man-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Yeah! Man Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-sceptre-malachite-eau-de-parfum-100-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Sceptre Malachite Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "moschino-moschino-toy-boy-eau-de-parfum-100-ml",
+      "brandSlug": "moschino",
+      "name": "Moschino Toy Boy Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "paco-rabanne-paco-rabanne-1-million-eau-de-toilette-100-ml",
+      "brandSlug": "paco-rabanne",
+      "name": "Paco Rabanne 1 Million Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "paco-rabanne-paco-rabanne-black-xs-eau-de-toilette-100-ml",
+      "brandSlug": "paco-rabanne",
+      "name": "Paco Rabanne Black XS Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "paco-rabanne-paco-rabanne-invictus-eau-de-toilette-100-ml",
+      "brandSlug": "paco-rabanne",
+      "name": "Paco Rabanne Invictus Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "paco-rabanne-rabanne-phantom-intense-eau-de-parfum-intense-100-ml",
+      "brandSlug": "paco-rabanne",
+      "name": "Rabanne Phantom Intense Eau de Parfum Intense 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-elixir-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas Elixir Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-fire-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas Fire Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-for-her-eclat-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas for Her Eclat Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-malibu-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas Malibu Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-for-him-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas for Him Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-ice-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas Ice Eau de Parfum 100 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "stallion-53-stallion-53-eau-de-parfum-100-ml",
+      "brandSlug": "stallion-53",
+      "name": "Stallion 53 Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "valentino-uomo-valentino-uomo-born-in-roma-eau-de-toilette-100-ml",
+      "brandSlug": "valentino-uomo",
+      "name": "Valentino Uomo Born in Roma Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "versace-versace-dylan-blue-eau-de-toilette-100-ml",
+      "brandSlug": "versace",
+      "name": "Versace Dylan Blue Eau de Toilette 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "versace-versace-eros-flame-eau-de-parfum-100-ml",
+      "brandSlug": "versace",
+      "name": "Versace Eros Flame Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "versace-versace-eros-parfum-100-ml",
+      "brandSlug": "versace",
+      "name": "Versace Eros Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "xerjoff-xerjoff-erba-pura-eau-de-parfum-100-ml",
+      "brandSlug": "xerjoff",
+      "name": "Xerjoff Erba Pura Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "xerjoff-xerjoff-naxos-eau-de-parfum-100-ml",
+      "brandSlug": "xerjoff",
+      "name": "Xerjoff Naxos Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "yves-saint-laurent-yves-saint-laurent-y-le-parfum-100-ml",
+      "brandSlug": "yves-saint-laurent",
+      "name": "Yves Saint Laurent Y Le Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "zakat-parfums-zakat-parfums-world-cup-vip-eau-de-parfum-100-ml",
+      "brandSlug": "zakat-parfums",
+      "name": "Zakat Parfums World Cup VIP Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "riiffs-riiffs-momento-extrait-de-parfum-100-ml",
+      "brandSlug": "riiffs",
+      "name": "Riiffs Momento Extrait de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "french-avenue-french-avenue-aether-extrait-de-parfum-100-ml",
+      "brandSlug": "french-avenue",
+      "name": "French Avenue Aether Extrait de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-forbidden-love-eau-de-parfum-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Forbidden Love Eau de Parfum 30 ml ",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-kismet-for-women-eau-de-parfum-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Kismet For Women Eau de Parfum 30 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-la-rouge-baroque-extreme-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra La Rouge Baroque Extreme 30 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-pink-velvet-eau-de-parfum-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Pink Velvet Eau de Parfum 30 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-la-rouge-baroque-eau-de-parfum-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra La Rouge Baroque Eau de Parfum 30 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "stallion-53-stallion-53-mandora-100-ml",
+      "brandSlug": "stallion-53",
+      "name": "Stallion 53 Mandora 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "victoria-s-secret-victoria-s-secret-aqua-kiss-body-splash-250ml",
+      "brandSlug": "victoria-s-secret",
+      "name": "Victoria's Secret Aqua Kiss Body Splash 250ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "victoria-s-secret-victoria-s-secret-bare-vanilla-body-splash-250ml",
+      "brandSlug": "victoria-s-secret",
+      "name": "Victoria's Secret Bare Vanilla Body Splash 250ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "victoria-s-secret-victoria-s-secret-coconut-passion-body-splash-250ml",
+      "brandSlug": "victoria-s-secret",
+      "name": "Victoria's Secret Coconut Passion Body Splash 250ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "victoria-s-secret-victoria-s-secret-velvet-petals-body-splash-250ml",
+      "brandSlug": "victoria-s-secret",
+      "name": "Victoria's Secret Velvet Petals Body Splash 250ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "maison-alhambra-maison-alhambra-pink-shimmer-secret-eau-de-parfum-30-ml",
+      "brandSlug": "maison-alhambra",
+      "name": "Maison Alhambra Pink Shimmer Secret Eau de Parfum 30 ml",
+      "decantAvailable": true,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "rasasi-rasasi-hawas-tropical-eau-de-parfum-100-ml",
+      "brandSlug": "rasasi",
+      "name": "Rasasi Hawas Tropical Eau de Parfum 100 ml",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    },
+    {
+      "slug": "afnan-afnan-9pm-rebel-luxury-set",
+      "brandSlug": "afnan",
+      "name": "Afnan 9PM Rebel Luxury Set",
+      "decantAvailable": false,
+      "notesStructure": "sin_datos",
+      "status": "borrador"
+    }
+  ],
+  "variants": [
+    {
+      "productSlug": "afnan-afnan-9pm-night-out-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 130000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "629017077459",
+      "costInclTax": 71000,
+      "marginPct": 83.1
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-night-out-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-night-out-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 19000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9am-dive-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 80000,
+      "stock": 6,
+      "skuInternal": null,
+      "gtin": "6290171072836",
+      "costInclTax": 42000,
+      "marginPct": 90.0
+    },
+    {
+      "productSlug": "afnan-afnan-9am-dive-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9am-dive-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 72500,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290171002338",
+      "costInclTax": 38000,
+      "marginPct": 90.0
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-elixir-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 103000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6290171075738",
+      "costInclTax": 54000,
+      "marginPct": 90.7
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-rebel-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 100000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290171075288",
+      "costInclTax": 54000,
+      "marginPct": 85.2
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-rebel-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-rebel-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-turathi-blue-eau-de-parfum-90-ml",
+      "type": "frasco_completo",
+      "sizeMl": 90,
+      "price": 82000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290171070580",
+      "costInclTax": 43000,
+      "marginPct": 90.0
+    },
+    {
+      "productSlug": "afnan-afnan-turathi-blue-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "afnan-afnan-turathi-blue-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-aqua-dubai-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 125000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6291106814873",
+      "costInclTax": 65000,
+      "marginPct": 90.0
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-aqua-dubai-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-aqua-dubai-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 17000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-dubai-night-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 125000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291106814910",
+      "costInclTax": 68000,
+      "marginPct": 90.0
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-dubai-night-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-dubai-night-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 18000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-edition-eau-de-parfum-120-ml",
+      "type": "frasco_completo",
+      "sizeMl": 120,
+      "price": 130000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291100130498",
+      "costInclTax": 68000,
+      "marginPct": 91.2
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-edition-eau-de-parfum-120-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-edition-eau-de-parfum-120-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 17000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-999-9-dubai-edition-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 130000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291106814835",
+      "costInclTax": 71200,
+      "marginPct": 82.6
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-999-9-dubai-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "al-haramain-al-haramain-amber-oud-gold-999-9-dubai-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 19000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-iconic-eau-de-parfum-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 97000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6294015164152",
+      "costInclTax": 53600,
+      "marginPct": 81.0
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-iconic-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-iconic-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-aqua-edition-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 77000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6294015166132",
+      "costInclTax": 43500,
+      "marginPct": 77.0
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-aqua-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-aqua-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-limoni-fresh-edition-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6294015188639",
+      "costInclTax": 30000,
+      "marginPct": 83.3
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-limoni-fresh-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-limoni-fresh-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-intense-man-eau-de-toilette-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 78000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6085010044712",
+      "costInclTax": 45000,
+      "marginPct": 73.3
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-intense-man-eau-de-toilette-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-intense-man-eau-de-toilette-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-maleka-eau-de-parfum-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 85000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6295199801116",
+      "costInclTax": 47250,
+      "marginPct": 79.9
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-maleka-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-maleka-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-sillage-eau-de-parfum-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 78000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6294015136470",
+      "costInclTax": 44250,
+      "marginPct": 76.3
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-sillage-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-sillage-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-untold-eau-de-parfum-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 85000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6294015164176",
+      "costInclTax": 49500,
+      "marginPct": 71.7
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-untold-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-untold-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-urban-man-elixir-eau-de-parfum-105-ml",
+      "type": "frasco_completo",
+      "sizeMl": 105,
+      "price": 78000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6294015163513",
+      "costInclTax": 44250,
+      "marginPct": 76.3
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-urban-man-elixir-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-club-de-nuit-urban-man-elixir-eau-de-parfum-105-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mandarin-sky-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 66000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6294015149371",
+      "costInclTax": 36000,
+      "marginPct": 83.3
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mandarin-sky-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mandarin-sky-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-homme-white-edition-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 58000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6294015109320",
+      "costInclTax": 33000,
+      "marginPct": 75.8
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-homme-white-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-homme-white-edition-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mega-man-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6294015149388",
+      "costInclTax": 39000,
+      "marginPct": 41.0
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mega-man-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-odyssey-mega-man-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-yum-yum-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 90000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6295199800959",
+      "costInclTax": 50000,
+      "marginPct": 80.0
+    },
+    {
+      "productSlug": "armaf-armaf-yum-yum-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "armaf-armaf-yum-yum-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "azzaro-azzaro-the-most-wanted-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 159800,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "3614274129281",
+      "costInclTax": 76500,
+      "marginPct": 108.9
+    },
+    {
+      "productSlug": "azzaro-azzaro-wanted-the-most-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 150000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "3614273638852",
+      "costInclTax": 97500,
+      "marginPct": 53.9
+    },
+    {
+      "productSlug": "bharara-bharara-king-chocolate-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 100000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "850050062349",
+      "costInclTax": 53500,
+      "marginPct": 86.9
+    },
+    {
+      "productSlug": "bharara-bharara-king-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 128000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "850050062035",
+      "costInclTax": 70000,
+      "marginPct": 82.9
+    },
+    {
+      "productSlug": "bharara-bharara-king-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 150,
+      "price": 150000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "850050062677",
+      "costInclTax": 80932,
+      "marginPct": 85.3
+    },
+    {
+      "productSlug": "carolina-herrera-carolina-herrera-212-vip-black-elixir-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 179500,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8411061043844",
+      "costInclTax": 96000,
+      "marginPct": 87.0
+    },
+    {
+      "productSlug": "carolina-herrera-carolina-herrera-212-vip-men-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 158000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "8411061723760",
+      "costInclTax": 84750,
+      "marginPct": 86.4
+    },
+    {
+      "productSlug": "chanel-chanel-allure-homme-sport-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 243500,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "3145891236309",
+      "costInclTax": 168000,
+      "marginPct": 144840.5
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-liquid-brun-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 98000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290360375694",
+      "costInclTax": 57000,
+      "marginPct": 71.9
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-liquid-brun-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-liquid-brun-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 16000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-vulcan-feu-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 90000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290360378053",
+      "costInclTax": 54000,
+      "marginPct": 66.7
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-vulcan-feu-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-vulcan-feu-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "giorgio-armani-giorgio-armani-acqua-di-gio-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 269000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "3614273954167",
+      "costInclTax": 147000,
+      "marginPct": 83.0
+    },
+    {
+      "productSlug": "emporio-armani-emporio-armani-stronger-with-you-intensely-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 209000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "3614272225718",
+      "costInclTax": 127500,
+      "marginPct": 63.9
+    },
+    {
+      "productSlug": "hugo-boss-hugo-boss-boss-bottled-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 138000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "73705235110",
+      "costInclTax": 66000,
+      "marginPct": 109.1
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-le-beau-paradise-garden-eau-de-parfum-125-ml",
+      "type": "frasco_completo",
+      "sizeMl": 125,
+      "price": 184000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415091275",
+      "costInclTax": 115500,
+      "marginPct": 59.3
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-le-male-elixir-parfum-125-ml",
+      "type": "frasco_completo",
+      "sizeMl": 125,
+      "price": 200000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415076944",
+      "costInclTax": 141000,
+      "marginPct": 41.8
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-scandal-absolu-pour-homme-parfum-concentre-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 188000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415080385",
+      "costInclTax": 111750,
+      "marginPct": 68.2
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-scandal-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 196000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415102728",
+      "costInclTax": 117000,
+      "marginPct": 67.5
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-scandal-pour-homme-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 183000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415030885",
+      "costInclTax": 100500,
+      "marginPct": 82.1
+    },
+    {
+      "productSlug": "jean-paul-gaultier-jean-paul-gaultier-scandal-pour-homme-le-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 195000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8435415065191",
+      "costInclTax": 130500,
+      "marginPct": 49.4
+    },
+    {
+      "productSlug": "lattafa-lattafa-angham-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 65000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360598338",
+      "costInclTax": 36750,
+      "marginPct": 76.9
+    },
+    {
+      "productSlug": "lattafa-lattafa-angham-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-angham-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-atlas-eau-de-parfum-55-ml",
+      "type": "frasco_completo",
+      "sizeMl": 55,
+      "price": 68000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360593722",
+      "costInclTax": 37500,
+      "marginPct": 81.3
+    },
+    {
+      "productSlug": "lattafa-lattafa-atlas-eau-de-parfum-55-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-atlas-eau-de-parfum-55-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 18000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-amethyst-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 50000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6291108733875",
+      "costInclTax": 27750,
+      "marginPct": 80.2
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-amethyst-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-amethyst-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-platinum-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290362345817",
+      "costInclTax": 30000,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-platinum-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-platinum-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-rose-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 80000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6291107456041",
+      "costInclTax": 45750,
+      "marginPct": 74.9
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-rose-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-rose-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-al-maleky-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 45000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6291108734056",
+      "costInclTax": 22500,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-al-maleky-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-al-maleky-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-florence-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 46000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6290360593180",
+      "costInclTax": 24000,
+      "marginPct": 91.7
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-florence-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-florence-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-her-confession-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 70000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290360599120",
+      "costInclTax": 39000,
+      "marginPct": 79.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-her-confession-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-her-confession-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-dukhan-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 66000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6290362342373",
+      "costInclTax": 29000,
+      "marginPct": 127.6
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-dukhan-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-dukhan-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-tous-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6290360594552",
+      "costInclTax": 28500,
+      "marginPct": 110.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-tous-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-tous-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-afeef-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 136000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290360598888",
+      "costInclTax": 82500,
+      "marginPct": 64.8
+    },
+    {
+      "productSlug": "lattafa-lattafa-afeef-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 18000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-afeef-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 24000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-bourbon-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 75000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290362340362",
+      "costInclTax": 42000,
+      "marginPct": 78.6
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-bourbon-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-bourbon-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 68000,
+      "stock": 7,
+      "skuInternal": null,
+      "gtin": "6291108735411",
+      "costInclTax": 39000,
+      "marginPct": 74.4
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-zanzibar-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 47000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6290360598666",
+      "costInclTax": 27000,
+      "marginPct": 74.1
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-zanzibar-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-asad-zanzibar-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-eclaire-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 67000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6290362340638",
+      "costInclTax": 34900,
+      "marginPct": 92.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-eclaire-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-eclaire-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-emeer-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 85000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6290360591506",
+      "costInclTax": 46500,
+      "marginPct": 82.8
+    },
+    {
+      "productSlug": "lattafa-lattafa-emeer-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-emeer-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-gold-extrait-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360593166",
+      "costInclTax": 30000,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-gold-extrait-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-gold-extrait-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-eau-de-parfum-for-men-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 70000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6291107456058",
+      "costInclTax": 39750,
+      "marginPct": 76.1
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-eau-de-parfum-for-men-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-fakhar-eau-de-parfum-for-men-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 45000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6291107450193",
+      "costInclTax": 23250,
+      "marginPct": 93.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-hayaati-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-his-confession-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 67000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290360599113",
+      "costInclTax": 38250,
+      "marginPct": 75.2
+    },
+    {
+      "productSlug": "lattafa-lattafa-his-confession-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-his-confession-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-honor-glory-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6290360593135",
+      "costInclTax": 30000,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-honor-glory-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-honor-glory-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 67000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6291108737194",
+      "costInclTax": 30000,
+      "marginPct": 123.3
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-qahwa-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 68000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6290360593661",
+      "costInclTax": 30000,
+      "marginPct": 126.7
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-qahwa-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-khamrah-qahwa-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-maahir-legacy-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 56000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290360590189",
+      "costInclTax": 31000,
+      "marginPct": 80.7
+    },
+    {
+      "productSlug": "lattafa-lattafa-maahir-legacy-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-maahir-legacy-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-cherry-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290360598963",
+      "costInclTax": 29250,
+      "marginPct": 88.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-cherry-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-cherry-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 6,
+      "skuInternal": null,
+      "gtin": "6291108732496",
+      "costInclTax": 30000,
+      "marginPct": 83.3
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-white-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 98000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6260360593159",
+      "costInclTax": 54000,
+      "marginPct": 81.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-white-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-white-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 16000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6291108737323",
+      "costInclTax": 52500,
+      "marginPct": 14.3
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-musamam-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-noble-blush-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 58000,
+      "stock": 8,
+      "skuInternal": null,
+      "gtin": "6290360599441",
+      "costInclTax": 30000,
+      "marginPct": 93.3
+    },
+    {
+      "productSlug": "lattafa-lattafa-noble-blush-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-noble-blush-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-oud-for-glory-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6291107458328",
+      "costInclTax": 28500,
+      "marginPct": 110.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-oud-for-glory-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-oud-for-glory-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-pisa-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 90000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360593036",
+      "costInclTax": 49500,
+      "marginPct": 81.8
+    },
+    {
+      "productSlug": "lattafa-lattafa-pisa-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-pisa-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 17000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-eau-de-parfum-90-ml",
+      "type": "frasco_completo",
+      "sizeMl": 90,
+      "price": 50000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291107455365",
+      "costInclTax": 22500,
+      "marginPct": 122.2
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-untamed-eau-de-parfum-90-ml",
+      "type": "frasco_completo",
+      "sizeMl": 90,
+      "price": 40000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290362340645",
+      "costInclTax": 22500,
+      "marginPct": 77.8
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-untamed-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-qaed-al-fursan-untamed-eau-de-parfum-90-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-rave-now-women-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 50000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6290360593685",
+      "costInclTax": 28500,
+      "marginPct": 75.4
+    },
+    {
+      "productSlug": "lattafa-lattafa-rave-now-women-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-rave-now-women-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-sehr-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290360599090",
+      "costInclTax": 34500,
+      "marginPct": 59.4
+    },
+    {
+      "productSlug": "lattafa-lattafa-sehr-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-sehr-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-sublime-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 57000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290360593142",
+      "costInclTax": 30750,
+      "marginPct": 85.4
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-sublime-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-bade-e-al-oud-sublime-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 75000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6290360598345",
+      "costInclTax": 37500,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-winners-trophy-silver-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 77000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6291108738085",
+      "costInclTax": 32250,
+      "marginPct": 138.8
+    },
+    {
+      "productSlug": "lattafa-lattafa-winners-trophy-silver-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-winners-trophy-silver-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-candy-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360599168",
+      "costInclTax": 29250,
+      "marginPct": 105.1
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-candy-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-candy-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-rose-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291108730515",
+      "costInclTax": 30750,
+      "marginPct": 95.1
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-rose-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-yara-rose-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-natural-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 55000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360598970",
+      "costInclTax": 29250,
+      "marginPct": 88.0
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-natural-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-mayar-natural-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-liam-blue-shine-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 75000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "6290360591520",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-liam-blue-shine-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-liam-blue-shine-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 13000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-for-women-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360598352",
+      "costInclTax": 32000,
+      "marginPct": 87.5
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-for-women-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "lattafa-lattafa-the-kingdom-for-women-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-jean-lowe-immortel-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 56000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6291108735541",
+      "costInclTax": 31500,
+      "marginPct": 77.8
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-jean-lowe-immortel-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-jean-lowe-immortel-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-maitre-de-blue-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 50000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6261107459165",
+      "costInclTax": 27750,
+      "marginPct": 80.2
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-maitre-de-blue-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-maitre-de-blue-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-philos-pura-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6291107459349",
+      "costInclTax": 34500,
+      "marginPct": 73.9
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-philos-pura-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 8000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-philos-pura-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-rose-seduction-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6291108735893",
+      "costInclTax": 33750,
+      "marginPct": 77.8
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-rose-seduction-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-rose-seduction-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 53000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6291107459363",
+      "costInclTax": 30000,
+      "marginPct": 76.7
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-elixir-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 48000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360590776",
+      "costInclTax": 27000,
+      "marginPct": 77.8
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-intense-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 53000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6291108733486",
+      "costInclTax": 30000,
+      "marginPct": 76.7
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-salvo-intense-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-yeah-man-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 50000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6291108730324",
+      "costInclTax": 27750,
+      "marginPct": 80.2
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-yeah-man-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-yeah-man-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-sceptre-malachite-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 62000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "6290360591599",
+      "costInclTax": 33000,
+      "marginPct": 87.9
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-sceptre-malachite-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-sceptre-malachite-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "moschino-moschino-toy-boy-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 129000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8011003845132",
+      "costInclTax": 61500,
+      "marginPct": 109.8
+    },
+    {
+      "productSlug": "paco-rabanne-paco-rabanne-1-million-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 150000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "3349666007921",
+      "costInclTax": 72000,
+      "marginPct": 108.3
+    },
+    {
+      "productSlug": "paco-rabanne-paco-rabanne-black-xs-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 144000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "3349668576111",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "paco-rabanne-paco-rabanne-invictus-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 156000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "3349668515660",
+      "costInclTax": 75000,
+      "marginPct": 108.0
+    },
+    {
+      "productSlug": "paco-rabanne-rabanne-phantom-intense-eau-de-parfum-intense-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 176500,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "3349668630035",
+      "costInclTax": 103500,
+      "marginPct": 70.5
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-elixir-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 72000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "614514331057",
+      "costInclTax": 38000,
+      "marginPct": 89.5
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-elixir-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-fire-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 95000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "614514178065",
+      "costInclTax": 52500,
+      "marginPct": 81.0
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-fire-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-fire-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-her-eclat-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 80000,
+      "stock": 3,
+      "skuInternal": null,
+      "gtin": "614514339206",
+      "costInclTax": 42000,
+      "marginPct": 90.5
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-her-eclat-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 10000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-her-eclat-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 14000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-malibu-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 110000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "614514331071",
+      "costInclTax": 52500,
+      "marginPct": 109.5
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-malibu-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 11000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-malibu-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-him-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 68000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "614514331026",
+      "costInclTax": 37500,
+      "marginPct": 81.3
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-him-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 9000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-for-him-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-ice-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 98000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "614514331040",
+      "costInclTax": 54000,
+      "marginPct": 81.5
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-ice-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 5,
+      "price": 12000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-ice-eau-de-parfum-100-ml",
+      "type": "decant",
+      "sizeMl": 10,
+      "price": 15000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "stallion-53-stallion-53-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 52000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6297001574201",
+      "costInclTax": 29000,
+      "marginPct": 79.3
+    },
+    {
+      "productSlug": "valentino-uomo-valentino-uomo-born-in-roma-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 194500,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "3614272761469",
+      "costInclTax": 121500,
+      "marginPct": 60.1
+    },
+    {
+      "productSlug": "versace-versace-dylan-blue-eau-de-toilette-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 174900,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8011003825745",
+      "costInclTax": 85500,
+      "marginPct": 104.6
+    },
+    {
+      "productSlug": "versace-versace-eros-flame-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 166700,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "8011003845354",
+      "costInclTax": 99750,
+      "marginPct": 67.1
+    },
+    {
+      "productSlug": "versace-versace-eros-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 178800,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "8011003872077",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "xerjoff-xerjoff-erba-pura-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 378000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8054320902584",
+      "costInclTax": 255000,
+      "marginPct": 48.2
+    },
+    {
+      "productSlug": "xerjoff-xerjoff-naxos-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 398000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "8033488155070",
+      "costInclTax": 245500,
+      "marginPct": 62.1
+    },
+    {
+      "productSlug": "yves-saint-laurent-yves-saint-laurent-y-le-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 298000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "3614273318105",
+      "costInclTax": 169500,
+      "marginPct": 75.8
+    },
+    {
+      "productSlug": "zakat-parfums-zakat-parfums-world-cup-vip-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 165000,
+      "stock": 1,
+      "skuInternal": null,
+      "gtin": "6290362711308",
+      "costInclTax": 88400,
+      "marginPct": 86.7
+    },
+    {
+      "productSlug": "riiffs-riiffs-momento-extrait-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 90000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6297001574201",
+      "costInclTax": 46700,
+      "marginPct": 92.7
+    },
+    {
+      "productSlug": "french-avenue-french-avenue-aether-extrait-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 103000,
+      "stock": 2,
+      "skuInternal": null,
+      "gtin": "6290360376608",
+      "costInclTax": 52000,
+      "marginPct": 98.1
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-forbidden-love-eau-de-parfum-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6290360596273",
+      "costInclTax": 9546,
+      "marginPct": 78.1
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-kismet-for-women-eau-de-parfum-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": 5,
+      "skuInternal": null,
+      "gtin": "6290362345954",
+      "costInclTax": 9546,
+      "marginPct": 78.1
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-la-rouge-baroque-extreme-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "629062345992",
+      "costInclTax": 9546,
+      "marginPct": 78.1
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-pink-velvet-eau-de-parfum-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "62903605921",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-la-rouge-baroque-eau-de-parfum-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "6290360596211",
+      "costInclTax": 9546,
+      "marginPct": 78.1
+    },
+    {
+      "productSlug": "stallion-53-stallion-53-mandora-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 60000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": "6294021904865",
+      "costInclTax": 30000,
+      "marginPct": 100.0
+    },
+    {
+      "productSlug": "victoria-s-secret-victoria-s-secret-aqua-kiss-body-splash-250ml",
+      "type": "body_splash",
+      "sizeMl": 250,
+      "price": 48000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "6677556605006",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "victoria-s-secret-victoria-s-secret-bare-vanilla-body-splash-250ml",
+      "type": "body_splash",
+      "sizeMl": 250,
+      "price": 48000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "667556489996",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "victoria-s-secret-victoria-s-secret-coconut-passion-body-splash-250ml",
+      "type": "body_splash",
+      "sizeMl": 250,
+      "price": 48000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "667556605013",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "victoria-s-secret-victoria-s-secret-velvet-petals-body-splash-250ml",
+      "type": "body_splash",
+      "sizeMl": 250,
+      "price": 48000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "197575027515",
+      "costInclTax": null,
+      "marginPct": null
+    },
+    {
+      "productSlug": "maison-alhambra-maison-alhambra-pink-shimmer-secret-eau-de-parfum-30-ml",
+      "type": "frasco_completo",
+      "sizeMl": 30,
+      "price": 17000,
+      "stock": 0,
+      "skuInternal": null,
+      "gtin": null,
+      "costInclTax": 9546,
+      "marginPct": 78.1
+    },
+    {
+      "productSlug": "rasasi-rasasi-hawas-tropical-eau-de-parfum-100-ml",
+      "type": "frasco_completo",
+      "sizeMl": 100,
+      "price": 81000,
+      "stock": 4,
+      "skuInternal": null,
+      "gtin": "614514464441",
+      "costInclTax": 42000,
+      "marginPct": 90.5
+    },
+    {
+      "productSlug": "afnan-afnan-9pm-rebel-luxury-set",
+      "type": "frasco_completo",
+      "sizeMl": null,
+      "price": 126000,
+      "stock": null,
+      "skuInternal": null,
+      "gtin": "6290171077152",
+      "costInclTax": null,
+      "marginPct": null
+    }
+  ]
+}

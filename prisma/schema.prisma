@@ -1,0 +1,57 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Brand {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  origin      String
+  logoUrl     String?
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id               String           @id @default(cuid())
+  slug             String           @unique
+  brand            Brand            @relation(fields: [brandId], references: [id])
+  brandId          String
+  name             String
+  gender           String?
+  concentration    String?
+  decantAvailable  Boolean          @default(false)
+  notesStructure   String           @default("sin_datos")
+  olfactiveFamily  String?
+  descriptionShort String?
+  descriptionLong  String?
+  launchYear       Int?
+  status           String           @default("borrador")
+  variants         ProductVariant[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model ProductVariant {
+  id          String   @id @default(cuid())
+  product     Product  @relation(fields: [productId], references: [id])
+  productId   String
+  type        String
+  sizeMl      Float?
+  price       Int
+  salePrice   Int?
+  stock       Int?
+  skuInternal String?  @unique
+  gtin        String?
+  costInclTax Int?
+  marginPct   Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

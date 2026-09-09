@@ -74,3 +74,12 @@ model ProductNote {
 
   @@unique([productId, noteId, position])
 }
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+}

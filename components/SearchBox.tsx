@@ -52,25 +52,25 @@ export default function SearchBox() {
         onKeyDown={(e) => e.key === "Enter" && goToResults()}
         onFocus={() => results.length > 0 && setOpen(true)}
         placeholder="Buscar perfume, marca..."
-        className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-[#1de03c]/50 transition"
+        className="w-full bg-white/10 border border-white/15 rounded-full px-4 py-2 text-sm text-white placeholder:text-gray-400 outline-none focus:border-[#1de03c]/50 transition"
       />
       {open && results.length > 0 && (
-        <div className="absolute top-full mt-2 w-full bg-[#12140f] border border-white/10 rounded-xl overflow-hidden shadow-xl z-50">
+        <div className="absolute top-full mt-2 w-full bg-white border border-gray-100 rounded-xl overflow-hidden shadow-xl z-50">
           {results.slice(0, 6).map((r) => (
             <Link
               key={r.id}
               href={`/marcas/${r.brandSlug}/${r.slug}`}
               onClick={() => setOpen(false)}
-              className="block px-4 py-2.5 text-sm hover:bg-white/5 border-b border-white/5 last:border-0"
+              className="block px-4 py-2.5 text-sm hover:bg-gray-50 border-b border-gray-50 last:border-0 text-gray-900"
             >
-              <span className="text-white/40 text-xs">{r.brandName}</span>
+              <span className="text-gray-400 text-xs">{r.brandName}</span>
               <br />
               {cleanProductName(r.name, r.brandName)}
             </Link>
           ))}
           <button
             onClick={goToResults}
-            className="w-full text-left px-4 py-2.5 text-sm text-[#1de03c] hover:bg-white/5"
+            className="w-full text-left px-4 py-2.5 text-sm text-[#17a930] hover:bg-gray-50"
           >
             Ver todos los resultados →
           </button>

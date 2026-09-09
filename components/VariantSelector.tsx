@@ -31,7 +31,7 @@ export default function VariantSelector({
   const { addItem } = useCart();
   const v = variants[selected];
 
-  if (!v) return <p className="text-white/40 text-sm">Sin variantes cargadas.</p>;
+  if (!v) return <p className="text-gray-400 text-sm">Sin variantes cargadas.</p>;
 
   function handleAdd() {
     const label = `${typeLabel[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
@@ -48,10 +48,10 @@ export default function VariantSelector({
 
   return (
     <div>
-      <p className="text-2xl font-semibold text-[#1de03c] mb-1">
+      <p className="text-2xl font-semibold text-[#17a930] mb-1">
         ${v.price.toLocaleString("es-AR")}
       </p>
-      <p className="text-xs text-white/40 mb-5">
+      <p className="text-xs text-gray-400 mb-5">
         {v.stock === null
           ? "Se prepara al momento — sujeto a disponibilidad"
           : v.stock <= 2
@@ -64,10 +64,10 @@ export default function VariantSelector({
           <button
             key={opt.id}
             onClick={() => setSelected(i)}
-            className={`text-left rounded-xl border px-4 py-2 text-sm transition ${
+            className={`text-left rounded-xl px-4 py-2 text-sm transition ${
               i === selected
-                ? "border-[#1de03c] bg-[#1de03c]/10 text-[#1de03c]"
-                : "border-white/15 text-white/70 hover:border-white/30"
+                ? "bg-[#eafbee] text-[#17a930] shadow-[0_0_0_1.5px_#1de03c_inset]"
+                : "bg-white text-gray-600 shadow-[0_1px_6px_rgba(0,0,0,0.06)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.1)]"
             }`}
           >
             <span className="block font-medium">
@@ -83,7 +83,7 @@ export default function VariantSelector({
 
       <button
         onClick={handleAdd}
-        className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 hover:bg-[#17a930] transition"
+        className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-[0_2px_10px_rgba(29,224,60,0.3)] hover:bg-[#17a930] transition"
       >
         {added ? "¡Agregado!" : "Agregar al carrito"}
       </button>

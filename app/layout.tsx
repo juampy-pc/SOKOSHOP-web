@@ -13,7 +13,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es-AR">
-      <body className="bg-[#0b0d0c]">
+      <body className="bg-[#fafaf9]">
         <CartProvider>
           <Header />
           {children}

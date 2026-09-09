@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { cleanProductName } from "@/lib/format";
+import ProductCard from "@/components/ProductCard";
+import { originPages } from "@/lib/origin-pages";
 
 export const revalidate = 0;
 
@@ -26,34 +27,29 @@ export default async function BrandPage({
   if (!brand) notFound();
 
   const originLabel =
-    brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : "Nicho";
+    brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : brand.origin === "nicho" ? "Nicho" : "Independiente";
 
   return (
-    <main className="min-h-screen bg-[#0b0d0c] text-[#f1f3ef] px-5 py-10 max-w-5xl mx-auto">
-      <p className="text-xs text-white/40 mb-4">
-        <Link href="/" className="hover:text-[#1de03c]">Inicio</Link> / <span>{brand.name}</span>
+    <main className="min-h-screen bg-[#fafaf9] px-5 py-10 max-w-6xl mx-auto">
+      <p className="text-xs text-gray-400 mb-4">
+        <Link href="/" className="hover:text-[#17a930]">Inicio</Link> / <span>{brand.name}</span>
       </p>
-      <h1 className="text-3xl font-semibold mb-1">{brand.name}</h1>
-      <p className="text-white/40 text-sm mb-8">{originLabel} · {brand.products.length} productos</p>
+      <h1 className="text-3xl font-semibold mb-1 text-gray-900">{brand.name}</h1>
+      <p className="text-gray-400 text-sm mb-8">{originLabel} · {brand.products.length} productos</p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {brand.products.map((p) => {
-          const cheapest = p.variants[0];
-          return (
-            <Link
-              key={p.id}
-              href={`/marcas/${brand.slug}/${p.slug}`}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 flex flex-col gap-1 hover:border-[#1de03c]/40 transition"
-            >
-              <span className="text-sm font-semibold">{cleanProductName(p.name, brand.name)}</span>
-              {cheapest && (
-                <span className="mt-2 text-[#1de03c] font-medium">
-                  desde ${cheapest.price.toLocaleString("es-AR")}
-                </span>
-              )}
-            </Link>
-          );
-        })}
+        {brand.products.map((p) => (
+          <ProductCard
+            key={p.id}
+            slug={p.slug}
+            brandSlug={brand.slug}
+            brandName={brand.name}
+            name={p.name}
+            price={p.variants[0]?.price ?? null}
+            decantAvailable={p.decantAvailable}
+            origin={brand.origin}
+          />
+        ))}
       </div>
     </main>
   );

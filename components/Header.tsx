@@ -22,7 +22,7 @@ export default function Header() {
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       } else {
-        alert("Hubo un problema al iniciar el pago. Probá de nuevo.");
+        alert(data.error ?? "Hubo un problema al iniciar el pago. Probá de nuevo.");
       }
     } catch {
       alert("Hubo un problema al iniciar el pago. Probá de nuevo.");

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { originPages } from "@/lib/origin-pages";
@@ -24,7 +25,11 @@ export default async function BrandPage({
     },
   });
 
-  if (!brand) notFound();
+  if (!brand) {
+    const r = await findRedirect(`/marcas/${marca}`);
+    if (r?.to) permanentRedirect(r.to);
+    notFound();
+  }
 
   const originLabel =
     brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : brand.origin === "nicho" ? "Nicho" : "Independiente";

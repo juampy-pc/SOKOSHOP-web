@@ -1,10 +1,15 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+// GENERADO: copia de sokoshop-admin/prisma/schema.prisma (npm run schema:sync).
+// NO editar acá ni correr `prisma migrate` / `db push` desde la tienda.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pg_trgm]
 }
 
 model Brand {
@@ -17,6 +22,8 @@ model Brand {
   products    Product[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([name(ops: raw("gin_trgm_ops"))], map: "brand_name_trgm_idx", type: Gin)
 }
 
 model Product {
@@ -38,30 +45,40 @@ model Product {
   notes            ProductNote[]
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
+
+  @@index([brandId])
+  @@index([status])
+  @@index([name(ops: raw("gin_trgm_ops"))], map: "product_name_trgm_idx", type: Gin)
+  @@index([olfactiveFamily(ops: raw("gin_trgm_ops"))], map: "product_family_trgm_idx", type: Gin)
 }
 
 model ProductVariant {
-  id          String   @id @default(cuid())
-  product     Product  @relation(fields: [productId], references: [id])
-  productId   String
-  type        String
-  sizeMl      Float?
-  price       Int
-  salePrice   Int?
-  stock       Int?
-  skuInternal String?  @unique
-  gtin        String?
-  costInclTax Int?
-  marginPct   Float?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  orderItems  OrderItem[]
+  id             String          @id @default(cuid())
+  product        Product         @relation(fields: [productId], references: [id])
+  productId      String
+  type           String
+  sizeMl         Float?
+  price          Int
+  salePrice      Int?
+  stock          Int?
+  skuInternal    String?         @unique
+  gtin           String?
+  costInclTax    Int?
+  marginPct      Float?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  orderItems     OrderItem[]
+  stockMovements StockMovement[]
+
+  @@index([productId])
 }
 
 model Note {
   id       String        @id @default(cuid())
   name     String        @unique
   products ProductNote[]
+
+  @@index([name(ops: raw("gin_trgm_ops"))], map: "note_name_trgm_idx", type: Gin)
 }
 
 model ProductNote {
@@ -74,6 +91,7 @@ model ProductNote {
   order     Int     @default(0)
 
   @@unique([productId, noteId, position])
+  @@index([noteId])
 }
 
 model AdminUser {
@@ -83,24 +101,42 @@ model AdminUser {
   name         String
   role         String   @default("admin")
   createdAt    DateTime @default(now())
+
+  active             Boolean   @default(true)
+  // Se incrementa al cambiar contraseña/rol/2FA o desactivar: invalida sesiones abiertas.
+  sessionVersion     Int       @default(0)
+  totpSecretEnc      String?
+  totpEnabled        Boolean   @default(false)
+  totpLastStep       Int?
+  recoveryCodeHashes String[]  @default([])
+  lastLoginAt        DateTime?
+  passwordChangedAt  DateTime?
+  updatedAt          DateTime  @default(now()) @updatedAt
+
+  auditLogs      AuditLog[]
+  stockMovements StockMovement[]
 }
 
 model Order {
-  id            String      @id @default(cuid())
-  status        String      @default("pendiente")
-  total         Int
-  customerEmail String?
-  customerName  String?
+  id             String          @id @default(cuid())
+  status         String          @default("pendiente")
+  total          Int
+  customerEmail  String?
+  customerName   String?
   mpPreferenceId String?
   mpPaymentId    String?
-  items         OrderItem[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  items          OrderItem[]
+  stockMovements StockMovement[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([status, createdAt])
+  @@index([mpPaymentId])
 }
 
 model OrderItem {
-  id               String        @id @default(cuid())
-  order            Order         @relation(fields: [orderId], references: [id])
+  id               String         @id @default(cuid())
+  order            Order          @relation(fields: [orderId], references: [id])
   orderId          String
   productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
   productVariantId String
@@ -108,4 +144,71 @@ model OrderItem {
   variantLabel     String
   price            Int
   quantity         Int
+
+  @@index([orderId])
+  @@index([productVariantId])
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ip        String
+  success   Boolean
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ip, createdAt])
+}
+
+model AuditLog {
+  id         String     @id @default(cuid())
+  actor      AdminUser? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorId    String?
+  actorEmail String?
+  action     String
+  entity     String
+  entityId   String?
+  before     Json?
+  after      Json?
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime   @default(now())
+
+  @@index([entity, entityId])
+  @@index([actorId, createdAt])
+  @@index([createdAt])
+}
+
+// Todo cambio de stock queda registrado. quantity con signo (+ingreso / -venta).
+model StockMovement {
+  id         String         @id @default(cuid())
+  variant    ProductVariant @relation(fields: [variantId], references: [id])
+  variantId  String
+  type       String // venta_online | venta_local | venta_mayorista | ajuste | ingreso | devolucion
+  quantity   Int
+  stockAfter Int?
+  order      Order?         @relation(fields: [orderId], references: [id])
+  orderId    String?
+  reason     String?
+  actor      AdminUser?     @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorId    String?
+  createdAt  DateTime       @default(now())
+
+  // Idempotencia: un pedido no genera dos veces el mismo movimiento para una variante.
+  @@unique([orderId, variantId, type])
+  @@index([variantId, createdAt])
+  @@index([type, createdAt])
+}
+
+// Redirecciones 301/410 que aplica la tienda (migración desde TiendaNegocio, cambios de slug).
+model Redirect {
+  id         String   @id @default(cuid())
+  fromPath   String   @unique
+  toPath     String?
+  statusCode Int      @default(301)
+  active     Boolean  @default(true)
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

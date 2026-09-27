@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import VariantSelector from "@/components/VariantSelector";
 import { cleanProductName } from "@/lib/format";
@@ -22,6 +23,8 @@ export default async function ProductPage({
   });
 
   if (!product || product.brand.slug !== marca || product.status === "archivado") {
+    const r = await findRedirect(`/marcas/${marca}/${producto}`);
+    if (r?.to) permanentRedirect(r.to);
     notFound();
   }
 

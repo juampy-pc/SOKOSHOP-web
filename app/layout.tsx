@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import Header from "@/components/Header";
 import Analytics from "@/components/Analytics";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "SokoShop",
@@ -19,6 +20,7 @@ export default function RootLayout({
           <Header />
           <Analytics />
           {children}
+          <Footer />
         </CartProvider>
       </body>
     </html>

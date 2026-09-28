@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { cleanProductName } from "@/lib/format";
+import ProductCard from "@/components/ProductCard";
 
 export const revalidate = 0;
 
@@ -10,7 +10,10 @@ type SearchRow = {
   name: string;
   brandSlug: string;
   brandName: string;
+  origin: string;
+  decantAvailable: boolean;
   price: number | null;
+  image: string | null;
 };
 
 export default async function BuscarPage({
@@ -25,8 +28,9 @@ export default async function BuscarPage({
 
   if (query.length >= 2) {
     results = await prisma.$queryRaw<SearchRow[]>`
-      SELECT p.id, p.slug, p.name, b.slug as "brandSlug", b.name as "brandName",
-        (SELECT MIN(v.price) FROM "ProductVariant" v WHERE v."productId" = p.id) as price,
+      SELECT p.id, p.slug, p.name, b.slug as "brandSlug", b.name as "brandName", b.origin, p."decantAvailable",
+        (SELECT MIN(CASE WHEN v."salePrice" > 0 AND v."salePrice" < v.price THEN v."salePrice" ELSE v.price END) FROM "ProductVariant" v WHERE v."productId" = p.id) as price,
+        (SELECT i.url FROM "ProductImage" i WHERE i."productId" = p.id ORDER BY i.sort LIMIT 1) as image,
         GREATEST(
           word_similarity(${query}, p.name),
           word_similarity(${query}, b.name),
@@ -61,31 +65,18 @@ export default async function BuscarPage({
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0d0c] text-[#f1f3ef] px-5 py-10 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-2">Resultados para &quot;{query}&quot;</h1>
-      <p className="text-white/40 text-sm mb-8">{results.length} productos encontrados</p>
+    <main className="min-h-screen bg-[#fafaf9] px-5 py-10 max-w-6xl mx-auto">
+      <p className="text-xs text-gray-400 mb-4"><Link href="/" className="hover:text-[#17a930]">Inicio</Link> / <span>Búsqueda</span></p>
+      <h1 className="text-2xl font-semibold mb-1 text-gray-900">Resultados para &quot;{query}&quot;</h1>
+      <p className="text-gray-400 text-sm mb-8">{results.length} {results.length === 1 ? "producto encontrado" : "productos encontrados"}</p>
 
       {results.length === 0 && (
-        <p className="text-white/50 text-sm">
-          No encontramos nada parecido. Probá con otra palabra o revisá cómo lo escribiste.
-        </p>
+        <p className="text-gray-500 text-sm">No encontramos nada parecido. Probá con otra palabra o revisá cómo lo escribiste.</p>
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {results.map((p) => (
-          <Link
-            key={p.id}
-            href={`/marcas/${p.brandSlug}/${p.slug}`}
-            className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 flex flex-col gap-1 hover:border-[#1de03c]/40 transition"
-          >
-            <span className="text-xs text-white/50">{p.brandName}</span>
-            <span className="text-sm font-semibold">{cleanProductName(p.name, p.brandName)}</span>
-            {p.price && (
-              <span className="mt-2 text-[#1de03c] font-medium">
-                desde ${Number(p.price).toLocaleString("es-AR")}
-              </span>
-            )}
-          </Link>
+          <ProductCard key={p.id} slug={p.slug} brandSlug={p.brandSlug} brandName={p.brandName} name={p.name} price={p.price === null ? null : Number(p.price)} image={p.image} decantAvailable={p.decantAvailable} origin={p.origin} />
         ))}
       </div>
     </main>

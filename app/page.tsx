@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import HeroSpotlight from "@/components/HeroSpotlight";
 import ProductCard from "@/components/ProductCard";
+import { cardData, cardInclude, priceFrom } from "@/lib/catalog";
 import Faq from "@/components/Faq";
 import LocationSection from "@/components/LocationSection";
 
@@ -14,7 +15,7 @@ async function getSection(origin?: string, decant?: boolean) {
       ...(origin ? { brand: { origin } } : {}),
       ...(decant ? { decantAvailable: true } : {}),
     },
-    include: { brand: true, variants: { orderBy: { price: "asc" } } },
+    include: cardInclude,
     orderBy: { name: "asc" },
     take: 8,
   });
@@ -43,16 +44,7 @@ function Section({
       <p className="text-gray-400 text-sm mb-4">{tagline}</p>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((p) => (
-          <ProductCard
-            key={p.id}
-            slug={p.slug}
-            brandSlug={p.brand.slug}
-            brandName={p.brand.name}
-            name={p.name}
-            price={p.variants[0]?.price ?? null}
-            decantAvailable={p.decantAvailable}
-            origin={p.brand.origin}
-          />
+          <ProductCard key={p.id} {...cardData(p)} />
         ))}
       </div>
     </section>
@@ -72,7 +64,8 @@ export default async function Home() {
     brandSlug: p.brand.slug,
     brandName: p.brand.name,
     name: p.name,
-    price: p.variants[0]?.price ?? 0,
+    price: priceFrom(p.variants).price ?? 0,
+    image: p.images[0]?.url ?? null,
     family: p.olfactiveFamily,
   }));
 

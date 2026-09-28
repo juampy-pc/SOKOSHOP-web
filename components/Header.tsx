@@ -7,31 +7,8 @@ import SearchBox from "./SearchBox";
 import { track } from "@/lib/track";
 
 export default function Header() {
-  const { items, total, count } = useCart();
+  const { items, total, count, setQty, remove } = useCart();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  async function handleCheckout() {
-    track("checkout_start", { v: total });
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
-      });
-      const data = await res.json();
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-      } else {
-        alert(data.error ?? "Hubo un problema al iniciar el pago. Probá de nuevo.");
-      }
-    } catch {
-      alert("Hubo un problema al iniciar el pago. Probá de nuevo.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   return (
     <>
@@ -74,12 +51,20 @@ export default function Header() {
             <div className="flex-1 overflow-y-auto space-y-4">
               {items.length === 0 && <p className="text-gray-400 text-sm">Todavía no agregaste nada.</p>}
               {items.map((i) => (
-                <div key={i.variantId} className="flex justify-between text-sm border-b border-gray-100 pb-3">
-                  <div>
+                <div key={i.variantId} className="flex gap-3 text-sm border-b border-gray-100 pb-3">
+                  <div className="flex-1 min-w-0">
                     <p className="font-medium text-gray-900">{i.brandName} {i.productName}</p>
-                    <p className="text-gray-400 text-xs">{i.variantLabel} × {i.qty}</p>
+                    <p className="text-gray-400 text-xs">{i.variantLabel} · ${i.price.toLocaleString("es-AR")} c/u</p>
+                    <div className="mt-2 inline-flex items-center rounded-full border border-gray-200">
+                      <button onClick={() => setQty(i.variantId, i.qty - 1)} className="w-8 h-8 text-gray-600" aria-label={`Quitar uno de ${i.productName}`}>−</button>
+                      <span className="w-6 text-center tabular-nums" aria-live="polite">{i.qty}</span>
+                      <button onClick={() => setQty(i.variantId, i.qty + 1)} disabled={i.qty >= 10} className="w-8 h-8 text-gray-600 disabled:opacity-30" aria-label={`Agregar uno de ${i.productName}`}>+</button>
+                    </div>
                   </div>
-                  <p className="text-[#17a930] font-medium">${(i.price * i.qty).toLocaleString("es-AR")}</p>
+                  <div className="text-right">
+                    <p className="text-[#17a930] font-medium">${(i.price * i.qty).toLocaleString("es-AR")}</p>
+                    <button onClick={() => remove(i.variantId)} className="text-xs text-gray-400 hover:text-red-600 mt-2">Quitar</button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -88,13 +73,15 @@ export default function Header() {
                 <span className="text-gray-700">Total</span>
                 <span className="text-[#17a930] font-semibold">${total.toLocaleString("es-AR")}</span>
               </div>
-              <button
-                onClick={handleCheckout}
-                disabled={items.length === 0 || loading}
-                className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-md disabled:opacity-50"
+              <Link
+                href="/checkout"
+                onClick={() => { track("checkout_start", { v: total }); setOpen(false); }}
+                aria-disabled={items.length === 0}
+                className={`block text-center w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-md ${items.length === 0 ? "pointer-events-none opacity-50" : ""}`}
               >
-                {loading ? "Redirigiendo..." : "Ir al checkout"}
-              </button>
+                Ir a pagar
+              </Link>
+              <p className="text-xs text-gray-400 text-center mt-2">Envío o retiro y cupones en el paso siguiente.</p>
             </div>
           </div>
         </div>

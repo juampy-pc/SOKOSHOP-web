@@ -39,7 +39,7 @@ export default async function BuscarPage({
         ) as score
       FROM "Product" p
       JOIN "Brand" b ON b.id = p."brandId"
-      WHERE p.status != 'archivado'
+      WHERE p.status = 'publicado'
         AND (
           ${query} <% p.name OR ${query} <% b.name
           OR (p."olfactiveFamily" IS NOT NULL AND ${query} <% p."olfactiveFamily")
@@ -51,6 +51,13 @@ export default async function BuscarPage({
       ORDER BY score DESC
       LIMIT 48;
     `;
+  }
+
+  if (query.length >= 3) {
+    // Búsqueda registrada para "más buscados" / "sin resultados" (anónima; no bloquea la página).
+    prisma.analyticsEvent
+      .create({ data: { type: "search", query: query.toLowerCase().slice(0, 80), results: results.length, path: "/buscar" } })
+      .catch(() => {});
   }
 
   return (

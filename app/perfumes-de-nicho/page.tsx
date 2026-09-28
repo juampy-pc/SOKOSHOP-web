@@ -3,12 +3,12 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { originPages } from "@/lib/origin-pages";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function OriginPage() {
   const meta = originPages["nicho"];
   const products = await prisma.product.findMany({
-    where: { status: { not: "archivado" }, brand: { origin: "nicho" } },
+    where: { status: "publicado", brand: { origin: "nicho" } },
     include: { brand: true, variants: { orderBy: { price: "asc" } } },
     orderBy: { name: "asc" },
   });

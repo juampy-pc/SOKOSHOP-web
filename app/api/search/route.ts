@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       ) as score
     FROM "Product" p
     JOIN "Brand" b ON b.id = p."brandId"
-    WHERE p.status != 'archivado'
+    WHERE p.status = 'publicado'
       AND (
         ${q} <% p.name OR ${q} <% b.name
         OR (p."olfactiveFamily" IS NOT NULL AND ${q} <% p."olfactiveFamily")

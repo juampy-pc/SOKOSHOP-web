@@ -13,15 +13,16 @@ datasource db {
 }
 
 model Brand {
-  id          String    @id @default(cuid())
-  slug        String    @unique
+  id          String       @id @default(cuid())
+  slug        String       @unique
   name        String
   origin      String
   logoUrl     String?
   description String?
   products    Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  aliases     BrandAlias[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   @@index([name(ops: raw("gin_trgm_ops"))], map: "brand_name_trgm_idx", type: Gin)
 }
@@ -115,16 +116,33 @@ model AdminUser {
 
   auditLogs      AuditLog[]
   stockMovements StockMovement[]
+  importBatches  ImportBatch[]
+  ordersSold     Order[]         @relation("OrderSeller")
+  cashOpened     CashSession[]   @relation("CashOpenedBy")
+  cashClosed     CashSession[]   @relation("CashClosedBy")
+  cashMovements  CashMovement[]
 }
 
 model Order {
   id             String          @id @default(cuid())
   status         String          @default("pendiente")
+  channel        String          @default("online") // online (tienda) | local (POS) | mayorista
+  paymentMethod  String? // efectivo | transferencia | debito | credito | mercadopago | mixto
+  subtotal       Int?
+  discount       Int             @default(0)
   total          Int
   customerEmail  String?
   customerName   String?
   mpPreferenceId String?
   mpPaymentId    String?
+  customerPhone  String?
+  notes          String?
+  paidAt         DateTime?
+  seller         AdminUser?      @relation("OrderSeller", fields: [sellerId], references: [id], onDelete: SetNull)
+  sellerId       String?
+  cashSession    CashSession?    @relation(fields: [cashSessionId], references: [id], onDelete: SetNull)
+  cashSessionId  String?
+  cashMovements  CashMovement[]
   items          OrderItem[]
   stockMovements StockMovement[]
   createdAt      DateTime        @default(now())
@@ -132,6 +150,7 @@ model Order {
 
   @@index([status, createdAt])
   @@index([mpPaymentId])
+  @@index([channel, createdAt])
 }
 
 model OrderItem {
@@ -211,4 +230,114 @@ model Redirect {
   note       String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+// Importación de catálogo en dos pasos: se carga a un lote en revisión, se corrige y recién ahí se aplica.
+model ImportBatch {
+  id          String      @id @default(cuid())
+  fileName    String
+  status      String      @default("revision") // revision | aplicado | descartado
+  updateStock Boolean     @default(true)
+  createdBy   AdminUser?  @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdById String?
+  createdAt   DateTime    @default(now())
+  appliedAt   DateTime?
+  summary     Json?
+  rows        ImportRow[]
+
+  @@index([createdAt])
+}
+
+model ImportRow {
+  id          String      @id @default(cuid())
+  batch       ImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  batchId     String
+  rowNumber   Int
+  raw         Json
+  // Datos normalizados (editables en la revisión)
+  code        String?
+  name        String
+  brandText   String
+  brandId     String?
+  variantType String
+  sizeMl      Float?
+  price       Int?
+  cost        Int?
+  stock       Int?
+  // Resultado del cruce con el catálogo
+  action      String // actualizar | nuevo_variante | nuevo_producto | sin_cambios | error
+  variantId   String?
+  productId   String?
+  groupKey    String?
+  errors      String[]    @default([])
+  include     Boolean     @default(true)
+  nameEdited  Boolean     @default(false) // solo si se corrigió a mano se renombra el producto
+
+  @@index([batchId, rowNumber])
+}
+
+// Cómo se escribe una marca en archivos externos -> marca del catálogo (p. ej. "LATAFFA" -> Lattafa).
+model BrandAlias {
+  id      String @id @default(cuid())
+  alias   String @unique // normalizado: minúsculas, sin espacios ni símbolos
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId String
+}
+
+// Caja del local: una sesión abierta a la vez; cada cobro o movimiento queda registrado.
+model CashSession {
+  id            String         @id @default(cuid())
+  openedAt      DateTime       @default(now())
+  openedBy      AdminUser?     @relation("CashOpenedBy", fields: [openedById], references: [id], onDelete: SetNull)
+  openedById    String?
+  openingAmount Int            @default(0)
+  closedAt      DateTime?
+  closedBy      AdminUser?     @relation("CashClosedBy", fields: [closedById], references: [id], onDelete: SetNull)
+  closedById    String?
+  // Arqueo al cierre: contado y esperado por medio de pago
+  countedJson   Json?
+  expectedJson  Json?
+  notes         String?
+  movements     CashMovement[]
+  orders        Order[]
+
+  @@index([closedAt])
+  @@index([openedAt])
+}
+
+model CashMovement {
+  id          String      @id @default(cuid())
+  session     CashSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId   String
+  type        String // venta | ingreso | egreso | retiro
+  method      String // efectivo | transferencia | debito | credito | mercadopago
+  amount      Int // siempre positivo; el tipo define el signo
+  description String?
+  order       Order?      @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId     String?
+  actor       AdminUser?  @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorId     String?
+  createdAt   DateTime    @default(now())
+
+  @@index([sessionId, createdAt])
+  @@index([createdAt])
+}
+
+// Estadísticas propias de la tienda (anónimas: sin cookies ni datos personales).
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  type      String // view | product_view | search | add_to_cart | checkout_start | purchase
+  path      String?
+  productId String?
+  query     String?
+  results   Int?
+  value     Int?
+  sessionId String?
+  referrer  String?
+  device    String? // mobile | desktop
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+  @@index([createdAt])
+  @@index([productId, type])
 }

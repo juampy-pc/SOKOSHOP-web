@@ -5,7 +5,12 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { originPages } from "@/lib/origin-pages";
 
-export const revalidate = 0;
+export const revalidate = 300;
+
+// Sin páginas pregeneradas: cada ficha se genera en la primera visita y queda en caché (ISR).
+export async function generateStaticParams() {
+  return [];
+}
 
 export default async function BrandPage({
   params,
@@ -18,7 +23,7 @@ export default async function BrandPage({
     where: { slug: marca },
     include: {
       products: {
-        where: { status: { not: "archivado" } },
+        where: { status: "publicado" },
         include: { variants: { orderBy: { price: "asc" } } },
         orderBy: { name: "asc" },
       },

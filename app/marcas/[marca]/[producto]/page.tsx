@@ -3,9 +3,15 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import VariantSelector from "@/components/VariantSelector";
+import { TrackProductView } from "@/components/Analytics";
 import { cleanProductName } from "@/lib/format";
 
-export const revalidate = 0;
+export const revalidate = 300;
+
+// Sin páginas pregeneradas: cada ficha se genera en la primera visita y queda en caché (ISR).
+export async function generateStaticParams() {
+  return [];
+}
 
 export default async function ProductPage({
   params,
@@ -22,7 +28,7 @@ export default async function ProductPage({
     },
   });
 
-  if (!product || product.brand.slug !== marca || product.status === "archivado") {
+  if (!product || product.brand.slug !== marca || product.status !== "publicado") {
     const r = await findRedirect(`/marcas/${marca}/${producto}`);
     if (r?.to) permanentRedirect(r.to);
     notFound();
@@ -36,6 +42,7 @@ export default async function ProductPage({
         <span>{product.name}</span>
       </p>
 
+      <TrackProductView productId={product.id} />
       <div className="grid md:grid-cols-2 gap-10">
         <div className="aspect-[4/5] rounded-2xl bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] flex items-center justify-center">
           <span className="text-gray-300 text-sm">Sin foto todavía</span>

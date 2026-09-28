@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     const priced = [];
     for (const line of lines) {
       const v = byId.get(line.variantId);
-      if (!v || v.product.status === "archivado") {
+      if (!v || v.product.status !== "publicado") {
         return NextResponse.json(
           { error: "Un producto del carrito ya no está disponible" },
           { status: 409 }

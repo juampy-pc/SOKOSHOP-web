@@ -5,12 +5,12 @@ import ProductCard from "@/components/ProductCard";
 import Faq from "@/components/Faq";
 import LocationSection from "@/components/LocationSection";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 async function getSection(origin?: string, decant?: boolean) {
   return prisma.product.findMany({
     where: {
-      status: { not: "archivado" },
+      status: "publicado",
       ...(origin ? { brand: { origin } } : {}),
       ...(decant ? { decantAvailable: true } : {}),
     },

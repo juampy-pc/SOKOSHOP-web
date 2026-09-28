@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { cleanProductName } from "@/lib/format";
+import { track } from "@/lib/track";
 
 type Result = { id: string; slug: string; name: string; brandSlug: string; brandName: string };
 
@@ -27,6 +28,14 @@ export default function SearchBox() {
     }, 250);
     return () => clearTimeout(timeout);
   }, [query]);
+
+  // Se registra la búsqueda cuando la persona deja de tipear (no cada letra).
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 3) return;
+    const t = setTimeout(() => track("search", { q: term, n: results.length }), 1500);
+    return () => clearTimeout(t);
+  }, [query, results.length]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {

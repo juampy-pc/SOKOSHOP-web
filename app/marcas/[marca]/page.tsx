@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import { cardData } from "@/lib/catalog";
 import { originPages } from "@/lib/origin-pages";
 
 export const revalidate = 300;
@@ -24,7 +25,7 @@ export default async function BrandPage({
     include: {
       products: {
         where: { status: "publicado" },
-        include: { variants: { orderBy: { price: "asc" } } },
+        include: { variants: { orderBy: { price: "asc" } }, images: { orderBy: { sort: "asc" }, take: 1 } },
         orderBy: { name: "asc" },
       },
     },
@@ -49,16 +50,7 @@ export default async function BrandPage({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {brand.products.map((p) => (
-          <ProductCard
-            key={p.id}
-            slug={p.slug}
-            brandSlug={brand.slug}
-            brandName={brand.name}
-            name={p.name}
-            price={p.variants[0]?.price ?? null}
-            decantAvailable={p.decantAvailable}
-            origin={brand.origin}
-          />
+          <ProductCard key={p.id} {...cardData({ ...p, brand })} />
         ))}
       </div>
     </main>

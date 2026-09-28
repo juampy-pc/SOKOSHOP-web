@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { MercadoPagoConfig, Payment } from "mercadopago";
 import { prisma } from "@/lib/prisma";
 import { markPaid } from "@/lib/orders";
+import { sendOrderEmails } from "@/lib/notify";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN as string,
@@ -49,8 +50,10 @@ export async function POST(req: NextRequest) {
     if (!orderId) return NextResponse.json({ received: true });
 
     if (paymentInfo.status === "approved") {
-      await markPaid(orderId, paymentId, paymentInfo.transaction_amount, paymentInfo.currency_id);
+      const { paidNow } = await markPaid(orderId, paymentId, paymentInfo.transaction_amount, paymentInfo.currency_id);
       revalidatePath("/", "layout"); // el stock cambió: refrescar la caché de la tienda
+      // Mails solo la primera vez (MP repite notificaciones). Un error de mail no hace fallar el webhook.
+      if (paidNow) await sendOrderEmails(orderId).catch((e) => console.error("Mails del pedido:", e));
     } else if (paymentInfo.status === "rejected") {
       await prisma.order.updateMany({
         where: { id: orderId, status: "pendiente" },

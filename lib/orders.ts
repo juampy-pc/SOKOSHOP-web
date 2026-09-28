@@ -14,13 +14,13 @@ export async function markPaid(
   paymentId: string,
   amount: number | undefined,
   currency: string | undefined
-) {
-  await prisma.$transaction(async (tx) => {
+): Promise<{ paidNow: boolean }> {
+  return prisma.$transaction(async (tx) => {
     const order = await tx.order.findUnique({
       where: { id: orderId },
       include: { items: true },
     });
-    if (!order) return;
+    if (!order) return { paidNow: false };
 
     const amountMatches = currency === "ARS" && amount === order.total;
 
@@ -30,7 +30,11 @@ export async function markPaid(
       where: { id: orderId, status: { in: OPEN_STATUSES } },
       data: { status: amountMatches ? "pagado" : "revisar_monto", mpPaymentId: paymentId },
     });
-    if (claimed.count === 0 || !amountMatches) return;
+    if (claimed.count === 0 || !amountMatches) return { paidNow: false };
+    await tx.order.update({ where: { id: orderId }, data: { paidAt: new Date() } });
+    if (order.promotionId) {
+      await tx.promotion.update({ where: { id: order.promotionId }, data: { usedCount: { increment: 1 } } });
+    }
 
     let shortage = false;
     for (const item of order.items) {
@@ -67,5 +71,6 @@ export async function markPaid(
         data: { status: "pagado_revisar_stock" },
       });
     }
+    return { paidNow: true };
   });
 }

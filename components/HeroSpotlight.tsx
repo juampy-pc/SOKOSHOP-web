@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { cleanProductName } from "@/lib/format";
+import { imageUrl } from "@/lib/catalog";
 
 type Item = {
   slug: string;
@@ -11,6 +12,7 @@ type Item = {
   name: string;
   price: number;
   family: string | null;
+  image?: string | null;
 };
 
 export default function HeroSpotlight({ items }: { items: Item[] }) {
@@ -45,10 +47,15 @@ export default function HeroSpotlight({ items }: { items: Item[] }) {
             <Link
               key={item.slug}
               href={`/marcas/${item.brandSlug}/${item.slug}`}
-              className={`absolute inset-0 rounded-2xl bg-white shadow-[0_2px_16px_rgba(0,0,0,0.08)] p-5 flex flex-col justify-between transition-all duration-700 ${
+              className={`absolute inset-0 rounded-2xl bg-white shadow-[0_2px_16px_rgba(0,0,0,0.08)] p-5 flex gap-4 transition-all duration-700 ${
                 i === index ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4 pointer-events-none"
               }`}
             >
+              {item.image && (
+                // eslint-disable-next-line @next/next/no-img-element -- miniatura de Cloudinary
+                <img src={imageUrl(item.image, 240, 300)} alt="" className="h-full aspect-[4/5] object-cover rounded-xl" loading={i === 0 ? "eager" : "lazy"} />
+              )}
+              <div className="flex flex-col justify-between flex-1 min-w-0">
               <div>
                 <span className="text-xs text-gray-400">{item.brandName}</span>
                 <p className="text-lg font-semibold mt-1 text-gray-900">{cleanProductName(item.name, item.brandName)}</p>
@@ -57,6 +64,7 @@ export default function HeroSpotlight({ items }: { items: Item[] }) {
               <span className="text-[#17a930] font-semibold">
                 desde ${item.price.toLocaleString("es-AR")}
               </span>
+              </div>
             </Link>
           ))}
           <div className="absolute -bottom-6 left-0 flex gap-1.5">

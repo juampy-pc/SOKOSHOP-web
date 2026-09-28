@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import Header from "@/components/Header";
+import Analytics from "@/components/Analytics";
 
 export const metadata: Metadata = {
   title: "SokoShop",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body className="bg-[#fafaf9]">
         <CartProvider>
           <Header />
+          <Analytics />
           {children}
         </CartProvider>
       </body>

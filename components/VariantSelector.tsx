@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { track } from "@/lib/track";
 
 type Variant = {
   id: string;
@@ -35,6 +36,7 @@ export default function VariantSelector({
 
   function handleAdd() {
     const label = `${typeLabel[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
+    track("add_to_cart", { vid: v.id, v: v.price });
     addItem({
       variantId: v.id,
       productName,

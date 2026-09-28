@@ -3,7 +3,7 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { originPages } from "@/lib/origin-pages";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function OriginPage() {
   const meta = originPages["independiente"];

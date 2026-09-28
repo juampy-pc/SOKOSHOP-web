@@ -53,6 +53,13 @@ export default async function BuscarPage({
     `;
   }
 
+  if (query.length >= 3) {
+    // Búsqueda registrada para "más buscados" / "sin resultados" (anónima; no bloquea la página).
+    prisma.analyticsEvent
+      .create({ data: { type: "search", query: query.toLowerCase().slice(0, 80), results: results.length, path: "/buscar" } })
+      .catch(() => {});
+  }
+
   return (
     <main className="min-h-screen bg-[#0b0d0c] text-[#f1f3ef] px-5 py-10 max-w-5xl mx-auto">
       <h1 className="text-2xl font-semibold mb-2">Resultados para &quot;{query}&quot;</h1>

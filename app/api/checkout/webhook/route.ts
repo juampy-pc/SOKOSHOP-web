@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { MercadoPagoConfig, Payment } from "mercadopago";
 import { prisma } from "@/lib/prisma";
 import { markPaid } from "@/lib/orders";
@@ -49,6 +50,7 @@ export async function POST(req: NextRequest) {
 
     if (paymentInfo.status === "approved") {
       await markPaid(orderId, paymentId, paymentInfo.transaction_amount, paymentInfo.currency_id);
+      revalidatePath("/", "layout"); // el stock cambió: refrescar la caché de la tienda
     } else if (paymentInfo.status === "rejected") {
       await prisma.order.updateMany({
         where: { id: orderId, status: "pendiente" },

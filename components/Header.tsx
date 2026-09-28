@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 import SearchBox from "./SearchBox";
+import { track } from "@/lib/track";
 
 export default function Header() {
   const { items, total, count } = useCart();
@@ -11,6 +12,7 @@ export default function Header() {
   const [loading, setLoading] = useState(false);
 
   async function handleCheckout() {
+    track("checkout_start", { v: total });
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {

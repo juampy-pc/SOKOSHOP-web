@@ -15,9 +15,9 @@ const ORDER = ["arabe", "disenador", "nicho", "independiente"] as const;
 
 export default async function BrandsIndex() {
   const brands = await prisma.brand.findMany({
-    where: { products: { some: { status: { not: "archivado" } } } },
+    where: { products: { some: { status: "publicado" } } },
     orderBy: { name: "asc" },
-    select: { slug: true, name: true, origin: true, _count: { select: { products: { where: { status: { not: "archivado" } } } } } },
+    select: { slug: true, name: true, origin: true, _count: { select: { products: { where: { status: "publicado" } } } } },
   });
 
   return (

@@ -18,7 +18,7 @@ export default async function BrandPage({
     where: { slug: marca },
     include: {
       products: {
-        where: { status: { not: "archivado" } },
+        where: { status: "publicado" },
         include: { variants: { orderBy: { price: "asc" } } },
         orderBy: { name: "asc" },
       },

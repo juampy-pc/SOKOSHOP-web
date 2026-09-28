@@ -8,7 +8,7 @@ export const revalidate = 0;
 export default async function OriginPage() {
   const meta = originPages["arabe"];
   const products = await prisma.product.findMany({
-    where: { status: { not: "archivado" }, brand: { origin: "arabe" } },
+    where: { status: "publicado", brand: { origin: "arabe" } },
     include: { brand: true, variants: { orderBy: { price: "asc" } } },
     orderBy: { name: "asc" },
   });

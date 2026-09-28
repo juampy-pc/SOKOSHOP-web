@@ -39,7 +39,7 @@ export default async function BuscarPage({
         ) as score
       FROM "Product" p
       JOIN "Brand" b ON b.id = p."brandId"
-      WHERE p.status != 'archivado'
+      WHERE p.status = 'publicado'
         AND (
           ${query} <% p.name OR ${query} <% b.name
           OR (p."olfactiveFamily" IS NOT NULL AND ${query} <% p."olfactiveFamily")

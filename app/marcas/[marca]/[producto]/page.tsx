@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+import { salePromos } from "@/lib/sale-promos";
 import { notFound, permanentRedirect } from "next/navigation";
 import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
@@ -7,7 +8,7 @@ import VariantSelector from "@/components/VariantSelector";
 import Gallery from "@/components/Gallery";
 import { TrackProductView } from "@/components/Analytics";
 import { cleanProductName } from "@/lib/format";
-import { effectivePrice, imageUrl } from "@/lib/catalog";
+import { imageUrl, promoPrice, salePct } from "@/lib/catalog";
 
 export const revalidate = 300;
 
@@ -60,6 +61,9 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
   }
 
   const title = cleanProductName(product.name, product.brand.name);
+  // Promo automática con precio tachado: se muestra como precio de oferta (el checkout la vuelve a calcular).
+  const pct = salePct(await salePromos(), { id: product.id, brandId: product.brandId, origin: product.brand.origin });
+  const variants = product.variants.map((v) => (pct ? { ...v, salePrice: promoPrice(v, pct).price } : v));
   const pyramid = LEVELS.map((l) => ({ ...l, notes: product.notes.filter((n) => n.position === l.key).map((n) => n.note.name) })).filter((l) => l.notes.length);
   const main = product.notes.filter((n) => !LEVELS.some((l) => l.key === n.position)).map((n) => n.note.name);
   const facts = [
@@ -78,9 +82,9 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
     ...(product.images.length ? { image: product.images.map((i) => imageUrl(i.url, 1200)) } : {}),
     ...(product.descriptionShort ? { description: product.descriptionShort } : {}),
     url,
-    offers: product.variants.map((v) => ({
+    offers: variants.map((v) => ({
       "@type": "Offer",
-      price: effectivePrice(v),
+      price: promoPrice(v, 0).price,
       priceCurrency: "ARS",
       availability: v.stock === null || v.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       url,
@@ -110,10 +114,11 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
               {product.brand.origin === "arabe" ? "Perfumería árabe" : product.brand.origin === "disenador" ? "Diseñador" : product.brand.origin === "nicho" ? "Nicho" : "Independiente"}
             </span>
             {product.decantAvailable && <span className="text-xs bg-[#eafbee] text-[#17a930] rounded-full px-3 py-1 font-medium">Con probador</span>}
+            {pct > 0 && <span className="text-xs bg-[#1de03c] text-[#06140a] rounded-full px-3 py-1 font-semibold">{pct}% OFF</span>}
           </div>
 
           <VariantSelector
-            variants={product.variants}
+            variants={variants}
             productName={title}
             brandName={product.brand.name}
             image={product.images[0]?.url ?? null}

@@ -4,6 +4,7 @@ import { CartProvider } from "@/lib/cart-context";
 import Header from "@/components/Header";
 import Analytics from "@/components/Analytics";
 import Footer from "@/components/Footer";
+import PromoBanner from "@/components/PromoBanner";
 
 export const metadata: Metadata = {
   title: "SokoShop",
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="es-AR">
       <body className="bg-[#fafaf9]">
         <CartProvider>
+          <PromoBanner />
           <Header />
           <Analytics />
           {children}

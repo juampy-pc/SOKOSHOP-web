@@ -12,12 +12,16 @@ export async function POST(req: NextRequest) {
       couponCode: typeof body.couponCode === "string" ? body.couponCode.slice(0, 30) : null,
       deliveryMethod: body.deliveryMethod === "envio" || body.deliveryMethod === "retiro" ? body.deliveryMethod : null,
       zoneId: typeof body.zoneId === "string" ? body.zoneId : null,
+      email: typeof body.email === "string" ? body.email.trim().slice(0, 120) : null,
+      zip: typeof body.zip === "string" ? body.zip.slice(0, 12) : null,
     });
     return NextResponse.json({
       subtotal: q.subtotal, discount: q.discount, shippingCost: q.shippingCost, total: q.total,
-      promotion: q.promotion ? { name: q.promotion.name, code: q.promotion.code } : null,
-      couponError: q.couponError, zones: q.zones,
-      items: q.items.map((i) => ({ variantId: i.variantId, price: i.price, qty: i.qty })),
+      promotion: q.promotion ? { name: q.promotion.name, code: q.promotion.code, summary: q.promotion.summary } : null,
+      couponError: q.couponError, minOrderError: q.minOrderError, areaError: q.areaError,
+      zone: q.zone,
+      gift: q.gift ? { brandName: q.gift.brandName, productName: q.gift.productName, variantLabel: q.gift.variantLabel } : null,
+      items: q.items.filter((i) => !i.isGift).map((i) => ({ variantId: i.variantId, price: i.price, qty: i.qty })),
     });
   } catch (e) {
     if (e instanceof QuoteError) return NextResponse.json({ error: e.message }, { status: 409 });

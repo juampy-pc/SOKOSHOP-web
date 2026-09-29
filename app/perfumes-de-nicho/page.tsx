@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { salePromos } from "@/lib/sale-promos";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { cardData, cardInclude } from "@/lib/catalog";
@@ -8,6 +9,7 @@ export const revalidate = 300;
 
 export default async function OriginPage() {
   const meta = originPages["nicho"];
+  const promos = await salePromos();
   const products = await prisma.product.findMany({
     where: { status: "publicado", brand: { origin: "nicho" } },
     include: cardInclude,
@@ -24,7 +26,7 @@ export default async function OriginPage() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((p) => (
-          <ProductCard key={p.id} {...cardData(p)} />
+          <ProductCard key={p.id} {...cardData(p, promos)} />
         ))}
       </div>
     </main>

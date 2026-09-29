@@ -22,6 +22,7 @@ model Brand {
   products    Product[]
   aliases     BrandAlias[]
   promotions  Promotion[]
+  archivedAt  DateTime?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
@@ -75,6 +76,7 @@ model ProductVariant {
   stockMovements StockMovement[]
   purchaseItems  PurchaseItem[]
   priceListItems PriceListItem[]
+  giftPromotions Promotion[]     @relation("PromotionGift")
 
   @@index([productId])
 }
@@ -137,6 +139,8 @@ model AdminUser {
 
 model Order {
   id              String              @id @default(cuid())
+  // Número correlativo del comprobante (Nota de pedido 1-NNN)
+  number          Int                 @unique @default(autoincrement())
   status          String              @default("pendiente")
   channel         String              @default("online") // online (tienda) | local (POS) | mayorista
   paymentMethod   String? // efectivo | transferencia | debito | credito | mercadopago | mixto
@@ -214,6 +218,7 @@ model OrderItem {
   price            Int
   quantity         Int
   returnedQty      Int            @default(0)
+  isGift           Boolean        @default(false) // regalo de una promoción (precio 0)
 
   @@index([orderId])
   @@index([productVariantId])
@@ -472,6 +477,7 @@ model Supplier {
   address     String?
   notes       String?
   active      Boolean    @default(true)
+  archivedAt  DateTime?
   purchases   Purchase[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -522,57 +528,80 @@ model PurchaseItem {
   @@index([variantId])
 }
 
-// Zonas de envío de la tienda online (el retiro en el local es gratis y no necesita zona).
+// Opciones de entrega de la tienda: zonas de envío a domicilio y puntos de retiro en sucursal.
 model ShippingZone {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  price       Int
-  freeFrom    Int? // envío gratis desde este subtotal
-  etaText     String? // "24 a 48 h hábiles"
-  active      Boolean  @default(true)
-  sort        Int      @default(0)
-  orders      Order[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String    @id @default(cuid())
+  kind         String    @default("envio") // envio | retiro
+  name         String
+  description  String?
+  price        Int
+  freeFrom     Int? // envío gratis desde este subtotal
+  minOrder     Int? // compra mínima para poder elegirla
+  etaText      String? // "24 a 48 h hábiles"
+  deliveryDays String? // "Lunes, miércoles y viernes de 14 a 20"
+  address      String? // retiro: dirección de la sucursal
+  hours        String? // retiro: horarios
+  postalCodes  String[]  @default([]) // envío: CP o rangos "3500-3509"
+  localities   String[]  @default([])
+  active       Boolean   @default(true)
+  archivedAt   DateTime?
+  sort         Int       @default(0)
+  orders       Order[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 // Promociones automáticas (sin código) y cupones (con código).
 model Promotion {
-  id          String    @id @default(cuid())
-  name        String
-  code        String?   @unique
-  kind        String // porcentaje | monto | envio_gratis
-  value       Int       @default(0)
-  minSubtotal Int?
-  startsAt    DateTime?
-  endsAt      DateTime?
-  maxUses     Int?
-  usedCount   Int       @default(0)
-  brand       Brand?    @relation(fields: [brandId], references: [id], onDelete: SetNull)
-  brandId     String?
-  origin      String?
-  active      Boolean   @default(true)
-  orders      Order[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id             String          @id @default(cuid())
+  name           String
+  code           String?         @unique
+  kind           String // porcentaje | monto | envio_gratis | nxm | regalo
+  value          Int             @default(0)
+  description    String?
+  buyQty         Int? // nxm: llevá X…
+  payQty         Int? // …pagá Y
+  giftMode       String? // regalo: variante | decant_del_producto
+  giftVariant    ProductVariant? @relation("PromotionGift", fields: [giftVariantId], references: [id], onDelete: SetNull)
+  giftVariantId  String?
+  giftSizeMl     Float? // decant_del_producto: tamaño del decant de regalo (ej. 5)
+  productIds     String[]        @default([]) // aplica solo a estos productos (vacío = todos)
+  onePerCustomer Boolean         @default(false)
+  showBanner     Boolean         @default(false)
+  bannerText     String?
+  showAsSale     Boolean         @default(false) // precio tachado en la tienda (solo % automáticas)
+  posEnabled     Boolean         @default(false) // se puede aplicar en el punto de venta
+  archivedAt     DateTime?
+  minSubtotal    Int?
+  startsAt       DateTime?
+  endsAt         DateTime?
+  maxUses        Int?
+  usedCount      Int             @default(0)
+  brand          Brand?          @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  brandId        String?
+  origin         String?
+  active         Boolean         @default(true)
+  orders         Order[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@index([active, startsAt, endsAt])
 }
 
 // Listas de precios (mayorista, revendedores): regla general + precios puntuales por presentación.
 model PriceList {
-  id        String          @id @default(cuid())
-  name      String          @unique
-  rule      String // descuento (sobre el precio de venta) | recargo_costo (sobre el costo)
-  pct       Float
-  active    Boolean         @default(true)
-  notes     String?
-  items     PriceListItem[]
-  customers Customer[]
-  orders    Order[]
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
+  id         String          @id @default(cuid())
+  name       String          @unique
+  rule       String // descuento (sobre el precio de venta) | recargo_costo (sobre el costo)
+  pct        Float
+  active     Boolean         @default(true)
+  archivedAt DateTime?
+  notes      String?
+  items      PriceListItem[]
+  customers  Customer[]
+  orders     Order[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
 }
 
 model PriceListItem {

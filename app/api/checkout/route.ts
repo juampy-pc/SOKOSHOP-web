@@ -31,9 +31,18 @@ export async function POST(req: NextRequest) {
       if (ship.address.length < 4 || ship.city.length < 2) return NextResponse.json({ error: "Completá la dirección de entrega." }, { status: 400 });
     }
 
-    const q = await quote({ lines, couponCode: str(body?.couponCode, 30) || null, deliveryMethod, zoneId: typeof d.zoneId === "string" ? d.zoneId : null });
+    const q = await quote({
+      lines,
+      couponCode: str(body?.couponCode, 30) || null,
+      deliveryMethod,
+      zoneId: typeof d.zoneId === "string" ? d.zoneId : null,
+      email: customer.email,
+      zip: deliveryMethod === "envio" ? ship.zip : null,
+    });
     if (q.couponError && str(body?.couponCode, 30)) return NextResponse.json({ error: q.couponError }, { status: 409 });
     if (deliveryMethod === "envio" && !q.zone) return NextResponse.json({ error: "La zona de envío no está disponible." }, { status: 409 });
+    if (q.minOrderError) return NextResponse.json({ error: q.minOrderError }, { status: 409 });
+    if (q.areaError) return NextResponse.json({ error: q.areaError }, { status: 409 });
 
     const order = await prisma.order.create({
       data: {
@@ -52,7 +61,7 @@ export async function POST(req: NextRequest) {
         couponCode: q.promotion?.code ?? null,
         notes: str(body?.notes, 300) || null,
         items: {
-          create: q.items.map((i) => ({ productVariantId: i.variantId, productName: i.productName, variantLabel: i.variantLabel, price: i.price, quantity: i.qty })),
+          create: q.items.map((i) => ({ productVariantId: i.variantId, productName: i.productName, variantLabel: i.variantLabel, price: i.price, quantity: i.qty, isGift: i.isGift })),
         },
       },
     });
@@ -60,12 +69,14 @@ export async function POST(req: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
     const code = order.id.slice(-6).toUpperCase();
     // Con descuento, MP recibe una sola línea con el total (no admite ítems negativos).
+    // Los regalos (precio 0) no se mandan a MP: MP no acepta ítems sin precio.
+    const paidItems = q.items.filter((i) => !i.isGift);
     const mpItems =
       q.discount > 0
-        ? [{ id: order.id, title: `Pedido SokoShop ${code} (${q.items.reduce((s, i) => s + i.qty, 0)} productos${q.promotion ? `, ${q.promotion.name}` : ""})`, quantity: 1, unit_price: q.total, currency_id: "ARS" }]
+        ? [{ id: order.id, title: `Pedido SokoShop ${code} (${paidItems.reduce((s, i) => s + i.qty, 0)} productos${q.promotion ? `, ${q.promotion.name}` : ""})`, quantity: 1, unit_price: q.total, currency_id: "ARS" }]
         : [
-            ...q.items.map((i) => ({ id: i.variantId, title: `${i.brandName} ${i.productName} — ${i.variantLabel}`, quantity: i.qty, unit_price: i.price, currency_id: "ARS" })),
-            ...(q.shippingCost > 0 ? [{ id: "envio", title: `Envío — ${q.zone?.name ?? ""}`, quantity: 1, unit_price: q.shippingCost, currency_id: "ARS" }] : []),
+            ...paidItems.map((i) => ({ id: i.variantId, title: `${i.brandName} ${i.productName} — ${i.variantLabel}`, quantity: i.qty, unit_price: i.price, currency_id: "ARS" })),
+            ...(q.shippingCost > 0 ? [{ id: "envio", title: `${deliveryMethod === "retiro" ? "Retiro" : "Envío"} — ${q.zone?.name ?? ""}`, quantity: 1, unit_price: q.shippingCost, currency_id: "ARS" }] : []),
           ];
 
     const result = await new Preference(client).create({

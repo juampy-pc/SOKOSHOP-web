@@ -14,7 +14,9 @@ export async function sendOrderEmails(orderId: string) {
   const delivery =
     o.deliveryMethod === "envio"
       ? `Envío a ${[o.shipAddress, o.shipCity, o.shipProvince].filter(Boolean).join(", ")}${o.shippingZone ? ` (${o.shippingZone.name}${o.shippingZone.etaText ? `, ${o.shippingZone.etaText}` : ""})` : ""}.`
-      : `Retiro en el local: ${store.direccion}${store.horario ? ` (${store.horario})` : ""}. Te avisamos cuando esté listo.`;
+      : o.shippingZone?.kind === "retiro" && o.shippingZone.address
+        ? `Retiro en ${o.shippingZone.name}: ${o.shippingZone.address}${o.shippingZone.hours ? ` (${o.shippingZone.hours})` : ""}. Te avisamos cuando esté listo.`
+        : `Retiro en el local: ${store.direccion}${store.horario ? ` (${store.horario})` : ""}. Te avisamos cuando esté listo.`;
   const totals = [
     ...(o.discount > 0 ? [`Descuento${o.couponCode ? ` (${o.couponCode})` : ""}: -${$(o.discount)}`] : []),
     ...(o.shippingCost > 0 ? [`Envío: ${$(o.shippingCost)}`] : []),

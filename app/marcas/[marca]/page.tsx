@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { salePromos } from "@/lib/sale-promos";
 import { notFound, permanentRedirect } from "next/navigation";
 import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
@@ -31,12 +32,13 @@ export default async function BrandPage({
     },
   });
 
-  if (!brand) {
+  if (!brand || brand.archivedAt) {
     const r = await findRedirect(`/marcas/${marca}`);
     if (r?.to) permanentRedirect(r.to);
     notFound();
   }
 
+  const promos = await salePromos();
   const originLabel =
     brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : brand.origin === "nicho" ? "Nicho" : "Independiente";
 
@@ -50,7 +52,7 @@ export default async function BrandPage({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {brand.products.map((p) => (
-          <ProductCard key={p.id} {...cardData({ ...p, brand })} />
+          <ProductCard key={p.id} {...cardData({ ...p, brand }, promos)} />
         ))}
       </div>
     </main>

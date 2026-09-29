@@ -36,8 +36,13 @@ export async function markPaid(
       await tx.promotion.update({ where: { id: order.promotionId }, data: { usedCount: { increment: 1 } } });
     }
 
+    // Agrupado por variante: un regalo puede ser la misma presentación que otra línea
+    // y el movimiento de stock es único por pedido+variante+tipo.
+    const perVariant = new Map<string, number>();
+    for (const i of order.items) perVariant.set(i.productVariantId, (perVariant.get(i.productVariantId) ?? 0) + i.quantity);
+
     let shortage = false;
-    for (const item of order.items) {
+    for (const item of [...perVariant].map(([productVariantId, quantity]) => ({ productVariantId, quantity }))) {
       // Decremento atómico: solo descuenta si alcanza el stock. Stock null = no se controla.
       const res = await tx.productVariant.updateMany({
         where: { id: item.productVariantId, stock: { gte: item.quantity } },

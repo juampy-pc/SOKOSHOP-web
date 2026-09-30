@@ -12,14 +12,15 @@ import { getSetting } from "@/lib/settings";
 import Faq from "@/components/Faq";
 import LocationSection from "@/components/LocationSection";
 import Marquee from "@/components/Marquee";
+import Rail from "@/components/Rail";
 
 export const revalidate = 300;
 
 type Promos = Awaited<ReturnType<typeof salePromos>>;
 type CardProduct = Awaited<ReturnType<typeof getSection>>[number];
 
-async function getSection(where: object) {
-  return prisma.product.findMany({ where: { status: "publicado", ...where }, include: cardInclude, orderBy: { name: "asc" }, take: 8 });
+async function getSection(where: object, take = 14) {
+  return prisma.product.findMany({ where: { status: "publicado", ...where }, include: cardInclude, orderBy: { name: "asc" }, take });
 }
 
 /** Los más vendidos de los últimos 90 días (tienda + local); si todavía no hay ventas, los árabes. */
@@ -58,63 +59,33 @@ function SectionHead({ title, tagline, href, link = "Ver todos" }: { title: stri
   );
 }
 
-/** Grilla clásica: la usan los más vendidos. */
+// Todas las tarjetas miden lo mismo: 2 por fila en el celular y 4 en la compu, tanto en grilla como en carrusel.
+const ITEM = "flex [&>*]:w-full snap-start shrink-0 w-[calc((100%-0.75rem)/2)] md:w-[calc((100%-3rem)/4)]";
+
+/** Grilla de 4 perfumes. */
 function GridSection({ products, promos, children }: { products: CardProduct[]; promos: Promos; children: ReactNode }) {
   if (products.length === 0) return null;
   return (
     <section className="mb-16">
       {children}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-        {products.map((p) => <ProductCard key={p.id} {...cardData(p, promos)} />)}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        {products.slice(0, 4).map((p) => <ProductCard key={p.id} {...cardData(p, promos)} />)}
       </div>
     </section>
   );
 }
 
-/** Bento: un perfume destacado grande y cuatro al lado (árabes). */
-function FeatureSection({ products, promos, children }: { products: CardProduct[]; promos: Promos; children: ReactNode }) {
-  if (products.length === 0) return null;
-  const [first, ...rest] = products;
-  const c = cardData(first, promos);
-  const href = `/marcas/${c.brandSlug}/${c.slug}`;
-  const price = c.quick?.price ?? c.price;
-  return (
-    <section className="mb-16">
-      {children}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <Link href={href} className="group col-span-2 lg:row-span-2 rounded-3xl bg-white border border-black/[0.04] overflow-hidden flex flex-col sm:flex-row lg:flex-col">
-          <div className="relative sm:w-1/2 lg:w-full flex-1 min-h-0 aspect-[4/5] sm:aspect-auto lg:aspect-auto overflow-hidden bg-white">
-            {c.image ? (
-              // eslint-disable-next-line @next/next/no-img-element -- Cloudinary entrega el tamaño justo
-              <img src={imageUrl(c.image, 720, 900)} alt={`${c.brandName} ${cleanProductName(c.name, c.brandName)}`} loading="lazy" className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" />
-            ) : null}
-          </div>
-          <div className="p-5 md:p-6 sm:w-1/2 lg:w-full flex flex-col justify-center">
-            <span className="text-[11px] uppercase tracking-wide text-gray-400">{c.brandName}</span>
-            <span className="text-2xl font-semibold tracking-tight text-gray-900 mt-1">{shortProductName(c.name, c.brandName)}</span>
-            <span className="flex items-center justify-between gap-3 mt-3">
-              {price ? <span className="text-lg font-semibold tabular-nums">{c.quick ? "" : <span className="text-sm font-normal text-gray-500 mr-1">desde</span>}{ars(price)}</span> : <span />}
-              <span className="rounded-full bg-[#111] text-white text-sm font-medium px-5 py-2.5 group-hover:bg-[#1de03c] group-hover:text-[#06140a] transition">Ver perfume</span>
-            </span>
-          </div>
-        </Link>
-        {rest.slice(0, 4).map((p) => <ProductCard key={p.id} {...cardData(p, promos)} />)}
-      </div>
-    </section>
-  );
-}
-
-/** Carrusel horizontal (decants): se desliza con el dedo, sin JavaScript. */
-function RailSection({ products, promos, children }: { products: CardProduct[]; promos: Promos; children: ReactNode }) {
+/** Carrusel de hasta 6 perfumes (con flechas en la compu). */
+function RailSection({ products, promos, label, children }: { products: CardProduct[]; promos: Promos; label: string; children: ReactNode }) {
   if (products.length === 0) return null;
   return (
     <section className="mb-16">
       {children}
-      <div className="-mx-4 md:-mx-5 px-4 md:px-5 flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-4 pb-2 [scrollbar-width:thin]">
-        {products.map((p) => (
-          <div key={p.id} className="snap-start shrink-0 w-[46%] sm:w-[31%] lg:w-[23.5%]"><ProductCard {...cardData(p, promos)} /></div>
+      <Rail label={label}>
+        {products.slice(0, 6).map((p) => (
+          <div key={p.id} className={ITEM}><ProductCard {...cardData(p, promos)} /></div>
         ))}
-      </div>
+      </Rail>
     </section>
   );
 }
@@ -127,7 +98,7 @@ const CHIPS = [
 ];
 
 const TRUST = [
-  { t: "100% originales", d: "Procedencia verificada" },
+  { t: "100% originales", d: "Sin imitaciones ni réplicas" },
   { t: "Mercado Pago", d: "Tarjetas y dinero en cuenta" },
   { t: "Envíos a todo el país", d: "O retiro en Resistencia" },
   { t: "Asesoramiento real", d: "Te ayudamos a elegir" },
@@ -138,11 +109,24 @@ export default async function Home() {
     bestSellers(),
     getSection({ brand: { origin: "arabe" } }),
     getSection({ brand: { origin: "disenador" } }),
-    getSection({ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant" } } }] }),
+    getSection({ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant" } } }] }, 40),
     salePromos(),
     getSetting("tienda"),
-    prisma.brand.findMany({ where: { origin: "disenador", products: { some: { status: "publicado" } } }, select: { slug: true, name: true }, orderBy: { name: "asc" }, take: 12 }).catch(() => []),
+    prisma.brand.findMany({ where: { origin: "disenador", products: { some: { status: "publicado" } } }, select: { slug: true, name: true }, orderBy: { name: "asc" }, take: 40 }).catch(() => []),
   ]);
+  // Que cada sección muestre perfumes distintos: se saltean los que ya aparecieron más arriba
+  // (si quedan menos de 4, se muestran igual los de siempre para no dejar la sección corta).
+  const shown = new Set<string>();
+  const fresh = (list: CardProduct[], n: number) => {
+    const rest = list.filter((p) => !shown.has(p.id));
+    const pick = (rest.length >= 4 ? rest : list).slice(0, n);
+    pick.forEach((p) => shown.add(p.id));
+    return pick;
+  };
+  const topShown = fresh(top, 4);
+  const arabesShown = fresh(arabes, 6);
+  const disenadorShown = fresh(disenador, 4);
+  const decantsShown = fresh(decants, 6);
   const featured = top.slice(0, 3).map((p) => ({ p, c: cardData(p, promos) }));
 
   return (
@@ -219,7 +203,7 @@ export default async function Home() {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 md:px-5 pt-14">
-        <GridSection promos={promos} products={top}>
+        <GridSection promos={promos} products={topShown}>
           <SectionHead title="Los más vendidos" tagline="Lo que más se llevan nuestros clientes." href="/perfumes-arabes" />
         </GridSection>
       </div>
@@ -227,29 +211,29 @@ export default async function Home() {
       <Marquee />
 
       <div className="max-w-6xl mx-auto px-4 md:px-5 pt-16">
-        <FeatureSection promos={promos} products={arabes}>
+        <RailSection promos={promos} products={arabesShown} label="Perfumes árabes">
           <SectionHead title="Perfumes árabes" tagline="Fragancias orientales de alta intensidad, elegidas por nosotros." href="/perfumes-arabes" />
-        </FeatureSection>
+        </RailSection>
 
         <Presentation whatsapp={store.whatsapp} />
 
-        {disenador.length > 0 && (
-          <section className="mb-16">
-            <SectionHead title="Selección de diseñador" tagline="Casas de moda reconocidas, con procedencia verificada." href="/perfumes-de-disenador" />
-            {designerBrands.length > 0 && (
-              <nav aria-label="Marcas de diseñador" className="flex flex-wrap gap-2 mb-5">
+        <GridSection promos={promos} products={disenadorShown}>
+          <SectionHead title="Selección de diseñador" tagline="Las fragancias de las grandes casas de moda." href="/perfumes-de-disenador" />
+          {designerBrands.length > 0 && (
+            <nav aria-label="Marcas de diseñador" className="relative -mx-4 md:mx-0 mb-5">
+              <ul className="flex gap-2 overflow-x-auto snap-x px-4 md:px-0 pr-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {designerBrands.map((b) => (
-                  <Link key={b.slug} href={`/marcas/${b.slug}`} className="rounded-full bg-white border border-black/10 px-4 py-1.5 text-sm text-gray-700 hover:border-[#1de03c] hover:text-[#17a930] transition">{b.name}</Link>
+                  <li key={b.slug} className="snap-start shrink-0">
+                    <Link href={`/marcas/${b.slug}`} className="block whitespace-nowrap rounded-full bg-white border border-black/10 px-4 py-1.5 text-sm text-gray-700 hover:border-[#1de03c] hover:text-[#17a930] transition">{b.name}</Link>
+                  </li>
                 ))}
-              </nav>
-            )}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-              {disenador.slice(0, 4).map((p) => <ProductCard key={p.id} {...cardData(p, promos)} />)}
-            </div>
-          </section>
-        )}
+              </ul>
+              <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#fafaf9] to-transparent" />
+            </nav>
+          )}
+        </GridSection>
 
-        <RailSection promos={promos} products={decants}>
+        <RailSection promos={promos} products={decantsShown} label="Decants">
           <SectionHead title="Decants para probar" tagline="Probá antes de llevarte el frasco completo. Deslizá para ver más." href="/decants" />
         </RailSection>
 

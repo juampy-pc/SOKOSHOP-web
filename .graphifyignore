@@ -1,0 +1,2 @@
+# Lo que graphify no mapea (además de lo que ya ignora .gitignore)
+.claude/

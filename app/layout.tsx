@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import PromoBanner from "@/components/PromoBanner";
 import VercelInsights from "@/components/VercelInsights";
 import WhatsAppBubble from "@/components/WhatsAppBubble";
+import MetaPixel from "@/components/MetaPixel";
 import { getSetting } from "@/lib/settings";
 import { whatsappLink } from "@/lib/nav-config";
 
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://sokoshop.com.ar"),
   title: "SokoShop | Perfumes árabes y de diseñador originales",
   description: "Perfumes árabes y de diseñador 100% originales. Decants, envíos a todo el país y retiro en Resistencia, Chaco. Asesoramiento por WhatsApp.",
+  // Verificación del dominio en Meta Business (Facebook/Instagram).
+  other: { "facebook-domain-verification": "v4q1att2bjacgc0oloic0nyegnugzp" },
 };
 
 export default async function RootLayout({
@@ -36,6 +39,7 @@ export default async function RootLayout({
           <WhatsAppBubble href={whatsappLink(store.whatsapp, "Hola SokoShop! Tengo una consulta.")} />
         </CartProvider>
         <VercelInsights />
+        <MetaPixel />
       </body>
     </html>
   );

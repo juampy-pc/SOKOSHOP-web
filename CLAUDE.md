@@ -11,3 +11,10 @@ Rules:
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
 - Tienda + panel juntos: `graphify-out/cross-repo-graph.json` (lo arma `.claude/graphify/cross-repo.py` al iniciar la sesión si `../sokoshop-admin` está presente). Usalo para cambios que cruzan repos (esquema, motor de promos, revalidación, avisos): `graphify affected "<id>" --graph graphify-out/cross-repo-graph.json` antes de tocar algo compartido. Los ids llevan prefijo de repo, ej. `SOKOSHOP-web::lib_pricing_quote`, `sokoshop-admin::lib_sales_createpossale`.
 - graphify-out/ no se versiona: se regenera en cada sesión (hook de inicio).
+
+## Diseño (taste-skill)
+
+Skills de diseño instaladas en `.claude/skills/` (de https://github.com/leonxlnx/taste-skill, licencia MIT). Para trabajo visual en la tienda:
+- `redesign-existing-projects` para mejorar pantallas que ya existen (primero auditar, sin romper funcionalidad).
+- `design-taste-frontend` para secciones nuevas (landing, bloques de marca).
+- Siempre respetando el orden de prioridades del proyecto: funcionamiento > seguridad > velocidad > SEO > conversión > UX > mobile > accesibilidad > diseño > animaciones. Nada de librerías pesadas de animación si afectan la velocidad, y la identidad (negro + verde #1de03c, logo SokoShop) se mantiene.

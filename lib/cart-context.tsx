@@ -22,6 +22,9 @@ type CartContextType = {
   total: number;
   count: number;
   ready: boolean;
+  /** Panel del carrito (se abre al agregar desde una tarjeta). */
+  cartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
 };
 
 const KEY = "soko-cart-v1";
@@ -31,6 +34,7 @@ const CartContext = createContext<CartContextType | null>(null);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [ready, setReady] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   // El carrito sobrevive a recargas y a la vuelta desde Mercado Pago.
   useEffect(() => {
@@ -67,7 +71,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
   const count = items.reduce((sum, i) => sum + i.qty, 0);
 
-  return <CartContext.Provider value={{ items, addItem, setQty, remove, clear, total, count, ready }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ items, addItem, setQty, remove, clear, total, count, ready, cartOpen, setCartOpen }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

@@ -19,7 +19,7 @@ export const originPages = {
   },
   independiente: {
     slug: "marcas-independientes",
-    title: "Marcas Independientes",
+    title: "Alternativas: marcas independientes",
     intro:
       "Casas perfumistas por su cuenta, sin pertenecer a una casa de moda ni a la tradición perfumística árabe — buena relación calidad-precio.",
   },

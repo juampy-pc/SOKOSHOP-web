@@ -11,7 +11,7 @@ export default async function Footer() {
   const wa = store.whatsapp.replace(/\D/g, "");
   return (
     <footer className="bg-[#151515] text-gray-400 text-sm mt-16">
-      <div className="max-w-6xl mx-auto px-5 py-10 grid gap-8 md:grid-cols-3">
+      <div className="max-w-6xl mx-auto px-5 py-10 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
         <div>
           <p className="text-white font-semibold text-lg">Soko<span className="text-[#1de03c]">Shop</span></p>
           <p className="mt-2">{store.direccion}</p>
@@ -23,6 +23,15 @@ export default async function Footer() {
             <Link href="/contacto" className="hover:text-[#1de03c]">Contacto</Link>
           </p>
         </div>
+        <nav aria-label="Tienda" className="flex flex-col gap-1.5">
+          <Link href="/perfumes-arabes" className="hover:text-[#1de03c]">Perfumes árabes</Link>
+          <Link href="/perfumes-de-disenador" className="hover:text-[#1de03c]">Perfumes de diseñador</Link>
+          <Link href="/perfumes-femeninos" className="hover:text-[#1de03c]">Femeninos</Link>
+          <Link href="/perfumes-masculinos" className="hover:text-[#1de03c]">Masculinos</Link>
+          <Link href="/decants" className="hover:text-[#1de03c]">Decants</Link>
+          <Link href="/marcas" className="hover:text-[#1de03c]">Marcas</Link>
+          <Link href="/perfumes-a-pedido" className="hover:text-[#1de03c]">Perfumes a pedido</Link>
+        </nav>
         <nav aria-label="Información legal" className="flex flex-col gap-1.5">
           {pages.map((p) => <Link key={p.slug} href={`/legales/${p.slug}`} className="hover:text-[#1de03c]">{p.title}</Link>)}
           <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener" className="hover:text-[#1de03c]">Defensa de las y los consumidores. Para reclamos ingrese aquí</a>

@@ -8,7 +8,7 @@ import { track } from "@/lib/track";
 
 type Result = { id: string; slug: string; name: string; brandSlug: string; brandName: string };
 
-export default function SearchBox() {
+export default function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [open, setOpen] = useState(false);
@@ -16,10 +16,7 @@ export default function SearchBox() {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (query.trim().length < 2) {
-      setResults([]);
-      return;
-    }
+    if (query.trim().length < 2) return;
     const timeout = setTimeout(async () => {
       const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
       const data = await res.json();
@@ -54,14 +51,16 @@ export default function SearchBox() {
   }
 
   return (
-    <div ref={boxRef} className="relative flex-1 max-w-xs">
+    <div ref={boxRef} role="search" className="relative flex-1">
       <input
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => { setQuery(e.target.value); if (e.target.value.trim().length < 2) setResults([]); }}
         onKeyDown={(e) => e.key === "Enter" && goToResults()}
         onFocus={() => results.length > 0 && setOpen(true)}
-        placeholder="Buscar perfume, marca..."
-        className="w-full bg-white/10 border border-white/15 rounded-full px-4 py-2 text-sm text-white placeholder:text-gray-400 outline-none focus:border-[#1de03c]/50 transition"
+        autoFocus={autoFocus}
+        aria-label="Buscar perfume, marca o nota"
+        placeholder="Buscá por perfume, marca o nota (ej: vainilla)"
+        className="w-full bg-white/10 border border-white/15 rounded-full px-4 py-2.5 text-base sm:text-sm text-white placeholder:text-gray-400 outline-none focus:border-[#1de03c]/50 transition"
       />
       {open && results.length > 0 && (
         <div className="absolute top-full mt-2 w-full bg-white border border-gray-100 rounded-xl overflow-hidden shadow-xl z-50">

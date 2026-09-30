@@ -1,34 +1,24 @@
-import { prisma } from "@/lib/prisma";
-import { salePromos } from "@/lib/sale-promos";
-import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
-import { cardData, cardInclude } from "@/lib/catalog";
+import type { Metadata } from "next";
+import ProductListing from "@/components/ProductListing";
 import { originPages } from "@/lib/origin-pages";
+import { ORIGIN_MENU } from "@/lib/nav-config";
 
 export const revalidate = 300;
 
-export default async function OriginPage() {
-  const meta = originPages["nicho"];
-  const promos = await salePromos();
-  const products = await prisma.product.findMany({
-    where: { status: "publicado", brand: { origin: "nicho" } },
-    include: cardInclude,
-    orderBy: { name: "asc" },
-  });
+const meta = originPages.nicho;
+export const metadata: Metadata = {
+  title: `${meta.title} | SokoShop`,
+  description: meta.intro,
+  alternates: { canonical: `/${meta.slug}` },
+};
 
+export default function OriginPage() {
   return (
-    <main className="min-h-screen bg-[#fafaf9] px-5 py-10 max-w-6xl mx-auto">
-      <p className="text-xs text-gray-400 mb-4">
-        <Link href="/" className="hover:text-[#17a930]">Inicio</Link> / <span>{meta.title}</span>
-      </p>
-      <h1 className="text-3xl font-semibold mb-2 text-gray-900">{meta.title}</h1>
-      <p className="text-gray-400 text-sm max-w-2xl mb-8">{meta.intro}</p>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.map((p) => (
-          <ProductCard key={p.id} {...cardData(p, promos)} />
-        ))}
-      </div>
-    </main>
+    <ProductListing
+      where={{ brand: { origin: "nicho" } }}
+      title={meta.title}
+      intro={meta.intro}
+      chips={ORIGIN_MENU.map((m) => ({ href: `/${originPages[m.origin].slug}`, label: m.label, current: m.origin === "nicho" }))}
+    />
   );
 }

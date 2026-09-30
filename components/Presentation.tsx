@@ -7,12 +7,11 @@ const poster = VIDEO.replace("/video/upload/", "/video/upload/so_1,c_limit,w_720
 /** "Somos SOKOSHOP": el video de presentación y quiénes somos, con el acceso directo a WhatsApp. */
 export default function Presentation({ whatsapp }: { whatsapp: string }) {
   return (
-    <section aria-labelledby="h-somos" className="relative my-16 rounded-[28px] overflow-hidden bg-[#0b0b0b] text-white">
+    <section aria-labelledby="h-somos" className="relative mb-16 rounded-3xl overflow-hidden bg-[#0b0b0b] text-white">
       <div aria-hidden="true" className="absolute -top-24 -right-24 size-96 rounded-full bg-[#1de03c]/25 blur-3xl" />
       <div aria-hidden="true" className="absolute -bottom-32 -left-20 size-96 rounded-full bg-[#1de03c]/10 blur-3xl" />
       <div className="relative grid md:grid-cols-[minmax(0,1fr)_minmax(0,340px)] gap-8 md:gap-12 items-center p-6 sm:p-10 md:p-14">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-[#1de03c] mb-4">Quiénes somos</p>
           <h2 id="h-somos" className="text-3xl md:text-[42px] font-semibold leading-tight tracking-tight mb-5">Somos SOKOSHOP</h2>
           <div className="space-y-4 text-white/80 text-base md:text-lg leading-relaxed max-w-xl">
             <p>Nos especializamos en perfumes árabes y de diseñador, ofreciendo una selección de fragancias de calidad para cada estilo y ocasión.</p>

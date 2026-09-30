@@ -62,15 +62,14 @@ export default function HeaderClient({ groups }: { groups: NavGroup[] }) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#111111]/95 backdrop-blur supports-[backdrop-filter]:bg-[#111111]/85 border-b border-white/5">
+      <header className="sticky top-0 z-40 bg-black border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 md:px-5 h-16 flex items-center gap-3">
           <button type="button" onClick={() => setMobileOpen(true)} className="lg:hidden -ml-1 p-2 text-gray-200" aria-label="Abrir menú" aria-expanded={mobileOpen}>
             <svg viewBox="0 0 24 24" className="size-6" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
           </button>
 
-          <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="SokoShop, ir al inicio">
-            <Image src="/logo-sokoshop.png" alt="" width={44} height={44} priority className="rounded-lg" />
-            <span className="hidden sm:inline text-lg font-semibold text-white tracking-tight">Soko<span className="text-[#1de03c]">Shop</span></span>
+          <Link href="/" className="flex items-center shrink-0" aria-label="SokoShop, ir al inicio">
+            <Image src="/logo-sokoshop.png" alt="SokoShop" width={334} height={186} priority className="h-14 w-auto" />
           </Link>
 
           <nav aria-label="Principal" className="hidden lg:flex flex-1 justify-center items-center gap-1 text-sm">
@@ -164,7 +163,7 @@ export default function HeaderClient({ groups }: { groups: NavGroup[] }) {
           </div>
         </div>
         {searchOpen && (
-          <div className="border-t border-white/5 bg-[#111111]">
+          <div className="border-t border-white/10 bg-black">
             <div className="max-w-2xl mx-auto px-4 py-3 flex"><SearchBox autoFocus /></div>
           </div>
         )}
@@ -174,9 +173,9 @@ export default function HeaderClient({ groups }: { groups: NavGroup[] }) {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 lg:hidden" onClick={() => setMobileOpen(false)}>
           <nav aria-label="Menú" className="absolute left-0 top-0 h-full w-[86%] max-w-sm bg-white overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-5 h-16 border-b border-gray-100">
-              <span className="text-lg font-semibold text-gray-900">Soko<span className="text-[#17a930]">Shop</span></span>
-              <button type="button" onClick={() => setMobileOpen(false)} className="p-2 text-gray-500" aria-label="Cerrar menú">✕</button>
+            <div className="flex items-center justify-between px-5 h-16 bg-black">
+              <Image src="/logo-sokoshop.png" alt="SokoShop" width={334} height={186} className="h-10 w-auto" />
+              <button type="button" onClick={() => setMobileOpen(false)} className="p-2 text-gray-300" aria-label="Cerrar menú">✕</button>
             </div>
             <div className="p-4 space-y-1 text-gray-800">
               <p className="px-2 pt-1 pb-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400">Buscá tu perfume</p>

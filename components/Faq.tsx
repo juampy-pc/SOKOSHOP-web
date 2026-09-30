@@ -18,8 +18,8 @@ export default function Faq() {
 
   return (
     <section className="mb-12">
-      <h2 className="text-lg font-semibold text-gray-900 mb-1">Preguntas frecuentes</h2>
-      <p className="text-gray-400 text-sm mb-6">Lo que más nos preguntan antes de comprar.</p>
+      <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 mb-1">Preguntas frecuentes</h2>
+      <p className="text-gray-500 text-sm md:text-base mb-6">Lo que más nos preguntan antes de comprar.</p>
       <div className="space-y-2">
         {faqs.map((f, i) => {
           const isOpen = open === i;

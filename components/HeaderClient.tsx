@@ -250,9 +250,10 @@ export default function HeaderClient({ groups }: { groups: NavGroup[] }) {
                 href="/checkout"
                 onClick={() => { track("checkout_start", { v: total }); setCartOpen(false); }}
                 aria-disabled={items.length === 0}
-                className={`block text-center w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-md ${items.length === 0 ? "pointer-events-none opacity-50" : ""}`}
+                className={`flex items-center justify-center gap-2 w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-[0_8px_24px_-8px_rgba(29,224,60,0.7)] hover:brightness-105 active:scale-[0.98] transition ${items.length === 0 ? "pointer-events-none opacity-50" : ""}`}
               >
-                Ir a pagar
+                <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z" fill="currentColor" fillOpacity=".15" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /><path d="M8.8 12.2l2.2 2.2 4.3-4.6" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                Pago seguro
               </Link>
               <p className="text-xs text-gray-400 text-center mt-2">Envío o retiro y cupones en el paso siguiente.</p>
             </div>

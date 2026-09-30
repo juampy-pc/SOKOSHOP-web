@@ -23,5 +23,9 @@ body {
 .legal ul { list-style: disc; padding-left: 1.3rem; color: #4b5563; line-height: 1.7; margin: 0 0 0.9rem; }
 .legal strong { color: #111827; }
 
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 28s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
 @keyframes wa-in { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

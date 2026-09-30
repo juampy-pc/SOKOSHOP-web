@@ -48,7 +48,14 @@ function quickVariant(variants: CardVariant[], pct: number) {
   const buyable = variants.filter((v) => v.id && v.type && (v.stock === null || v.stock === undefined || v.stock > 0));
   const pick = buyable.find((v) => v.type === "frasco_completo") ?? (buyable.length === 1 ? buyable[0] : undefined);
   if (!pick) return null;
-  return { variantId: pick.id!, label: variantText({ type: pick.type!, sizeMl: pick.sizeMl ?? null }), price: promoPrice(pick, pct).price, choose: variants.length > 1 };
+  const { price, compareAt } = promoPrice(pick, pct);
+  return { variantId: pick.id!, label: variantText({ type: pick.type!, sizeMl: pick.sizeMl ?? null }), price, compareAt, choose: variants.length > 1 };
+}
+
+/** El decant más barato, para mostrarlo aparte del precio del frasco. */
+function decantFrom(variants: CardVariant[], pct: number) {
+  const decants = variants.filter((v) => v.type === "decant");
+  return decants.length ? priceFrom(decants, pct).price : null;
 }
 
 export function cardData(
@@ -58,6 +65,7 @@ export function cardData(
   const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin });
   return {
     quick: quickVariant(p.variants, pct),
+    decantPrice: decantFrom(p.variants, pct),
     slug: p.slug,
     brandSlug: p.brand.slug,
     brandName: p.brand.name,

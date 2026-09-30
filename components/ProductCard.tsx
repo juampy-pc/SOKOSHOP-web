@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cleanProductName } from "@/lib/format";
+import { cleanProductName, shortProductName } from "@/lib/format";
 import { imageUrl } from "@/lib/catalog";
 import QuickAdd from "./QuickAdd";
 
@@ -10,59 +10,62 @@ type Props = {
   name: string;
   price: number | null;
   compareAt?: number | null;
+  decantPrice?: number | null;
   image?: string | null;
-  decantAvailable?: boolean;
-  origin?: string;
-  quick?: { variantId: string; label: string; price: number; choose: boolean } | null;
+  quick?: { variantId: string; label: string; price: number; compareAt?: number | null; choose: boolean } | null;
 };
 
-const originLabel: Record<string, string> = {
-  arabe: "ÁRABE",
-  disenador: "DISEÑADOR",
-  nicho: "NICHO",
-  independiente: "ALTERNATIVA",
-};
+const ars = (n: number) => `$${n.toLocaleString("es-AR")}`;
 
-export default function ProductCard({ slug, brandSlug, brandName, name, price, compareAt, image, decantAvailable, origin, quick }: Props) {
-  const tag = decantAvailable ? "CON DECANT" : origin ? originLabel[origin] : null;
-  const title = cleanProductName(name, brandName);
+/**
+ * Tarjeta de producto: nombre corto (la concentración y el tamaño van aparte), el precio del frasco
+ * y, si hay decants, su precio en una línea chica. Un solo botón: agrega el frasco o lleva a elegir.
+ */
+export default function ProductCard({ slug, brandSlug, brandName, name, price, compareAt, decantPrice, image, quick }: Props) {
+  const full = cleanProductName(name, brandName);
+  const title = shortProductName(name, brandName);
+  const detail = full.replace(title, "").replace(/\s{2,}/g, " ").trim();
   const href = `/marcas/${brandSlug}/${slug}`;
+  const main = quick ? { price: quick.price, compareAt: quick.compareAt ?? null, from: false } : price ? { price, compareAt: compareAt ?? null, from: true } : null;
+  const showDecant = decantPrice != null && (quick ? decantPrice !== quick.price : false);
   return (
-    <div className="group rounded-2xl bg-white p-3 flex flex-col shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
-    <Link href={href} className="flex flex-col gap-1 flex-1">
-      <div className="aspect-[4/5] rounded-xl bg-[#f4f5f3] overflow-hidden mb-2 flex items-center justify-center relative">
-        {image ? (
-          // eslint-disable-next-line @next/next/no-img-element -- Cloudinary ya entrega el tamaño y formato justos
-          <img
-            src={imageUrl(image, 400, 500)}
-            srcSet={`${imageUrl(image, 300, 375)} 300w, ${imageUrl(image, 400, 500)} 400w, ${imageUrl(image, 600, 750)} 600w`}
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-            alt={`${brandName} ${title}`}
-            loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
-          />
-        ) : (
-          <span className="text-gray-300 text-xs">Sin foto</span>
+    <div className="group rounded-2xl bg-white p-2.5 sm:p-3 flex flex-col border border-black/[0.04] shadow-[0_1px_2px_rgba(17,17,17,0.04)] hover:shadow-[0_12px_32px_-12px_rgba(17,17,17,0.18)] transition-shadow">
+      <Link href={href} className="flex flex-col flex-1">
+        <div className="aspect-[4/5] rounded-xl bg-white overflow-hidden mb-3 flex items-center justify-center relative">
+          {image ? (
+            // eslint-disable-next-line @next/next/no-img-element -- Cloudinary ya entrega el tamaño y formato justos
+            <img
+              src={imageUrl(image, 400, 500)}
+              srcSet={`${imageUrl(image, 300, 375)} 300w, ${imageUrl(image, 400, 500)} 400w, ${imageUrl(image, 600, 750)} 600w`}
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              alt={`${brandName} ${full}`}
+              loading="lazy"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+            />
+          ) : (
+            <span className="text-gray-300 text-xs">Sin foto</span>
+          )}
+          {main?.compareAt && <span className="absolute top-2 left-2 bg-[#1de03c] text-[#06140a] text-[11px] font-bold rounded-full px-2 py-0.5">−{Math.round((1 - main.price / main.compareAt) * 100)}%</span>}
+        </div>
+        <span className="text-[11px] uppercase tracking-wide text-gray-400 px-0.5">{brandName}</span>
+        <span className="text-[15px] font-semibold leading-snug text-gray-900 px-0.5 mt-0.5 line-clamp-2">{title}</span>
+        {detail && <span className="text-xs text-gray-500 px-0.5 mt-0.5 truncate">{detail}</span>}
+        {main && (
+          <span className="mt-2 px-0.5 text-gray-900 font-semibold tabular-nums">
+            {main.from && <span className="text-xs font-normal text-gray-500 mr-1">desde</span>}
+            {ars(main.price)}
+            {main.compareAt && <span className="ml-1.5 text-xs text-gray-400 line-through font-normal">{ars(main.compareAt)}</span>}
+          </span>
         )}
-        {compareAt && price && <span className="absolute top-2 left-2 bg-[#1de03c] text-[#06140a] text-[11px] font-bold rounded-full px-2 py-0.5">−{Math.round((1 - price / compareAt) * 100)}%</span>}
+        {showDecant && <span className="px-0.5 text-xs text-[#17a930] font-medium mt-0.5">Decant desde {ars(decantPrice!)}</span>}
+      </Link>
+      <div className="mt-3">
+        {quick ? (
+          <QuickAdd variantId={quick.variantId} label={quick.label} price={quick.price} productName={full} brandName={brandName} image={image ?? null} href={href} />
+        ) : (
+          <Link href={href} className="block text-center w-full rounded-full bg-[#111] text-white text-xs sm:text-sm font-medium py-2.5 hover:bg-[#1de03c] hover:text-[#06140a] transition">Ver opciones</Link>
+        )}
       </div>
-      <span className="text-xs text-gray-400 px-1">{brandName}</span>
-      <span className="text-sm font-semibold leading-snug text-gray-900 px-1">{title}</span>
-      {price ? (
-        <span className="mt-1 px-1 text-[#17a930] font-semibold">
-          desde ${price.toLocaleString("es-AR")}
-          {compareAt && <span className="ml-1.5 text-xs text-gray-400 line-through font-normal">${compareAt.toLocaleString("es-AR")}</span>}
-        </span>
-      ) : null}
-      {tag && <span className="text-[10px] text-[#a8853f] tracking-wide mt-1 font-medium px-1">{tag}</span>}
-    </Link>
-    <div className="mt-3">
-      {quick ? (
-        <QuickAdd variantId={quick.variantId} label={quick.label} price={quick.price} productName={title} brandName={brandName} image={image ?? null} href={href} showPrice={quick.choose && quick.price !== price} />
-      ) : (
-        <Link href={href} className="block text-center w-full rounded-full border border-gray-200 text-sm font-medium py-2 text-gray-700 hover:border-[#1de03c]">Ver opciones</Link>
-      )}
-    </div>
     </div>
   );
 }

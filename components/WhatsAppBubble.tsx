@@ -15,8 +15,14 @@ export default function WhatsAppBubble({ href }: { href: string }) {
     let closed = false;
     try { closed = sessionStorage.getItem(KEY) === "1"; } catch { /* sin almacenamiento */ }
     if (closed) return;
-    const t = setTimeout(() => setBubble(true), 4000);
-    return () => clearTimeout(t);
+    // El cartel aparece recién cuando la persona empezó a recorrer la página, así no tapa el inicio.
+    let ready = false;
+    const t = setTimeout(() => { ready = true; onScroll(); }, 4000);
+    function onScroll() {
+      if (ready && window.scrollY > 500) { setBubble(true); window.removeEventListener("scroll", onScroll); }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { clearTimeout(t); window.removeEventListener("scroll", onScroll); };
   }, []);
 
   if (pathname.startsWith("/checkout")) return null;
@@ -29,7 +35,7 @@ export default function WhatsAppBubble({ href }: { href: string }) {
   return (
     <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 flex items-end gap-3">
       {bubble && (
-        <div role="status" className="relative max-w-[230px] rounded-2xl bg-[#1a1a1a]/85 backdrop-blur-md border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3 text-white animate-[wa-in_.35s_ease-out]">
+        <div role="status" className="relative max-w-[210px] md:max-w-[230px] rounded-2xl bg-[#1a1a1a]/85 backdrop-blur-md border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3 text-white animate-[wa-in_.35s_ease-out]">
           <button type="button" onClick={close} className="absolute top-1.5 right-2 text-white/60 hover:text-white text-sm leading-none p-1" aria-label="Cerrar aviso">×</button>
           <p className="text-[#1de03c] font-semibold text-sm pr-4">¿Tenés dudas?</p>
           <p className="text-[13px] text-white/85 leading-snug mt-1">Hay un asesor para ayudarte a elegir tu fragancia o responder cualquier consulta.</p>

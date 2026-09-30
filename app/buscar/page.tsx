@@ -76,7 +76,7 @@ export default async function BuscarPage({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {results.map((p) => (
-          <ProductCard key={p.id} slug={p.slug} brandSlug={p.brandSlug} brandName={p.brandName} name={p.name} price={p.price === null ? null : Number(p.price)} image={p.image} decantAvailable={p.decantAvailable} origin={p.origin} />
+          <ProductCard key={p.id} slug={p.slug} brandSlug={p.brandSlug} brandName={p.brandName} name={p.name} price={p.price === null ? null : Number(p.price)} image={p.image} />
         ))}
       </div>
     </main>

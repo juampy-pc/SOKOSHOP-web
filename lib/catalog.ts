@@ -4,7 +4,7 @@ import type { Prisma } from "@prisma/client";
 export const cardInclude = {
   brand: true,
   variants: { orderBy: { price: "asc" } },
-  images: { orderBy: { sort: "asc" }, take: 1 },
+  images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 },
 } satisfies Prisma.ProductInclude;
 
 type V = { price: number; salePrice: number | null };
@@ -52,6 +52,20 @@ export function cardData(
     image: p.images?.[0]?.url ?? null,
     ...priceFrom(p.variants, salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin })),
   };
+}
+
+/** Primer cuadro de un video de Cloudinary como imagen (para miniaturas y como póster). */
+export function videoPoster(url: string, w: number, h?: number) {
+  if (!url.includes("res.cloudinary.com/") || !url.includes("/video/upload/")) return "";
+  return url
+    .replace("/video/upload/", `/video/upload/so_0,c_${h ? "fill" : "limit"},w_${w}${h ? `,h_${h}` : ""},f_auto,q_auto/`)
+    .replace(/\.(mp4|mov|webm|m4v|avi)(\?.*)?$/i, ".jpg");
+}
+
+/** Video de Cloudinary en formato y calidad automáticos (mp4/webm según el navegador). */
+export function videoUrl(url: string, w: number) {
+  if (!url.includes("res.cloudinary.com/") || !url.includes("/video/upload/")) return url;
+  return url.replace("/video/upload/", `/video/upload/c_limit,w_${w},f_auto,q_auto/`);
 }
 
 /** URL de Cloudinary con tamaño y formato automáticos (si no es de Cloudinary, se deja igual). */

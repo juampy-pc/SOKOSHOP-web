@@ -45,10 +45,7 @@ export function PixelPurchase({ orderId, value }: { orderId: string; value: numb
       if (localStorage.getItem(key)) return;
       localStorage.setItem(key, "1");
     } catch { /* sin almacenamiento: se manda igual */ }
-    // Si el script todavía no cargó, fbq encola el evento y lo envía al cargar.
-    const send = () => pixel("Purchase", { value, currency: "ARS" }, orderId);
-    if ((window as unknown as { fbq?: unknown }).fbq) send();
-    else setTimeout(send, 1500);
+    pixel("Purchase", { value, currency: "ARS" }, orderId); // espera sola a que cargue el pixel
   }, [orderId, value]);
   return null;
 }

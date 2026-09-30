@@ -77,6 +77,7 @@ model ProductVariant {
   purchaseItems  PurchaseItem[]
   priceListItems PriceListItem[]
   giftPromotions Promotion[]     @relation("PromotionGift")
+  images         ProductImage[]
 
   @@index([productId])
 }
@@ -616,16 +617,20 @@ model PriceListItem {
 }
 
 model ProductImage {
-  id        String   @id @default(cuid())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id        String          @id @default(cuid())
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   url       String
   publicId  String?
   width     Int?
   height    Int?
   alt       String?
-  sort      Int      @default(0)
-  createdAt DateTime @default(now())
+  sort      Int             @default(0)
+  kind      String          @default("image") // image | video
+  // Foto de una presentación puntual (ej. el decant); vacío = del producto en general
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  variantId String?
+  createdAt DateTime        @default(now())
 
   @@index([productId, sort])
 }

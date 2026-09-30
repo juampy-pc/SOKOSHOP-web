@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import { track } from "@/lib/track";
+import { useSelectedVariant } from "@/components/SelectedVariant";
 
 type Variant = {
   id: string;
@@ -26,15 +27,23 @@ export default function VariantSelector({
   productName,
   brandName,
   image,
+  imageFor,
   href,
 }: {
   variants: Variant[];
   productName: string;
   brandName: string;
   image?: string | null;
+  /** foto propia de cada presentación (ej. la del decant), para el carrito */
+  imageFor?: Record<string, string>;
   href?: string;
 }) {
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelectedIndex] = useState(0);
+  const shared = useSelectedVariant();
+  const setSelected = (i: number) => {
+    setSelectedIndex(i);
+    if (variants[i]) shared?.setVariantId(variants[i].id);
+  };
   const [added, setAdded] = useState(false);
   const { addItem } = useCart();
   const v = variants[selected];
@@ -50,7 +59,7 @@ export default function VariantSelector({
       brandName,
       variantLabel: label,
       price: finalPrice(v),
-      image: image ?? null,
+      image: imageFor?.[v.id] ?? image ?? null,
       href,
     });
     setAdded(true);

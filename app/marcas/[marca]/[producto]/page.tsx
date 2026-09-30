@@ -6,6 +6,7 @@ import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import VariantSelector from "@/components/VariantSelector";
 import Gallery from "@/components/Gallery";
+import { SelectedVariantProvider } from "@/components/SelectedVariant";
 import { TrackProductView } from "@/components/Analytics";
 import { cleanProductName } from "@/lib/format";
 import { imageUrl, promoPrice, salePct } from "@/lib/catalog";
@@ -42,11 +43,12 @@ export async function generateMetadata({ params }: { params: Promise<{ marca: st
   const p = await load(producto);
   if (!p || p.status !== "publicado") return {};
   const name = `${p.brand.name} ${cleanProductName(p.name, p.brand.name)}`;
+  const ogImage = p.images.find((i) => i.kind === "image" && !i.variantId) ?? p.images.find((i) => i.kind === "image");
   return {
     title: `${name} · SokoShop`,
     description: p.descriptionShort ?? `${name} en SokoShop, Resistencia. ${p.decantAvailable ? "También en decant. " : ""}Envíos y retiro en el local.`,
     alternates: { canonical: `/marcas/${p.brand.slug}/${p.slug}` },
-    openGraph: p.images[0] ? { images: [{ url: imageUrl(p.images[0].url, 1200, 630) }] } : undefined,
+    openGraph: ogImage ? { images: [{ url: imageUrl(ogImage.url, 1200, 630) }] } : undefined,
   };
 }
 
@@ -61,6 +63,10 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
   }
 
   const title = cleanProductName(product.name, product.brand.name);
+  // Fotos (sin videos): las generales van en la portada, el carrito y los buscadores; las de una presentación, cuando la eligen.
+  const photos = product.images.filter((i) => i.kind === "image");
+  const cover = photos.find((i) => !i.variantId) ?? photos[0] ?? null;
+  const imageFor = Object.fromEntries(product.variants.map((v) => [v.id, photos.find((i) => i.variantId === v.id)?.url]).filter((e): e is [string, string] => Boolean(e[1])));
   // Promo automática con precio tachado: se muestra como precio de oferta (el checkout la vuelve a calcular).
   const pct = salePct(await salePromos(), { id: product.id, brandId: product.brandId, origin: product.brand.origin });
   const variants = product.variants.map((v) => (pct ? { ...v, salePrice: promoPrice(v, pct).price } : v));
@@ -79,7 +85,7 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
     "@type": "Product",
     name: `${product.brand.name} ${title}`,
     brand: { "@type": "Brand", name: product.brand.name },
-    ...(product.images.length ? { image: product.images.map((i) => imageUrl(i.url, 1200)) } : {}),
+    ...(photos.length ? { image: photos.map((i) => imageUrl(i.url, 1200)) } : {}),
     ...(product.descriptionShort ? { description: product.descriptionShort } : {}),
     url,
     offers: variants.map((v) => ({
@@ -102,8 +108,9 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
       </p>
 
       <TrackProductView productId={product.id} />
+      <SelectedVariantProvider initial={null}>
       <div className="grid md:grid-cols-2 gap-10">
-        <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt }))} alt={`${product.brand.name} ${title}`} />
+        <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt, kind: i.kind, variantId: i.variantId }))} alt={`${product.brand.name} ${title}`} />
 
         <div>
           <p className="text-[#17a930] text-sm font-semibold">{product.brand.name}</p>
@@ -121,7 +128,8 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
             variants={variants}
             productName={title}
             brandName={product.brand.name}
-            image={product.images[0]?.url ?? null}
+            image={cover?.url ?? null}
+            imageFor={imageFor}
             href={`/marcas/${product.brand.slug}/${product.slug}`}
           />
 
@@ -155,6 +163,7 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
           {product.descriptionLong && <div className="mt-8 text-sm text-gray-600 leading-relaxed whitespace-pre-line">{product.descriptionLong}</div>}
         </div>
       </div>
+      </SelectedVariantProvider>
     </main>
   );
 }

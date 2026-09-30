@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { getSetting } from "@/lib/settings";
 import Faq from "@/components/Faq";
 import LocationSection from "@/components/LocationSection";
+import Marquee from "@/components/Marquee";
 
 export const revalidate = 300;
 
@@ -153,7 +154,7 @@ export default async function Home() {
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.18em] text-[#1de03c] mb-4">Perfumes árabes y de diseñador</p>
             <h1 className="text-[34px] leading-[1.06] md:text-[40px] lg:text-[42px] xl:text-[44px] font-semibold tracking-tight">
-              Te atendemos como a un amigo,<br className="hidden md:block" /> <span className="text-[#1de03c]">no como a un número.</span>
+              Te atendemos como a un amigo,<br className="hidden md:block" /> <span className="text-[#1de03c]">y te asesoramos de verdad.</span>
             </h1>
             <p className="text-white/65 mt-5 max-w-lg text-base md:text-lg leading-relaxed">Encontrá tu perfume, pagalo con Mercado Pago y recibilo en casa o retiralo en el local.</p>
             <div className="mt-8 max-w-xl flex"><SearchBox /></div>
@@ -221,7 +222,11 @@ export default async function Home() {
         <GridSection promos={promos} products={top}>
           <SectionHead title="Los más vendidos" tagline="Lo que más se llevan nuestros clientes." href="/perfumes-arabes" />
         </GridSection>
+      </div>
 
+      <Marquee />
+
+      <div className="max-w-6xl mx-auto px-4 md:px-5 pt-16">
         <FeatureSection promos={promos} products={arabes}>
           <SectionHead title="Perfumes árabes" tagline="Fragancias orientales de alta intensidad, elegidas por nosotros." href="/perfumes-arabes" />
         </FeatureSection>

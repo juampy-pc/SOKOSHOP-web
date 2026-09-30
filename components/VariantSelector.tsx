@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
 import { track } from "@/lib/track";
 import { useSelectedVariant } from "@/components/SelectedVariant";
@@ -45,12 +46,13 @@ export default function VariantSelector({
     if (variants[i]) shared?.setVariantId(variants[i].id);
   };
   const [added, setAdded] = useState(false);
-  const { addItem } = useCart();
+  const { addItem, setCartOpen } = useCart();
+  const router = useRouter();
   const v = variants[selected];
 
   if (!v) return <p className="text-gray-400 text-sm">Sin variantes cargadas.</p>;
 
-  function handleAdd() {
+  function handleAdd(buyNow = false) {
     const label = `${typeLabel[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
     track("add_to_cart", { vid: v.id, v: finalPrice(v) });
     addItem({
@@ -62,7 +64,13 @@ export default function VariantSelector({
       image: imageFor?.[v.id] ?? image ?? null,
       href,
     });
+    if (buyNow) {
+      track("checkout_start", { v: finalPrice(v) });
+      router.push("/checkout");
+      return;
+    }
     setAdded(true);
+    setCartOpen(true);
     setTimeout(() => setAdded(false), 1500);
   }
 
@@ -109,13 +117,25 @@ export default function VariantSelector({
         ))}
       </div>
 
-      <button
-        onClick={handleAdd}
-        disabled={v.stock !== null && v.stock <= 0}
-        className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-[0_2px_10px_rgba(29,224,60,0.3)] hover:bg-[#17a930] transition disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        {v.stock !== null && v.stock <= 0 ? "Sin stock" : added ? "¡Agregado!" : "Agregar al carrito"}
-      </button>
+      <div className="grid sm:grid-cols-2 gap-2">
+        <button
+          onClick={() => handleAdd(true)}
+          disabled={v.stock !== null && v.stock <= 0}
+          className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-[0_2px_10px_rgba(29,224,60,0.3)] hover:bg-[#17a930] transition disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {v.stock !== null && v.stock <= 0 ? "Sin stock" : "Comprar ahora"}
+        </button>
+        <button
+          onClick={() => handleAdd()}
+          disabled={v.stock !== null && v.stock <= 0}
+          className="w-full bg-[#111] text-white font-semibold rounded-full py-3 hover:bg-black transition disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {added ? "¡Agregado!" : "Agregar al carrito"}
+        </button>
+      </div>
+      {v.stock !== null && v.stock <= 0 && (
+        <a href="/perfumes-a-pedido" className="block text-center text-sm text-[#17a930] underline mt-3">Encargalo: lo conseguimos para vos</a>
+      )}
     </div>
   );
 }

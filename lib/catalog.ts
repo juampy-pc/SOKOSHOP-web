@@ -38,11 +38,26 @@ export function priceFrom(variants: V[], pct = 0) {
   return variants.map((v) => promoPrice(v, pct)).reduce((a, b) => (b.price < a.price ? b : a));
 }
 
+const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash" };
+export const variantText = (v: { type: string; sizeMl: number | null }) => `${TYPE_LABEL[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
+
+type CardVariant = V & { id?: string; type?: string; sizeMl?: number | null; stock?: number | null };
+
+/** Presentación que se agrega con un toque desde la tarjeta: el frasco completo (o la única que haya) con stock. */
+function quickVariant(variants: CardVariant[], pct: number) {
+  const buyable = variants.filter((v) => v.id && v.type && (v.stock === null || v.stock === undefined || v.stock > 0));
+  const pick = buyable.find((v) => v.type === "frasco_completo") ?? (buyable.length === 1 ? buyable[0] : undefined);
+  if (!pick) return null;
+  return { variantId: pick.id!, label: variantText({ type: pick.type!, sizeMl: pick.sizeMl ?? null }), price: promoPrice(pick, pct).price, choose: variants.length > 1 };
+}
+
 export function cardData(
-  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; brand: { slug: string; name: string; origin: string }; variants: V[]; images?: { url: string; alt: string | null }[] },
+  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; brand: { slug: string; name: string; origin: string }; variants: CardVariant[]; images?: { url: string; alt: string | null }[] },
   promos?: SalePromo[]
 ) {
+  const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin });
   return {
+    quick: quickVariant(p.variants, pct),
     slug: p.slug,
     brandSlug: p.brand.slug,
     brandName: p.brand.name,
@@ -50,7 +65,7 @@ export function cardData(
     decantAvailable: p.decantAvailable,
     origin: p.brand.origin,
     image: p.images?.[0]?.url ?? null,
-    ...priceFrom(p.variants, salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin })),
+    ...priceFrom(p.variants, pct),
   };
 }
 

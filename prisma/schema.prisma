@@ -122,20 +122,21 @@ model AdminUser {
   passwordChangedAt  DateTime?
   updatedAt          DateTime  @default(now()) @updatedAt
 
-  auditLogs      AuditLog[]
-  stockMovements StockMovement[]
-  importBatches  ImportBatch[]
-  ordersSold     Order[]             @relation("OrderSeller")
-  cashOpened     CashSession[]       @relation("CashOpenedBy")
-  cashClosed     CashSession[]       @relation("CashClosedBy")
-  cashMovements  CashMovement[]
-  accountEntries AccountEntry[]
-  customersAdded Customer[]          @relation("CustomerCreatedBy")
-  orderReturns   OrderReturn[]
-  purchasesMade  Purchase[]          @relation("PurchaseCreatedBy")
-  purchasesRecv  Purchase[]          @relation("PurchaseReceivedBy")
-  withdrawals    WithdrawalRequest[]
-  legalEdits     LegalPage[]
+  auditLogs       AuditLog[]
+  stockMovements  StockMovement[]
+  importBatches   ImportBatch[]
+  ordersSold      Order[]             @relation("OrderSeller")
+  cashOpened      CashSession[]       @relation("CashOpenedBy")
+  cashClosed      CashSession[]       @relation("CashClosedBy")
+  cashMovements   CashMovement[]
+  accountEntries  AccountEntry[]
+  customersAdded  Customer[]          @relation("CustomerCreatedBy")
+  orderReturns    OrderReturn[]
+  purchasesMade   Purchase[]          @relation("PurchaseCreatedBy")
+  purchasesRecv   Purchase[]          @relation("PurchaseReceivedBy")
+  withdrawals     WithdrawalRequest[]
+  legalEdits      LegalPage[]
+  perfumeRequests PerfumeRequest[]
 }
 
 model Order {
@@ -195,6 +196,9 @@ model Order {
   // Lista de precios usada (ventas mayoristas)
   priceList       PriceList?          @relation(fields: [priceListId], references: [id], onDelete: SetNull)
   priceListId     String?
+  // Venta con seña (a pedido): se cobra una parte al vender y el saldo al entregar.
+  deposit         Int?
+  balanceDue      Int                 @default(0)
   notifications   Notification[]
   withdrawals     WithdrawalRequest[]
   createdAt       DateTime            @default(now())
@@ -206,6 +210,7 @@ model Order {
   @@index([customerId])
   @@index([sellerId, createdAt])
   @@index([channel, fulfillment])
+  @@index([balanceDue])
 }
 
 model OrderItem {
@@ -690,4 +695,24 @@ model Setting {
   key       String   @id
   value     Json
   updatedAt DateTime @updatedAt
+}
+
+// Pedidos de perfumes que no están en el catálogo (formulario "Perfumes a pedido" de la tienda).
+model PerfumeRequest {
+  id          String     @id @default(cuid())
+  code        String     @unique
+  fullName    String
+  phone       String
+  product     String?
+  details     String?
+  imageUrl    String?
+  status      String     @default("nuevo") // nuevo | cotizado | encargado | cerrado | descartado
+  adminNote   String?
+  handledBy   AdminUser? @relation(fields: [handledById], references: [id], onDelete: SetNull)
+  handledById String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status, createdAt])
+  @@index([phone])
 }

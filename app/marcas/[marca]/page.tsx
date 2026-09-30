@@ -5,7 +5,6 @@ import { findRedirect } from "@/lib/redirects";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { cardData } from "@/lib/catalog";
-import { originPages } from "@/lib/origin-pages";
 
 export const revalidate = 300;
 

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Analytics from "@/components/Analytics";
 import Footer from "@/components/Footer";
 import PromoBanner from "@/components/PromoBanner";
+import VercelInsights from "@/components/VercelInsights";
 
 export const metadata: Metadata = {
   title: "SokoShop",
@@ -24,6 +25,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </CartProvider>
+        <VercelInsights />
       </body>
     </html>
   );

@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import PromoBanner from "@/components/PromoBanner";
 import VercelInsights from "@/components/VercelInsights";
 import WhatsAppBubble from "@/components/WhatsAppBubble";
+import AssistantWidget from "@/components/AssistantWidget";
+import { storeAssistantEnabled } from "@/lib/assistant/config";
 import MetaPixel from "@/components/MetaPixel";
 import { getSetting } from "@/lib/settings";
 import { whatsappLink } from "@/lib/nav-config";
@@ -26,7 +28,8 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const store = await getSetting("tienda");
+  const [store, assistant] = await Promise.all([getSetting("tienda"), storeAssistantEnabled()]);
+  const wa = whatsappLink(store.whatsapp, "Hola SokoShop! Tengo una consulta.");
   return (
     <html lang="es-AR" className={geist.variable}>
       <body className="bg-[#fafaf9] font-sans antialiased">
@@ -36,7 +39,8 @@ export default async function RootLayout({
           <Analytics />
           {children}
           <Footer />
-          <WhatsAppBubble href={whatsappLink(store.whatsapp, "Hola SokoShop! Tengo una consulta.")} />
+          <WhatsAppBubble href={wa} />
+          {assistant && <AssistantWidget whatsapp={wa} />}
         </CartProvider>
         <VercelInsights />
         <MetaPixel />

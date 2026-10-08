@@ -31,7 +31,8 @@ async function load(slug: string) {
     where: { slug },
     include: {
       brand: true,
-      variants: { orderBy: { price: "asc" } },
+      // Solo lo que se muestra: el costo y el margen nunca salen del servidor (la página los mandaba al navegador).
+      variants: { orderBy: { price: "asc" }, select: { id: true, type: true, sizeMl: true, price: true, salePrice: true, stock: true, gtin: true } },
       images: { orderBy: { sort: "asc" } },
       notes: { orderBy: { order: "asc" }, include: { note: true } },
     },

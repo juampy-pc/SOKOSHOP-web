@@ -29,3 +29,13 @@ body {
 
 @keyframes wa-in { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* Respuestas del asesor virtual */
+.asesor-md > * + * { margin-top: 0.5rem; }
+.asesor-md ul { list-style: disc; padding-left: 1.1rem; }
+.asesor-md ol { list-style: decimal; padding-left: 1.1rem; }
+.asesor-md li + li { margin-top: 0.15rem; }
+.asesor-md a { color: #17a930; font-weight: 500; }
+.asesor-md .chat-table { overflow-x: auto; }
+.asesor-md table { border-collapse: collapse; font-size: 0.75rem; }
+.asesor-md th, .asesor-md td { border-bottom: 1px solid #e5e5e5; padding: 0.25rem 0.5rem; text-align: left; }

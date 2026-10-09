@@ -80,3 +80,19 @@ test("decants pagados online descuentan ml del frasco para decants (si se contro
   assert.equal(after.decantMl, 40);
   assert.equal(move?.ml, -10);
 });
+
+test("checkout: el decant se agota si el frasco para decants no alcanza", async () => {
+  const { quote } = await import("../lib/pricing");
+  const v = await prisma.productVariant.findFirstOrThrow({ where: { type: "decant", sizeMl: 5, archivedAt: null, product: { status: "publicado" } } });
+  const p = await prisma.product.findUniqueOrThrow({ where: { id: v.productId } });
+  try {
+    await prisma.product.update({ where: { id: p.id }, data: { decantMl: 3 } });
+    await assert.rejects(quote({ lines: [{ variantId: v.id, qty: 1 }] }), /se agotó/);
+    await prisma.product.update({ where: { id: p.id }, data: { decantMl: 12 } });
+    await assert.rejects(quote({ lines: [{ variantId: v.id, qty: 3 }] }), /quedan 2/);
+    const ok = await quote({ lines: [{ variantId: v.id, qty: 2 }] });
+    assert.equal(ok.items.length, 1);
+  } finally {
+    await prisma.product.update({ where: { id: p.id }, data: { decantMl: p.decantMl } });
+  }
+});

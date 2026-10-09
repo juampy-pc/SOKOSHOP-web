@@ -142,6 +142,7 @@ export default function AssistantWidget({ whatsapp }: { whatsapp: string }) {
         <button
           type="button"
           onClick={() => setOpen(true)}
+          data-floating="asesor"
           className="fixed z-30 right-4 bottom-[5.5rem] md:right-6 md:bottom-[6.5rem] flex items-center gap-2 rounded-full bg-black text-white pl-3 pr-4 h-12 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-[#111] transition"
           aria-label="Abrir el asesor virtual"
         >

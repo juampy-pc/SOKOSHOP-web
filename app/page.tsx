@@ -109,7 +109,7 @@ export default async function Home() {
     bestSellers(),
     getSection({ brand: { origin: "arabe" } }),
     getSection({ brand: { origin: "disenador" } }),
-    getSection({ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant" } } }] }, 40),
+    getSection({ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant", archivedAt: null } } }] }, 40),
     salePromos(),
     getSetting("tienda"),
     prisma.brand.findMany({ where: { origin: "disenador", products: { some: { status: "publicado" } } }, select: { slug: true, name: true }, orderBy: { name: "asc" }, take: 40 }).catch(() => []),

@@ -65,3 +65,18 @@ test("stock null (no controlado): se marca pagado sin movimiento", async () => {
   assert.equal((await prisma.productVariant.findUniqueOrThrow({ where: { id: v.id } })).stock, null);
   await restore();
 });
+
+test("decants pagados online descuentan ml del frasco para decants (si se controla)", async () => {
+  const v = await prisma.productVariant.findFirstOrThrow({ where: { type: "decant", sizeMl: 5, archivedAt: null } });
+  const p = await prisma.product.findUniqueOrThrow({ where: { id: v.productId } });
+  await prisma.product.update({ where: { id: p.id }, data: { decantMl: 50 } });
+  const order = await prisma.order.create({
+    data: { total: v.price * 2, items: { create: { productVariantId: v.id, productName: "test", variantLabel: "Decant 5 ml", price: v.price, quantity: 2 } } },
+  });
+  await markPaid(order.id, "pay-decant", order.total, "ARS");
+  const after = await prisma.product.findUniqueOrThrow({ where: { id: p.id } });
+  const move = await prisma.decantMove.findFirst({ where: { orderId: order.id, type: "venta_online" } });
+  await prisma.product.update({ where: { id: p.id }, data: { decantMl: p.decantMl } });
+  assert.equal(after.decantMl, 40);
+  assert.equal(move?.ml, -10);
+});

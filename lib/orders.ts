@@ -69,6 +69,21 @@ export async function markPaid(
       }
     }
 
+    // Decants: los ml salen del frasco abierto para decants de cada perfume (si el panel lo controla).
+    const decants = await tx.productVariant.findMany({
+      where: { id: { in: [...perVariant.keys()] }, type: "decant", sizeMl: { not: null } },
+      select: { id: true, productId: true, sizeMl: true },
+    });
+    const mlByProduct = new Map<string, number>();
+    for (const d of decants) mlByProduct.set(d.productId, (mlByProduct.get(d.productId) ?? 0) + Math.round(d.sizeMl! * perVariant.get(d.id)!));
+    for (const productId of [...mlByProduct.keys()].sort()) {
+      const [p] = await tx.$queryRaw<{ decantMl: number }[]>`SELECT "decantMl" FROM "Product" WHERE id = ${productId} AND "decantMl" IS NOT NULL FOR UPDATE`;
+      if (!p) continue;
+      const ml = mlByProduct.get(productId)!;
+      await tx.product.update({ where: { id: productId }, data: { decantMl: p.decantMl - ml } });
+      await tx.decantMove.create({ data: { productId, type: "venta_online", ml: -ml, mlAfter: p.decantMl - ml, orderId, reason: `Pago MP ${paymentId}` } });
+    }
+
     // El pago ya se cobró: no se revierte, se marca para revisión manual en el admin.
     if (shortage) {
       await tx.order.update({

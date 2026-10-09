@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 
 export const cardInclude = {
   brand: true,
-  variants: { orderBy: { price: "asc" } },
+  variants: { where: { archivedAt: null }, orderBy: { price: "asc" } },
   images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 },
 } satisfies Prisma.ProductInclude;
 

@@ -65,7 +65,7 @@ export async function quote(input: QuoteInput) {
 
   const items = input.lines.map((l) => {
     const v = byId.get(l.variantId);
-    if (!v || v.product.status !== "publicado") throw new QuoteError("Un producto del carrito ya no está disponible.");
+    if (!v || v.product.status !== "publicado" || v.archivedAt) throw new QuoteError("Un producto del carrito ya no está disponible.");
     const productName = cleanProductName(v.product.name, v.product.brand.name);
     if (v.stock !== null && v.stock < l.qty) throw new QuoteError(v.stock <= 0 ? `${productName} se agotó.` : `De ${productName} quedan ${v.stock}.`);
     return {

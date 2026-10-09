@@ -27,7 +27,7 @@ export type ProductCardData = { name: string; brand: string; url: string; image:
 
 const productInclude = {
   brand: true,
-  variants: { orderBy: { price: "asc" }, select: { id: true, type: true, sizeMl: true, price: true, salePrice: true, stock: true } },
+  variants: { where: { archivedAt: null }, orderBy: { price: "asc" }, select: { id: true, type: true, sizeMl: true, price: true, salePrice: true, stock: true } },
   images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 },
   notes: { orderBy: { order: "asc" }, include: { note: true } },
 } satisfies Prisma.ProductInclude;
@@ -97,8 +97,8 @@ export const STORE_TOOLS = [
         ...(i.origen ? { brand: { origin: i.origen } } : {}),
         AND: [
           ...words.map((w) => ({ OR: [{ name: like(w) }, { brand: { name: like(w) } }, { olfactiveFamily: like(w) }, { notes: { some: { note: { name: like(w) } } } }] })),
-          ...(i.precio_max ? [{ variants: { some: { type: { not: "decant" }, price: { lte: i.precio_max } } } }] : []),
-          ...(i.solo_disponibles ? [{ variants: { some: { OR: [{ type: "decant" }, { stock: null }, { stock: { gt: 0 } }] } } }] : []),
+          ...(i.precio_max ? [{ variants: { some: { archivedAt: null, type: { not: "decant" }, price: { lte: i.precio_max } } } }] : []),
+          ...(i.solo_disponibles ? [{ variants: { some: { archivedAt: null, OR: [{ type: "decant" }, { stock: null }, { stock: { gt: 0 } }] } } }] : []),
         ],
       };
       const [rows, promos] = await Promise.all([prisma.product.findMany({ where, include: productInclude, take: 40 }), salePromos()]);

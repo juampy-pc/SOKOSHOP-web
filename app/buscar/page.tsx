@@ -29,7 +29,7 @@ export default async function BuscarPage({
   if (query.length >= 2) {
     results = await prisma.$queryRaw<SearchRow[]>`
       SELECT p.id, p.slug, p.name, b.slug as "brandSlug", b.name as "brandName", b.origin, p."decantAvailable",
-        (SELECT MIN(CASE WHEN v."salePrice" > 0 AND v."salePrice" < v.price THEN v."salePrice" ELSE v.price END) FROM "ProductVariant" v WHERE v."productId" = p.id) as price,
+        (SELECT MIN(CASE WHEN v."salePrice" > 0 AND v."salePrice" < v.price THEN v."salePrice" ELSE v.price END) FROM "ProductVariant" v WHERE v."productId" = p.id AND v."archivedAt" IS NULL) as price,
         (SELECT i.url FROM "ProductImage" i WHERE i."productId" = p.id ORDER BY i.sort LIMIT 1) as image,
         GREATEST(
           word_similarity(${query}, p.name),

@@ -25,7 +25,7 @@ export default async function BrandPage({
     include: {
       products: {
         where: { status: "publicado" },
-        include: { variants: { orderBy: { price: "asc" } }, images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 } },
+        include: { variants: { where: { archivedAt: null }, orderBy: { price: "asc" } }, images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 } },
         orderBy: { name: "asc" },
       },
     },

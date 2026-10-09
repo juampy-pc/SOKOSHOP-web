@@ -45,6 +45,9 @@ model Product {
   launchYear       Int?
   perfumer         String?
   status           String           @default("borrador")
+  // Frasco abierto solo para decants y probadores: ml que quedan (vacío = no se controla)
+  decantMl         Int?
+  decantMoves      DecantMove[]
   variants         ProductVariant[]
   notes            ProductNote[]
   images           ProductImage[]
@@ -58,26 +61,35 @@ model Product {
 }
 
 model ProductVariant {
-  id             String          @id @default(cuid())
-  product        Product         @relation(fields: [productId], references: [id])
-  productId      String
-  type           String
-  sizeMl         Float?
-  price          Int
-  salePrice      Int?
-  stock          Int?
-  skuInternal    String?         @unique
-  gtin           String?
-  costInclTax    Int?
-  marginPct      Float?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  orderItems     OrderItem[]
-  stockMovements StockMovement[]
-  purchaseItems  PurchaseItem[]
-  priceListItems PriceListItem[]
-  giftPromotions Promotion[]     @relation("PromotionGift")
-  images         ProductImage[]
+  id              String            @id @default(cuid())
+  product         Product           @relation(fields: [productId], references: [id])
+  productId       String
+  type            String
+  sizeMl          Float?
+  price           Int
+  salePrice       Int?
+  stock           Int?
+  skuInternal     String?           @unique
+  gtin            String?
+  costInclTax     Int?
+  marginPct       Float?
+  // Precio por cantidad: [{ "min": 50, "price": 2700 }, …] (ej. envases que se venden por mayor)
+  priceTiers      Json?
+  // Presentación dada de baja: deja de venderse y de verse, pero conserva su historial
+  archivedAt      DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  orderItems      OrderItem[]
+  optionItems     OptionGroupItem[]
+  usedAsOption    OrderItemOption[]
+  decantOpenings  DecantMove[]
+  wholesaleItems  WholesaleItem[]
+  perfumeRequests PerfumeRequest[]
+  stockMovements  StockMovement[]
+  purchaseItems   PurchaseItem[]
+  priceListItems  PriceListItem[]
+  giftPromotions  Promotion[]       @relation("PromotionGift")
+  images          ProductImage[]
 
   @@index([productId])
 }
@@ -104,12 +116,13 @@ model ProductNote {
 }
 
 model AdminUser {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  decantMoves  DecantMove[]
+  id           String       @id @default(cuid())
+  email        String       @unique
   passwordHash String
   name         String
-  role         String   @default("admin")
-  createdAt    DateTime @default(now())
+  role         String       @default("admin")
+  createdAt    DateTime     @default(now())
 
   active             Boolean   @default(true)
   // Se incrementa al cambiar contraseña/rol/2FA o desactivar: invalida sesiones abiertas.
@@ -140,6 +153,8 @@ model AdminUser {
 }
 
 model Order {
+  perfumeRequests PerfumeRequest[]
+  decantMoves     DecantMove[]
   id              String              @id @default(cuid())
   // Número correlativo del comprobante (Nota de pedido 1-NNN)
   number          Int                 @unique @default(autoincrement())
@@ -214,17 +229,18 @@ model Order {
 }
 
 model OrderItem {
-  id               String         @id @default(cuid())
-  order            Order          @relation(fields: [orderId], references: [id])
+  id               String            @id @default(cuid())
+  order            Order             @relation(fields: [orderId], references: [id])
   orderId          String
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+  productVariant   ProductVariant    @relation(fields: [productVariantId], references: [id])
   productVariantId String
   productName      String
   variantLabel     String
   price            Int
   quantity         Int
-  returnedQty      Int            @default(0)
-  isGift           Boolean        @default(false) // regalo de una promoción (precio 0)
+  returnedQty      Int               @default(0)
+  isGift           Boolean           @default(false) // regalo de una promoción (precio 0)
+  options          OrderItemOption[]
 
   @@index([orderId])
   @@index([productVariantId])
@@ -358,6 +374,7 @@ model CashSession {
   openedBy      AdminUser?     @relation("CashOpenedBy", fields: [openedById], references: [id], onDelete: SetNull)
   openedById    String?
   openingAmount Int            @default(0)
+  openingUsd    Int            @default(0) // dólares en la caja al abrir
   closedAt      DateTime?
   closedBy      AdminUser?     @relation("CashClosedBy", fields: [closedById], references: [id], onDelete: SetNull)
   closedById    String?
@@ -373,18 +390,23 @@ model CashSession {
 }
 
 model CashMovement {
-  id          String      @id @default(cuid())
-  session     CashSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
-  sessionId   String
-  type        String // venta | ingreso | egreso | retiro
-  method      String // efectivo | transferencia | debito | credito | mercadopago
-  amount      Int // siempre positivo; el tipo define el signo
-  description String?
-  order       Order?      @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  orderId     String?
-  actor       AdminUser?  @relation(fields: [actorId], references: [id], onDelete: SetNull)
-  actorId     String?
-  createdAt   DateTime    @default(now())
+  id            String      @id @default(cuid())
+  session       CashSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId     String
+  type          String // venta | ingreso | egreso | retiro
+  method        String // efectivo | transferencia | debito | credito | mercadopago
+  amount        Int // siempre positivo; el tipo define el signo (en dólares: el equivalente en pesos)
+  // Pagos en dólares: monto en US$ y cotización usada (blue, oficial o a mano)
+  currency      String      @default("ARS")
+  foreignAmount Int?
+  rate          Int?
+  rateSource    String?
+  description   String?
+  order         Order?      @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId       String?
+  actor         AdminUser?  @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorId       String?
+  createdAt     DateTime    @default(now())
 
   @@index([sessionId, createdAt])
   @@index([createdAt])
@@ -423,6 +445,7 @@ model Customer {
   active      Boolean        @default(true)
   priceList   PriceList?     @relation(fields: [priceListId], references: [id], onDelete: SetNull)
   priceListId String?
+  wholesale   Boolean        @default(false) // cliente mayorista (lista en USDT)
   notes       String?
   createdBy   AdminUser?     @relation("CustomerCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
   createdById String?
@@ -432,6 +455,7 @@ model Customer {
   updatedAt   DateTime       @updatedAt
 
   @@index([fullName])
+  @@index([wholesale])
 }
 
 // Movimientos de cuenta corriente. amount > 0 aumenta la deuda (cargo), < 0 la reduce (pago).
@@ -699,20 +723,119 @@ model Setting {
 
 // Pedidos de perfumes que no están en el catálogo (formulario "Perfumes a pedido" de la tienda).
 model PerfumeRequest {
-  id          String     @id @default(cuid())
-  code        String     @unique
+  id          String          @id @default(cuid())
+  code        String          @unique
   fullName    String
   phone       String
   product     String?
   details     String?
   imageUrl    String?
-  status      String     @default("nuevo") // nuevo | cotizado | encargado | cerrado | descartado
+  status      String          @default("nuevo") // nuevo | cotizado | encargado | cerrado | descartado
   adminNote   String?
-  handledBy   AdminUser? @relation(fields: [handledById], references: [id], onDelete: SetNull)
+  handledBy   AdminUser?      @relation(fields: [handledById], references: [id], onDelete: SetNull)
   handledById String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  // Pedidos cargados a mano (WhatsApp): presentación del catálogo, cantidad, precio acordado y la venta con seña
+  source      String          @default("tienda") // tienda | whatsapp
+  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  variantId   String?
+  quantity    Int             @default(1)
+  price       Int?
+  order       Order?          @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId     String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
   @@index([status, createdAt])
   @@index([phone])
+}
+
+// Opciones de venta: lo que se elige al vender un producto y descuenta stock de OTRO producto
+// (ej. el envase de un decant). Un grupo se aplica por tipo y tamaño de presentación o a productos puntuales.
+model OptionGroup {
+  id          String            @id @default(cuid())
+  name        String
+  required    Boolean           @default(true)
+  variantType String? // decant | frasco_completo | … (vacío: cualquiera)
+  sizeMl      Float?
+  productIds  String[]          @default([])
+  active      Boolean           @default(true)
+  sort        Int               @default(0)
+  items       OptionGroupItem[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model OptionGroupItem {
+  id         String         @id @default(cuid())
+  group      OptionGroup    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId    String
+  variant    ProductVariant @relation(fields: [variantId], references: [id])
+  variantId  String
+  label      String? // nombre corto para el punto de venta (vacío: el del producto)
+  qty        Int            @default(1) // unidades que usa por cada unidad vendida
+  priceDelta Int            @default(0) // se suma al precio (0: incluido)
+  isDefault  Boolean        @default(false)
+  sort       Int            @default(0)
+
+  @@unique([groupId, variantId])
+  @@index([variantId])
+}
+
+// Opción elegida en una línea de venta (queda la foto del momento aunque después cambie el grupo).
+model OrderItemOption {
+  id          String         @id @default(cuid())
+  orderItem   OrderItem      @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  orderItemId String
+  groupId     String?
+  groupName   String
+  variant     ProductVariant @relation(fields: [variantId], references: [id])
+  variantId   String
+  label       String
+  qty         Int            @default(1) // por cada unidad del ítem
+  priceDelta  Int            @default(0)
+  createdAt   DateTime       @default(now())
+
+  @@index([orderItemId])
+  @@index([variantId])
+}
+
+// Movimientos del frasco para decants (en ml): apertura de un frasco, ventas, probador, ajustes y devoluciones.
+model DecantMove {
+  id        String          @id @default(cuid())
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  type      String // apertura | venta_local | venta_mayorista | venta_online | probador | ajuste | devolucion
+  ml        Int // con signo
+  mlAfter   Int
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull) // frasco abierto
+  variantId String?
+  order     Order?          @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  orderId   String?
+  reason    String?
+  actor     AdminUser?      @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorId   String?
+  createdAt DateTime        @default(now())
+
+  @@unique([orderId, productId, type])
+  @@index([productId, createdAt])
+}
+
+// Lista mayorista (planilla en USD que se convierte con el USDT). Incluye perfumes que no están en el catálogo.
+model WholesaleItem {
+  id         String          @id @default(cuid())
+  key        String          @unique // nombre normalizado (para actualizar desde la planilla)
+  name       String
+  brand      String?
+  priceUsd   Float
+  reviewUrl  String?
+  position   Int             @default(0)
+  active     Boolean         @default(true) // false: ya no está en la planilla
+  variant    ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  variantId  String?
+  linkLocked Boolean         @default(false) // vínculo elegido a mano: no se pisa al actualizar
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@index([active, position])
+  @@index([variantId])
 }

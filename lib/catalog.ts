@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 
 export const cardInclude = {
   brand: true,
-  variants: { orderBy: { price: "asc" } },
+  variants: { where: { archivedAt: null }, orderBy: { price: "asc" } },
   images: { where: { kind: "image" }, orderBy: [{ variantId: { sort: "asc", nulls: "first" } }, { sort: "asc" }], take: 1 },
 } satisfies Prisma.ProductInclude;
 
@@ -38,6 +38,15 @@ export function priceFrom(variants: V[], pct = 0) {
   return variants.map((v) => promoPrice(v, pct)).reduce((a, b) => (b.price < a.price ? b : a));
 }
 
+/**
+ * Decants: si el panel controla el frasco para decants del perfume, cuántos se pueden hacer con los ml que
+ * quedan (como si fuera el stock). Sin control, se venden siempre (stock vacío).
+ */
+export function decantStock<T extends { type: string; sizeMl: number | null; stock: number | null }>(v: T, decantMl: number | null | undefined): number | null {
+  if (v.type !== "decant" || decantMl == null || !v.sizeMl) return v.stock;
+  return Math.max(0, Math.floor(decantMl / v.sizeMl));
+}
+
 const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash" };
 export const variantText = (v: { type: string; sizeMl: number | null }) => `${TYPE_LABEL[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
 
@@ -59,12 +68,13 @@ function decantFrom(variants: CardVariant[], pct: number) {
 }
 
 export function cardData(
-  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; brand: { slug: string; name: string; origin: string }; variants: CardVariant[]; images?: { url: string; alt: string | null }[] },
+  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; decantMl?: number | null; brand: { slug: string; name: string; origin: string }; variants: CardVariant[]; images?: { url: string; alt: string | null }[] },
   promos?: SalePromo[]
 ) {
   const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin });
+  const variants = p.decantMl == null ? p.variants : p.variants.map((v) => (v.type === "decant" ? { ...v, stock: decantStock({ type: v.type, sizeMl: v.sizeMl ?? null, stock: v.stock ?? null }, p.decantMl) } : v));
   return {
-    quick: quickVariant(p.variants, pct),
+    quick: quickVariant(variants, pct),
     decantPrice: decantFrom(p.variants, pct),
     slug: p.slug,
     brandSlug: p.brand.slug,

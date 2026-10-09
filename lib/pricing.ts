@@ -2,7 +2,7 @@
 // El navegador solo manda variantes y cantidades; todo lo demás se calcula acá.
 import { prisma } from "@/lib/prisma";
 import { cleanProductName } from "@/lib/format";
-import { effectivePrice } from "@/lib/catalog";
+import { effectivePrice, decantStock, variantText } from "@/lib/catalog";
 import { describePromo, evaluatePromos } from "@/lib/promo-engine";
 import { activePromoWhere, loadGifts, promosUsedBy, variantLabel } from "@/lib/promo-data";
 import { hasArea, normalizeZip, zoneCovers } from "@/lib/shipping";
@@ -65,9 +65,10 @@ export async function quote(input: QuoteInput) {
 
   const items = input.lines.map((l) => {
     const v = byId.get(l.variantId);
-    if (!v || v.product.status !== "publicado") throw new QuoteError("Un producto del carrito ya no está disponible.");
+    if (!v || v.product.status !== "publicado" || v.archivedAt) throw new QuoteError("Un producto del carrito ya no está disponible.");
     const productName = cleanProductName(v.product.name, v.product.brand.name);
-    if (v.stock !== null && v.stock < l.qty) throw new QuoteError(v.stock <= 0 ? `${productName} se agotó.` : `De ${productName} quedan ${v.stock}.`);
+    const stock = decantStock(v, v.product.decantMl);
+    if (stock !== null && stock < l.qty) throw new QuoteError(stock <= 0 ? `${productName} (${variantText(v)}) se agotó.` : `De ${productName} (${variantText(v)}) quedan ${stock}.`);
     return {
       variantId: v.id,
       productId: v.productId,

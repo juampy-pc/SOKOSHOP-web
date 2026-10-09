@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <ProductListing
-      where={{ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant" } } }] }}
+      where={{ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant", archivedAt: null } } }] }}
       title="Decants"
       intro="Probá antes de llevarte el frasco completo. Elegí la presentación “Decant” en la ficha de cada perfume."
     />

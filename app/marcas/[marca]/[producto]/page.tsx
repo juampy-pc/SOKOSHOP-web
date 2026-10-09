@@ -9,7 +9,7 @@ import Gallery from "@/components/Gallery";
 import { SelectedVariantProvider } from "@/components/SelectedVariant";
 import { TrackProductView } from "@/components/Analytics";
 import { cleanProductName } from "@/lib/format";
-import { imageUrl, promoPrice, salePct } from "@/lib/catalog";
+import { decantStock, imageUrl, promoPrice, salePct } from "@/lib/catalog";
 
 export const revalidate = 300;
 
@@ -32,7 +32,7 @@ async function load(slug: string) {
     include: {
       brand: true,
       // Solo lo que se muestra: el costo y el margen nunca salen del servidor (la página los mandaba al navegador).
-      variants: { orderBy: { price: "asc" }, select: { id: true, type: true, sizeMl: true, price: true, salePrice: true, stock: true, gtin: true } },
+      variants: { where: { archivedAt: null }, orderBy: { price: "asc" }, select: { id: true, type: true, sizeMl: true, price: true, salePrice: true, stock: true, gtin: true } },
       images: { orderBy: { sort: "asc" } },
       notes: { orderBy: { order: "asc" }, include: { note: true } },
     },
@@ -70,7 +70,8 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
   const imageFor = Object.fromEntries(product.variants.map((v) => [v.id, photos.find((i) => i.variantId === v.id)?.url]).filter((e): e is [string, string] => Boolean(e[1])));
   // Promo automática con precio tachado: se muestra como precio de oferta (el checkout la vuelve a calcular).
   const pct = salePct(await salePromos(), { id: product.id, brandId: product.brandId, origin: product.brand.origin });
-  const variants = product.variants.map((v) => (pct ? { ...v, salePrice: promoPrice(v, pct).price } : v));
+  // Decants: disponibles mientras alcancen los ml del frasco para decants (si el panel lo controla).
+  const variants = product.variants.map((v) => ({ ...v, stock: decantStock(v, product.decantMl), ...(pct ? { salePrice: promoPrice(v, pct).price } : {}) }));
   const pyramid = LEVELS.map((l) => ({ ...l, notes: product.notes.filter((n) => n.position === l.key).map((n) => n.note.name) })).filter((l) => l.notes.length);
   const main = product.notes.filter((n) => !LEVELS.some((l) => l.key === n.position)).map((n) => n.note.name);
   const facts = [

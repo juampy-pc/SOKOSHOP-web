@@ -6,10 +6,17 @@ import { WhatsIcon } from "./Presentation";
 
 const KEY = "soko-wa-bubble-closed";
 
-/** Botón flotante de WhatsApp con el cartel "¿Tenés dudas?" (se puede cerrar y no vuelve en la visita). */
+/** Se esconde solo para no tapar la página. */
+const AUTO_HIDE_MS = 12_000;
+
+/**
+ * Botón flotante de WhatsApp con el cartel "¿Tenés dudas?" (se puede cerrar y no vuelve en la visita).
+ * El cartel va arriba de los botones flotantes (WhatsApp y, si está, el del asesor) para no taparlos.
+ */
 export default function WhatsAppBubble({ href }: { href: string }) {
   const pathname = usePathname();
   const [bubble, setBubble] = useState(false);
+  const [aboveAsesor, setAboveAsesor] = useState(false);
 
   useEffect(() => {
     let closed = false;
@@ -18,11 +25,19 @@ export default function WhatsAppBubble({ href }: { href: string }) {
     // El cartel aparece recién cuando la persona empezó a recorrer la página, así no tapa el inicio.
     let ready = false;
     const t = setTimeout(() => { ready = true; onScroll(); }, 4000);
+    let hide: ReturnType<typeof setTimeout> | undefined;
     function onScroll() {
-      if (ready && window.scrollY > 500) { setBubble(true); window.removeEventListener("scroll", onScroll); }
+      if (!ready || window.scrollY <= 500) return;
+      window.removeEventListener("scroll", onScroll);
+      setAboveAsesor(Boolean(document.querySelector("[data-floating='asesor']")));
+      setBubble(true);
+      hide = setTimeout(() => {
+        setBubble(false);
+        try { sessionStorage.setItem(KEY, "1"); } catch { /* sin almacenamiento */ }
+      }, AUTO_HIDE_MS);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { clearTimeout(t); window.removeEventListener("scroll", onScroll); };
+    return () => { clearTimeout(t); if (hide) clearTimeout(hide); window.removeEventListener("scroll", onScroll); };
   }, []);
 
   if (pathname.startsWith("/checkout")) return null;
@@ -33,12 +48,15 @@ export default function WhatsAppBubble({ href }: { href: string }) {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 flex items-end gap-3">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30">
       {bubble && (
-        <div role="status" className="relative max-w-[210px] md:max-w-[230px] rounded-2xl bg-[#1a1a1a]/85 backdrop-blur-md border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3 text-white animate-[wa-in_.35s_ease-out]">
+        <div
+          role="status"
+          className={`absolute right-0 w-[min(15rem,calc(100vw-2rem))] rounded-2xl bg-[#1a1a1a]/90 backdrop-blur-md border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3 text-white animate-[wa-in_.35s_ease-out] ${aboveAsesor ? "bottom-[8.25rem] md:bottom-[8.75rem]" : "bottom-[4.25rem]"}`}
+        >
           <button type="button" onClick={close} className="absolute top-1.5 right-2 text-white/60 hover:text-white text-sm leading-none p-1" aria-label="Cerrar aviso">×</button>
           <p className="text-[#1de03c] font-semibold text-sm pr-4">¿Tenés dudas?</p>
-          <p className="text-[13px] text-white/85 leading-snug mt-1">Hay un asesor para ayudarte a elegir tu fragancia o responder cualquier consulta.</p>
+          <p className="text-[13px] text-white/85 leading-snug mt-1">Escribinos por WhatsApp y te ayudamos a elegir tu fragancia.</p>
         </div>
       )}
       <a

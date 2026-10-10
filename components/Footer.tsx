@@ -67,15 +67,16 @@ export default async function Footer() {
             {ig && <a href={`https://instagram.com/${ig}`} target="_blank" rel="noopener" className={`block ${link}`}>Instagram @{ig}</a>}
             {store.email && <a href={`mailto:${store.email}`} className={`block break-all ${link}`}>{store.email}</a>}
           </address>
-          <Link href="/arrepentimiento" className="mt-5 inline-block rounded-full border border-[#1de03c] text-[#1de03c] px-4 py-2 font-semibold hover:bg-[#1de03c] hover:text-[#06140a] transition">Botón de arrepentimiento</Link>
-          <p className="text-xs text-white/40 mt-2">Cancelá tu compra dentro de los 10 días corridos desde la entrega.</p>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 md:px-5 pt-5 pb-24 md:pb-5 md:pr-24 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-white/40">
-          <p>© {new Date().getFullYear()} SokoShop · Resistencia, Chaco · Pagos seguros con Mercado Pago</p>
-          <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener" className="hover:text-[#1de03c] transition">Defensa de las y los consumidores. Para reclamos ingrese aquí</a>
+          <p>© {new Date().getFullYear()} SokoShop · Resistencia, Chaco · Impulsado por smzlabs</p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-5">
+            <Link href="/arrepentimiento" title="Cancelá tu compra dentro de los 10 días corridos desde la entrega" className="inline-flex w-fit items-center rounded-full border border-[#1de03c]/70 text-[#1de03c] px-3 py-1 font-medium hover:bg-[#1de03c] hover:text-[#06140a] transition">Botón de arrepentimiento</Link>
+            <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/formulario" target="_blank" rel="noopener" className="hover:text-[#1de03c] transition">Defensa de las y los consumidores. Para reclamos ingrese aquí</a>
+          </div>
         </div>
       </div>
     </footer>

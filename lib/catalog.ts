@@ -52,10 +52,11 @@ export const variantText = (v: { type: string; sizeMl: number | null }) => `${TY
 
 type CardVariant = V & { id?: string; type?: string; sizeMl?: number | null; stock?: number | null };
 
-/** Presentación que se agrega con un toque desde la tarjeta: el frasco completo (o la única que haya) con stock. */
+/** Presentación que se agrega con un toque desde la tarjeta: el frasco de 100 ml (o el frasco completo, o la única) con stock. */
 function quickVariant(variants: CardVariant[], pct: number) {
   const buyable = variants.filter((v) => v.id && v.type && (v.stock === null || v.stock === undefined || v.stock > 0));
-  const pick = buyable.find((v) => v.type === "frasco_completo") ?? (buyable.length === 1 ? buyable[0] : undefined);
+  // Precio principal: el frasco de 100 ml (lista); si no hay, otro frasco completo; si no, la única presentación.
+  const pick = buyable.find((v) => v.type === "frasco_completo" && v.sizeMl === 100) ?? buyable.find((v) => v.type === "frasco_completo") ?? (buyable.length === 1 ? buyable[0] : undefined);
   if (!pick) return null;
   const { price, compareAt } = promoPrice(pick, pct);
   return { variantId: pick.id!, label: variantText({ type: pick.type!, sizeMl: pick.sizeMl ?? null }), price, compareAt, choose: variants.length > 1 };

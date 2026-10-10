@@ -39,3 +39,8 @@ body {
 .asesor-md .chat-table { overflow-x: auto; }
 .asesor-md table { border-collapse: collapse; font-size: 0.75rem; }
 .asesor-md th, .asesor-md td { border-bottom: 1px solid #e5e5e5; padding: 0.25rem 0.5rem; text-align: left; }
+
+/* Banners del inicio: barra de progreso de 7 s y cambio suave (sin librerías) */
+@keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hero-progress > span { transform-origin: left; animation: hero-progress 7s linear forwards; }
+@media (prefers-reduced-motion: reduce) { .hero-progress > span { animation: none; transform: scaleX(1); } }

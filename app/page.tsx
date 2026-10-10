@@ -2,11 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { salePromos } from "@/lib/sale-promos";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import QuickAdd from "@/components/QuickAdd";
-import SearchBox from "@/components/SearchBox";
+import HeroCarousel from "@/components/HeroCarousel";
+import { HeroBienvenida, HeroPromo } from "@/components/HeroParts";
+import { activeHeroSlides } from "@/lib/hero-slides";
 import Presentation from "@/components/Presentation";
-import { cardData, cardInclude, imageUrl } from "@/lib/catalog";
-import { cleanProductName, shortProductName } from "@/lib/format";
+import { cardData, cardInclude } from "@/lib/catalog";
 import type { ReactNode } from "react";
 import { getSetting } from "@/lib/settings";
 import Faq from "@/components/Faq";
@@ -45,7 +45,6 @@ async function bestSellers() {
   return [...sorted, ...extra].slice(0, 8);
 }
 
-const ars = (n: number) => `$${n.toLocaleString("es-AR")}`;
 
 function SectionHead({ title, tagline, href, link = "Ver todos" }: { title: string; tagline: string; href: string; link?: string }) {
   return (
@@ -99,7 +98,7 @@ const CHIPS = [
 
 const TRUST = [
   { t: "100% originales", d: "Sin imitaciones ni réplicas" },
-  { t: "Mercado Pago", d: "Tarjetas y dinero en cuenta" },
+  { t: "Pago seguro", d: "Protegemos todos tus datos" },
   { t: "Envíos a todo el país", d: "O retiro en Resistencia" },
   { t: "Asesoramiento real", d: "Te ayudamos a elegir" },
 ];
@@ -128,74 +127,38 @@ export default async function Home() {
   const disenadorShown = fresh(disenador, 4);
   const decantsShown = fresh(decants, 6);
   const featured = top.slice(0, 3).map((p) => ({ p, c: cardData(p, promos) }));
+  const heroSlides = activeHeroSlides();
 
   return (
     <main className="min-h-screen bg-[#fafaf9]">
-      {/* Hero: buscar o elegir categoría y comprar sin vueltas */}
-      <section className="relative overflow-hidden bg-black text-white">
-        <div aria-hidden="true" className="pointer-events-none absolute -top-40 right-[-10%] size-[520px] rounded-full bg-[#1de03c]/15 blur-[120px]" />
-        <div className="relative max-w-6xl mx-auto px-4 md:px-5 pt-10 pb-12 md:pt-16 md:pb-20 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px] gap-10 lg:gap-14 items-center">
-          <div className="min-w-0">
-            <p className="text-xs uppercase tracking-[0.18em] text-[#1de03c] mb-4">Perfumes árabes y de diseñador</p>
-            <h1 className="text-[34px] leading-[1.06] md:text-[40px] lg:text-[42px] xl:text-[44px] font-semibold tracking-tight">
-              Te atendemos como a un amigo,<br className="hidden md:block" /> <span className="text-[#1de03c]">y te asesoramos de verdad.</span>
-            </h1>
-            <p className="text-white/65 mt-5 max-w-lg text-base md:text-lg leading-relaxed">Encontrá tu perfume, pagalo con Mercado Pago y recibilo en casa o retiralo en el local.</p>
-            <div className="mt-8 max-w-xl flex"><SearchBox /></div>
-            <nav aria-label="Categorías" className="mt-4 flex flex-wrap gap-2">
-              {CHIPS.map((c) => (
-                <Link key={c.href} href={c.href} className="rounded-full border border-white/15 px-3 sm:px-4 py-2 text-[13px] sm:text-sm text-white/85 hover:border-[#1de03c] hover:text-[#1de03c] transition">{c.label}</Link>
-              ))}
-            </nav>
-          </div>
-
-          {featured.length > 0 && (
-            <div className="min-w-0">
-              <p className="text-sm font-medium text-white/70 mb-3">Los más elegidos</p>
-              <ul className="-mx-4 px-4 lg:mx-0 lg:px-0 flex lg:flex-col gap-3 overflow-x-auto snap-x snap-mandatory lg:overflow-visible pb-1 lg:pb-0 [scrollbar-width:none]">
-                {featured.map(({ p, c }) => {
-                  const href = `/marcas/${c.brandSlug}/${c.slug}`;
-                  const price = c.quick?.price ?? c.price;
-                  return (
-                    <li key={p.id} className="snap-start shrink-0 w-[78%] sm:w-[48%] lg:w-auto flex gap-3 items-center rounded-2xl bg-white/[0.06] border border-white/10 p-2.5 hover:border-white/25 transition">
-                      <Link href={href} className="shrink-0">
-                        {c.image ? (
-                          // eslint-disable-next-line @next/next/no-img-element -- Cloudinary entrega el tamaño justo
-                          <img src={imageUrl(c.image, 128, 160)} alt="" width={64} height={80} className="w-16 h-20 rounded-xl object-cover bg-white" />
-                        ) : <span className="block w-16 h-20 rounded-xl bg-white/10" />}
-                      </Link>
-                      <div className="min-w-0 flex-1">
-                        <Link href={href} className="block">
-                          <span className="block text-[11px] text-white/45">{c.brandName}</span>
-                          <span className="block text-sm font-semibold leading-tight truncate">{shortProductName(c.name, c.brandName)}</span>
-                          {price && <span className="block text-sm text-[#1de03c] font-semibold mt-1 tabular-nums">{c.quick ? "" : "desde "}{ars(price)}</span>}
-                        </Link>
-                      </div>
-                      <div className="w-[88px] shrink-0">
-                        {c.quick ? (
-                          <QuickAdd variantId={c.quick.variantId} label={c.quick.label} price={c.quick.price} productName={cleanProductName(c.name, c.brandName)} brandName={c.brandName} image={c.image} href={href} compact onDark />
-                        ) : (
-                          <Link href={href} className="block text-center rounded-full bg-white text-[#111] text-xs font-medium py-2.5 hover:bg-[#1de03c] hover:text-[#06140a] transition">Ver</Link>
-                        )}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Hero: banners que rotan (el buscador está en el header) */}
+      <HeroCarousel
+        slides={heroSlides.map((h) => ({
+          id: h.id,
+          glow: h.glow,
+          content: h.id === "bienvenida" ? (
+            <HeroBienvenida title={h.title} accent={h.accent} text={h.text} cta={h.cta} href={h.href} glow={h.glow} featured={featured} />
+          ) : (
+            <HeroPromo slide={h} />
+          ),
+        }))}
+      >
+        <nav aria-label="Categorías" className="relative max-w-6xl mx-auto px-4 md:px-5 pb-10 md:pb-12 flex flex-wrap gap-2">
+          {CHIPS.map((c) => (
+            <Link key={c.href} href={c.href} className="rounded-full border border-white/15 px-3 sm:px-4 py-2 text-[13px] sm:text-sm text-white/85 hover:border-[#1de03c] hover:text-[#1de03c] transition">{c.label}</Link>
+          ))}
+        </nav>
+      </HeroCarousel>
 
       {/* Por qué comprarnos: una fila sobria, sin tarjetas */}
       <section aria-label="Por qué comprar en SokoShop" className="bg-white border-b border-black/5">
         <ul className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/5">
           {TRUST.map((x) => (
-            <li key={x.t} className="bg-white py-5 px-4 md:px-5 flex gap-3 items-start">
-              <span aria-hidden="true" className="mt-1.5 size-2 shrink-0 rounded-full bg-[#1de03c] shadow-[0_0_10px_rgba(29,224,60,0.7)]" />
+            <li key={x.t} className="bg-white py-6 md:py-7 px-4 md:px-6 flex gap-3.5 items-start">
+              <span aria-hidden="true" className="mt-2 size-2.5 shrink-0 rounded-full bg-[#1de03c] shadow-[0_0_12px_rgba(29,224,60,0.8)]" />
               <span>
-                <span className="block text-sm font-semibold text-gray-900">{x.t}</span>
-                <span className="block text-xs text-gray-500 mt-0.5">{x.d}</span>
+                <span className="block text-base md:text-lg font-bold text-gray-900 tracking-tight">{x.t}</span>
+                <span className="block text-sm md:text-[15px] text-gray-600 mt-1 leading-snug">{x.d}</span>
               </span>
             </li>
           ))}
@@ -233,10 +196,6 @@ export default async function Home() {
           )}
         </GridSection>
 
-        <RailSection promos={promos} products={decantsShown} label="Decants">
-          <SectionHead title="Decants para probar" tagline="Probá antes de llevarte el frasco completo. Deslizá para ver más." href="/decants" />
-        </RailSection>
-
         <section className="mb-16 rounded-3xl bg-[#111] text-white px-6 py-8 md:px-10 md:py-10 flex flex-col md:flex-row md:items-center gap-5 justify-between relative overflow-hidden">
           <div aria-hidden="true" className="pointer-events-none absolute -left-20 -bottom-24 size-72 rounded-full bg-[#1de03c]/20 blur-3xl" />
           <div className="relative">
@@ -245,6 +204,10 @@ export default async function Home() {
           </div>
           <Link href="/perfumes-a-pedido" className="relative shrink-0 rounded-full bg-[#1de03c] text-[#06140a] font-semibold px-7 py-3.5 hover:bg-white text-center transition">Pedir un perfume</Link>
         </section>
+
+        <RailSection promos={promos} products={decantsShown} label="Decants">
+          <SectionHead title="Decants para probar" tagline="Probá antes de llevarte el frasco completo. Deslizá para ver más." href="/decants" />
+        </RailSection>
 
         <Faq />
         <LocationSection />

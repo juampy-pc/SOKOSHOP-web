@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export type HeroCarouselSlide = { id: string; glow: string; content: ReactNode };
 
@@ -8,23 +8,26 @@ const INTERVAL_MS = 7000;
 
 /**
  * Carrusel del inicio. Rota cada 7 s con un cambio suave (fundido + leve desplazamiento) y la luz de
- * fondo cambia de color con cada banner. Se pausa con el mouse encima o con el foco adentro; si la
- * persona toca el banner o elige un puntito, deja de rotar.
+ * fondo cambia de color con cada banner. Se pausa mientras el mouse, el dedo o el foco de teclado están
+ * sobre el banner, y vuelve a rotar al soltar. Elegir un puntito muestra ese banner y reinicia los 7 s.
  */
 export default function HeroCarousel({ slides, children }: { slides: HeroCarouselSlide[]; children?: ReactNode }) {
   const [i, setI] = useState(0);
   const [hover, setHover] = useState(false);
-  const [stopped, setStopped] = useState(false);
+  const touchEnd = useRef<ReturnType<typeof setTimeout>>(undefined);
   const n = slides.length;
-  const running = n > 1 && !hover && !stopped;
+  const running = n > 1 && !hover;
 
+  // Cada cambio de banner (automático o con un puntito) arranca un ciclo nuevo de 7 s.
   useEffect(() => {
     if (!running) return;
-    const t = setInterval(() => {
+    const t = setTimeout(() => {
       if (document.visibilityState === "visible") setI((x) => (x + 1) % n);
     }, INTERVAL_MS);
-    return () => clearInterval(t);
-  }, [running, n]);
+    return () => clearTimeout(t);
+  }, [running, n, i]);
+
+  useEffect(() => () => clearTimeout(touchEnd.current), []);
 
   const glow = slides[i]?.glow ?? "#1de03c";
   return (
@@ -34,9 +37,10 @@ export default function HeroCarousel({ slides, children }: { slides: HeroCarouse
       className="relative overflow-hidden bg-black text-white"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onFocus={() => setHover(true)}
+      onFocus={(e) => { if (e.target.matches(":focus-visible")) setHover(true); }}
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setHover(false); }}
-      onTouchStart={() => setStopped(true)}
+      onTouchStart={() => { clearTimeout(touchEnd.current); setHover(true); }}
+      onTouchEnd={() => { touchEnd.current = setTimeout(() => setHover(false), 3000); }}
     >
       {/* Luz del banner: el color cambia suave con cada uno */}
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 right-[-10%] size-[520px] rounded-full blur-[120px] opacity-20 transition-colors duration-1000" style={{ backgroundColor: glow }} />
@@ -64,7 +68,7 @@ export default function HeroCarousel({ slides, children }: { slides: HeroCarouse
             <button
               key={s.id}
               type="button"
-              onClick={() => { setI(k); setStopped(true); }}
+              onClick={() => setI(k)}
               aria-label={`Banner ${k + 1}`}
               aria-current={k === i}
               className={`h-1.5 rounded-full transition-all duration-500 ${k === i ? "w-8 bg-white" : "w-3 bg-white/30 hover:bg-white/60"}`}

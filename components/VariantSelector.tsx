@@ -85,7 +85,7 @@ export default function VariantSelector({
           </>
         )}
       </p>
-      <p className="text-xs text-gray-400 mb-5">
+      <p className={`text-xs mb-5 ${v.stock !== null && v.stock <= 0 ? "text-[#e0103a] font-semibold" : "text-gray-400"}`}>
         {v.stock === null
           ? "Se prepara al momento — sujeto a disponibilidad"
           : v.stock <= 0
@@ -113,6 +113,7 @@ export default function VariantSelector({
             <span className="block text-xs opacity-70">
               ${finalPrice(opt).toLocaleString("es-AR")}
             </span>
+            {opt.stock !== null && opt.stock <= 0 && <span className="block text-[10px] font-bold uppercase tracking-wide text-[#e0103a] mt-0.5">Sin stock</span>}
           </button>
         ))}
       </div>

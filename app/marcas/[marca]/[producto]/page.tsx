@@ -9,7 +9,8 @@ import Gallery from "@/components/Gallery";
 import { SelectedVariantProvider } from "@/components/SelectedVariant";
 import { TrackProductView } from "@/components/Analytics";
 import { cleanProductName } from "@/lib/format";
-import { decantStock, imageUrl, promoPrice, salePct } from "@/lib/catalog";
+import { decantStock, imageUrl, promoPrice, salePct, sortVariants } from "@/lib/catalog";
+import StockBadge from "@/components/StockBadge";
 
 export const revalidate = 300;
 
@@ -71,7 +72,9 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
   // Promo automática con precio tachado: se muestra como precio de oferta (el checkout la vuelve a calcular).
   const pct = salePct(await salePromos(), { id: product.id, brandId: product.brandId, origin: product.brand.origin });
   // Decants: disponibles mientras alcancen los ml del frasco para decants (si el panel lo controla).
-  const variants = product.variants.map((v) => ({ ...v, stock: decantStock(v, product.decantMl), ...(pct ? { salePrice: promoPrice(v, pct).price } : {}) }));
+  // Orden fijo (frasco de 100 ml primero): la ficha abre en esa presentación, sin importar cómo estén cargadas.
+  const variants = sortVariants(product.variants.map((v) => ({ ...v, stock: decantStock(v, product.decantMl), ...(pct ? { salePrice: promoPrice(v, pct).price } : {}) })));
+  const outOfStock = variants.filter((v) => v.stock !== null && v.stock <= 0).map((v) => v.id);
   const pyramid = LEVELS.map((l) => ({ ...l, notes: product.notes.filter((n) => n.position === l.key).map((n) => n.note.name) })).filter((l) => l.notes.length);
   const main = product.notes.filter((n) => !LEVELS.some((l) => l.key === n.position)).map((n) => n.note.name);
   const facts = [
@@ -112,7 +115,10 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
       <TrackProductView productId={product.id} />
       <SelectedVariantProvider initial={null}>
       <div className="grid md:grid-cols-2 gap-10">
-        <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt, kind: i.kind, variantId: i.variantId }))} alt={`${product.brand.name} ${title}`} />
+        <div className="relative min-w-0">
+          <StockBadge outOfStock={outOfStock} firstId={variants[0]?.id ?? null} />
+          <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt, kind: i.kind, variantId: i.variantId }))} alt={`${product.brand.name} ${title}`} />
+        </div>
 
         <div>
           <p className="text-[#17a930] text-sm font-semibold">{product.brand.name}</p>

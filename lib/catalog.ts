@@ -52,14 +52,42 @@ export const variantText = (v: { type: string; sizeMl: number | null }) => `${TY
 
 type CardVariant = V & { id?: string; type?: string; sizeMl?: number | null; stock?: number | null };
 
-/** Presentación que se agrega con un toque desde la tarjeta: el frasco de 100 ml (o el frasco completo, o la única) con stock. */
-function quickVariant(variants: CardVariant[], pct: number) {
-  const buyable = variants.filter((v) => v.id && v.type && (v.stock === null || v.stock === undefined || v.stock > 0));
-  // Precio principal: el frasco de 100 ml (lista); si no hay, otro frasco completo; si no, la única presentación.
-  const pick = buyable.find((v) => v.type === "frasco_completo" && v.sizeMl === 100) ?? buyable.find((v) => v.type === "frasco_completo") ?? (buyable.length === 1 ? buyable[0] : undefined);
+const TYPE_RANK: Record<string, number> = { frasco_completo: 0, body_splash: 1, decant: 2 };
+
+/**
+ * Orden de las presentaciones en la tienda: primero el frasco de 100 ml, después los otros frascos
+ * (del más grande al más chico), los body splash y por último los decants (del más chico al más grande).
+ * No depende del orden en que estén cargadas en el panel.
+ */
+export function sortVariants<T extends { type?: string; sizeMl?: number | null }>(variants: T[]): T[] {
+  const rank = (v: T) => (v.type === "frasco_completo" && v.sizeMl === 100 ? -1 : TYPE_RANK[v.type ?? ""] ?? 3);
+  return [...variants].sort((a, b) => {
+    const r = rank(a) - rank(b);
+    if (r) return r;
+    const sa = a.sizeMl ?? 0, sb = b.sizeMl ?? 0;
+    return a.type === "frasco_completo" ? sb - sa : sa - sb;
+  });
+}
+
+const inStock = (v: CardVariant) => v.stock === null || v.stock === undefined || v.stock > 0;
+
+/**
+ * Presentación principal de la tarjeta: el frasco de 100 ml (o el primero según `sortVariants`).
+ * Su precio se muestra siempre, tenga o no stock; si no tiene, la tarjeta lleva la etiqueta "Sin stock".
+ */
+function mainVariant(variants: CardVariant[], pct: number) {
+  const pick = sortVariants(variants)[0];
   if (!pick) return null;
   const { price, compareAt } = promoPrice(pick, pct);
-  return { variantId: pick.id!, label: variantText({ type: pick.type!, sizeMl: pick.sizeMl ?? null }), price, compareAt, choose: variants.length > 1 };
+  return { price, compareAt, outOfStock: !inStock(pick), isDecant: pick.type === "decant", from: pick.type !== "frasco_completo" && variants.length > 1 };
+}
+
+/** Presentación que se agrega con un toque desde la tarjeta: la principal, si tiene stock. */
+function quickVariant(variants: CardVariant[], pct: number) {
+  const pick = sortVariants(variants)[0];
+  if (!pick || !pick.id || !pick.type || !inStock(pick)) return null;
+  const { price, compareAt } = promoPrice(pick, pct);
+  return { variantId: pick.id, label: variantText({ type: pick.type, sizeMl: pick.sizeMl ?? null }), price, compareAt, choose: variants.length > 1 };
 }
 
 /** El decant más barato, para mostrarlo aparte del precio del frasco. */
@@ -75,6 +103,7 @@ export function cardData(
   const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin });
   const variants = p.decantMl == null ? p.variants : p.variants.map((v) => (v.type === "decant" ? { ...v, stock: decantStock({ type: v.type, sizeMl: v.sizeMl ?? null, stock: v.stock ?? null }, p.decantMl) } : v));
   return {
+    main: mainVariant(variants, pct),
     quick: quickVariant(variants, pct),
     decantPrice: decantFrom(p.variants, pct),
     slug: p.slug,

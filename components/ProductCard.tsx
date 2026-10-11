@@ -13,21 +13,24 @@ type Props = {
   decantPrice?: number | null;
   image?: string | null;
   quick?: { variantId: string; label: string; price: number; compareAt?: number | null; choose: boolean } | null;
+  /** Presentación principal (el frasco de 100 ml): su precio va siempre, aunque no tenga stock. */
+  main?: { price: number; compareAt: number | null; outOfStock: boolean; isDecant: boolean; from: boolean } | null;
 };
 
 const ars = (n: number) => `$${n.toLocaleString("es-AR")}`;
 
 /**
- * Tarjeta de producto: nombre corto (la concentración y el tamaño van aparte), el precio del frasco
- * y, si hay decants, su precio en una línea chica. Un solo botón: agrega el frasco o lleva a elegir.
+ * Tarjeta de producto: nombre corto (la concentración y el tamaño van aparte), el precio del frasco de
+ * 100 ml (con o sin stock; sin stock lleva la etiqueta roja) y, si hay decants, su precio en una línea chica.
+ * Un solo botón: agrega el frasco o lleva a elegir.
  */
-export default function ProductCard({ slug, brandSlug, brandName, name, price, compareAt, decantPrice, image, quick }: Props) {
+export default function ProductCard({ slug, brandSlug, brandName, name, price, compareAt, decantPrice, image, quick, main: principal }: Props) {
   const full = cleanProductName(name, brandName);
   const title = shortProductName(name, brandName);
   const detail = full.replace(title, "").replace(/\s{2,}/g, " ").trim();
   const href = `/marcas/${brandSlug}/${slug}`;
-  const main = quick ? { price: quick.price, compareAt: quick.compareAt ?? null, from: false } : price ? { price, compareAt: compareAt ?? null, from: true } : null;
-  const showDecant = decantPrice != null && (quick ? decantPrice !== quick.price : false);
+  const main = principal ?? (price ? { price, compareAt: compareAt ?? null, from: true, outOfStock: false, isDecant: false } : null);
+  const showDecant = decantPrice != null && main != null && !main.isDecant;
   return (
     <div className="group rounded-2xl bg-white p-2.5 sm:p-3 flex flex-col border border-black/[0.04] shadow-[0_1px_2px_rgba(17,17,17,0.04)] hover:shadow-[0_12px_32px_-12px_rgba(17,17,17,0.18)] transition-shadow">
       <Link href={href} className="flex flex-col flex-1">
@@ -45,7 +48,12 @@ export default function ProductCard({ slug, brandSlug, brandName, name, price, c
           ) : (
             <span className="text-gray-300 text-xs">Sin foto</span>
           )}
-          {main?.compareAt && <span className="absolute top-2 left-2 bg-[#1de03c] text-[#06140a] text-[11px] font-bold rounded-full px-2 py-0.5">−{Math.round((1 - main.price / main.compareAt) * 100)}%</span>}
+          {(main?.outOfStock || main?.compareAt) && (
+            <span className="absolute top-2 left-2 flex flex-col items-start gap-1">
+              {main.outOfStock && <span className="tag-sin-stock">Sin stock</span>}
+              {main.compareAt && <span className="bg-[#1de03c] text-[#06140a] text-[11px] font-bold rounded-full px-2 py-0.5">−{Math.round((1 - main.price / main.compareAt) * 100)}%</span>}
+            </span>
+          )}
         </div>
         <span className="text-[11px] uppercase tracking-wide text-gray-400 px-0.5">{brandName}</span>
         <span className="text-[15px] font-semibold leading-snug text-gray-900 px-0.5 mt-0.5 line-clamp-2">{title}</span>

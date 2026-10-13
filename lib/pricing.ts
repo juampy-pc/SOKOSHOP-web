@@ -2,7 +2,8 @@
 // El navegador solo manda variantes y cantidades; todo lo demás se calcula acá.
 import { prisma } from "@/lib/prisma";
 import { cleanProductName } from "@/lib/format";
-import { effectivePrice, decantStock, variantText } from "@/lib/catalog";
+import { effectivePrice, decantStock, promoPrice, salePct, variantText } from "@/lib/catalog";
+import { isSalePromo } from "@/lib/sale-promos";
 import { describePromo, evaluatePromos } from "@/lib/promo-engine";
 import { activePromoWhere, loadGifts, promosUsedBy, variantLabel } from "@/lib/promo-data";
 import { hasArea, normalizeZip, zoneCovers } from "@/lib/shipping";
@@ -22,6 +23,9 @@ export type QuoteInput = {
 };
 
 export class QuoteError extends Error {}
+
+/** Cuánto tiempo un pedido sin pagar "reserva" un uso de un cupón con máximo de usos. */
+const PENDING_HOLD_MS = 2 * 3600_000;
 
 export function parseLines(items: unknown): CartLine[] | null {
   if (!Array.isArray(items) || items.length === 0 || items.length > MAX_LINES) return null;
@@ -57,10 +61,25 @@ export type DeliveryZone = Awaited<ReturnType<typeof deliveryOptions>>["zones"][
 export type PickupPoint = Awaited<ReturnType<typeof deliveryOptions>>["pickups"][number];
 
 export async function quote(input: QuoteInput) {
-  const variants = await prisma.productVariant.findMany({
-    where: { id: { in: input.lines.map((l) => l.variantId) } },
-    include: { product: { include: { brand: true } } },
-  });
+  const code = input.couponCode?.trim().toUpperCase() || null;
+  const email = input.email && EMAIL.test(input.email) ? input.email.toLowerCase() : null;
+  const [variants, allPromos] = await Promise.all([
+    prisma.productVariant.findMany({
+      where: { id: { in: input.lines.map((l) => l.variantId) } },
+      include: { product: { include: { brand: true } } },
+    }),
+    prisma.promotion.findMany({ where: { ...activePromoWhere(), OR: [{ code: null }, ...(code ? [{ code }] : [])] } }),
+  ]);
+  // Promos con precio tachado: el carrito cobra exactamente el precio que se vio en la tarjeta y en la ficha.
+  const sales = allPromos.filter(isSalePromo);
+  // Cupones con máximo de usos: los pedidos que se están pagando ahora también cuentan como uso
+  // (si no, dos clientes con un cupón de 1 uso pueden pagar los dos).
+  const limited = allPromos.filter((p) => p.maxUses !== null && !isSalePromo(p)).map((p) => p.id);
+  const pending = limited.length
+    ? await prisma.order.groupBy({ by: ["promotionId"], where: { promotionId: { in: limited }, status: "pendiente", createdAt: { gte: new Date(Date.now() - PENDING_HOLD_MS) }, ...(email ? { NOT: { customerEmail: email } } : {}) }, _count: true })
+    : [];
+  const holding = new Map(pending.map((r) => [r.promotionId, r._count]));
+  const promos = allPromos.filter((p) => !isSalePromo(p)).map((p) => (holding.has(p.id) ? { ...p, usedCount: p.usedCount + holding.get(p.id)! } : p));
   const byId = new Map(variants.map((v) => [v.id, v]));
 
   const items = input.lines.map((l) => {
@@ -68,6 +87,8 @@ export async function quote(input: QuoteInput) {
     if (!v || v.product.status !== "publicado" || v.archivedAt) throw new QuoteError("Un producto del carrito ya no está disponible.");
     const productName = cleanProductName(v.product.name, v.product.brand.name);
     const stock = decantStock(v, v.product.decantMl);
+    const pct = salePct(sales, { id: v.productId, brandId: v.product.brandId, origin: v.product.brand.origin });
+    const sale = promoPrice(v, pct);
     if (stock !== null && stock < l.qty) throw new QuoteError(stock <= 0 ? `${productName} (${variantText(v)}) se agotó.` : `De ${productName} (${variantText(v)}) quedan ${stock}.`);
     return {
       variantId: v.id,
@@ -79,9 +100,10 @@ export async function quote(input: QuoteInput) {
       brandName: v.product.brand.name,
       productName,
       variantLabel: variantLabel(v),
-      price: effectivePrice(v),
+      price: pct > 0 ? sale.price : effectivePrice(v),
       qty: l.qty,
       isGift: false,
+      onSale: pct > 0 && sale.price < effectivePrice(v),
     };
   });
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
@@ -103,9 +125,6 @@ export async function quote(input: QuoteInput) {
   };
 
   // Promociones vigentes (automáticas) + cupón ingresado: el motor elige la mejor para el cliente.
-  const code = input.couponCode?.trim().toUpperCase() || null;
-  const promos = await prisma.promotion.findMany({ where: { ...activePromoWhere(), OR: [{ code: null }, ...(code ? [{ code }] : [])] } });
-  const email = input.email && EMAIL.test(input.email) ? input.email.toLowerCase() : null;
   const [used, gifts] = await Promise.all([
     promos.some((p) => p.onePerCustomer) ? promosUsedBy(email) : Promise.resolve(new Set<string>()),
     loadGifts(promos, items),

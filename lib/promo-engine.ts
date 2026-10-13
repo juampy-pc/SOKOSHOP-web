@@ -24,7 +24,12 @@ export type EnginePromo = {
   onePerCustomer: boolean;
 };
 
-export type EngineItem = { variantId: string; productId: string; brandId: string; origin: string; price: number; qty: number; type: string; sizeMl: number | null };
+export type EngineItem = {
+  variantId: string; productId: string; brandId: string; origin: string; price: number; qty: number; type: string; sizeMl: number | null;
+  /** ya tiene el precio tachado de una promo automática: no suma otro descuento (sí envío gratis o regalo) */
+  onSale?: boolean;
+};
+const DISCOUNT_KINDS = new Set(["porcentaje", "monto", "nxm"]);
 export type GiftVariant = { variantId: string; productId: string; label: string; productName: string; brandName: string; price: number; stock: number | null; sizeMl: number | null };
 
 export type EngineInput = {
@@ -86,15 +91,19 @@ export function evaluatePromos(input: EngineInput): EngineResult {
     const base = eligible.reduce((s, i) => s + i.price * i.qty, 0);
     if (base === 0) { fail("El cupón no aplica a los productos elegidos."); continue; }
     if (p.minSubtotal && base < p.minSubtotal) { fail(`Requiere una compra mínima de ${money(p.minSubtotal)}.`); continue; }
+    // Un producto con precio tachado no suma un segundo descuento.
+    const discountable = DISCOUNT_KINDS.has(p.kind) ? eligible.filter((i) => !i.onSale) : eligible;
+    const dBase = discountable.reduce((s, i) => s + i.price * i.qty, 0);
+    if (dBase === 0) { fail("Los productos elegidos ya tienen precio rebajado: este descuento no se suma."); continue; }
 
     let discount = 0, freeShipping = false, gift: GiftVariant | null = null;
-    if (p.kind === "porcentaje") discount = Math.round((base * Math.min(90, Math.max(0, p.value))) / 100);
-    else if (p.kind === "monto") discount = Math.min(base, p.value);
+    if (p.kind === "porcentaje") discount = Math.round((dBase * Math.min(90, Math.max(0, p.value))) / 100);
+    else if (p.kind === "monto") discount = Math.min(dBase, p.value);
     else if (p.kind === "envio_gratis") freeShipping = true;
     else if (p.kind === "nxm") {
       const buy = p.buyQty ?? 0, pay = p.payQty ?? 0;
       if (buy < 2 || pay < 1 || pay >= buy) continue;
-      const units = eligible.flatMap((i) => Array.from({ length: i.qty }, () => i.price)).sort((a, b) => a - b);
+      const units = discountable.flatMap((i) => Array.from({ length: i.qty }, () => i.price)).sort((a, b) => a - b);
       const free = Math.floor(units.length / buy) * (buy - pay);
       if (free === 0) { fail(`Llevá ${buy} productos para aprovechar la promo.`); continue; }
       discount = units.slice(0, free).reduce((s, x) => s + x, 0);

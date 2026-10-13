@@ -11,6 +11,7 @@ const AUTO_HIDE_MS = 12_000;
 
 /**
  * Botón flotante de WhatsApp con el cartel "¿Tenés dudas?" (se puede cerrar y no vuelve en la visita).
+ * Aparece solo en la página de inicio.
  * El cartel va arriba de los botones flotantes (WhatsApp y, si está, el del asesor) para no taparlos.
  */
 export default function WhatsAppBubble({ href }: { href: string }) {
@@ -40,7 +41,8 @@ export default function WhatsAppBubble({ href }: { href: string }) {
     return () => { clearTimeout(t); if (hide) clearTimeout(hide); window.removeEventListener("scroll", onScroll); };
   }, []);
 
-  if (pathname.startsWith("/checkout")) return null;
+  // Solo en el inicio: en el resto de la tienda queda el asesor.
+  if (pathname !== "/") return null;
 
   const close = () => {
     setBubble(false);

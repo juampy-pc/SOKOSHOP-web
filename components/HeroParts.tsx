@@ -29,7 +29,7 @@ export function HeroBienvenida({ title, accent, text, cta, href, glow, featured 
           <ul className="-mx-4 px-4 lg:mx-0 lg:px-0 flex lg:flex-col gap-3 overflow-x-auto snap-x snap-mandatory lg:overflow-visible pb-1 lg:pb-0 [scrollbar-width:none]">
             {featured.map(({ p, c }) => {
               const pHref = `/marcas/${c.brandSlug}/${c.slug}`;
-              const price = c.quick?.price ?? c.price;
+              const price = c.main?.price ?? c.price;
               return (
                 <li key={p.id} className="snap-start shrink-0 w-[78%] sm:w-[48%] lg:w-auto flex gap-3 items-center rounded-2xl bg-white/[0.06] border border-white/10 p-2.5 hover:border-white/25 transition">
                   <Link href={pHref} className="shrink-0">
@@ -42,7 +42,7 @@ export function HeroBienvenida({ title, accent, text, cta, href, glow, featured 
                     <Link href={pHref} className="block">
                       <span className="block text-[11px] text-white/45">{c.brandName}</span>
                       <span className="block text-sm font-semibold leading-tight truncate">{shortProductName(c.name, c.brandName)}</span>
-                      {price && <span className="block text-sm font-semibold mt-1 tabular-nums" style={{ color: glow }}>{c.quick ? "" : "desde "}{ars(price)}</span>}
+                      {price && <span className="block text-sm font-semibold mt-1 tabular-nums" style={{ color: glow }}>{c.main?.from ? "desde " : ""}{ars(price)}</span>}
                     </Link>
                   </div>
                   <div className="w-[88px] shrink-0">

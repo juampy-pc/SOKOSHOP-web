@@ -44,3 +44,18 @@ body {
 @keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .hero-progress > span { transform-origin: left; animation: hero-progress 7s linear forwards; }
 @media (prefers-reduced-motion: reduce) { .hero-progress > span { animation: none; transform: scaleX(1); } }
+
+/* Etiqueta "Sin stock": rojo neón, en las tarjetas y en la ficha del producto */
+.tag-sin-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 9999px;
+  background: #ff1f4b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.55rem;
+  box-shadow: 0 0 0 1px rgba(255, 31, 75, 0.4), 0 0 14px rgba(255, 31, 75, 0.65);
+}

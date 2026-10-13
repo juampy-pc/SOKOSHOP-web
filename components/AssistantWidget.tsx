@@ -143,7 +143,7 @@ export default function AssistantWidget({ whatsapp }: { whatsapp: string }) {
           type="button"
           onClick={() => setOpen(true)}
           data-floating="asesor"
-          className="fixed z-30 right-4 bottom-[5.5rem] md:right-6 md:bottom-[6.5rem] flex items-center gap-2 rounded-full bg-black text-white pl-3 pr-4 h-12 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-[#111] transition"
+          className={`fixed z-30 right-4 md:right-6 ${pathname === "/" ? "bottom-[5.5rem] md:bottom-[6.5rem]" : "bottom-4 md:bottom-6"} flex items-center gap-2 rounded-full bg-black text-white pl-3 pr-4 h-12 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.5)] border border-white/10 hover:bg-[#111] transition`}
           aria-label="Abrir el asesor virtual"
         >
           <Spark className="size-5 text-[#1de03c]" />

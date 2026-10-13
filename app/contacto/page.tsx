@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LocationSection from "@/components/LocationSection";
 
+// La dirección del mapa sale del panel: se refresca cada 5 minutos (y al guardar "Datos del local").
+export const revalidate = 300;
+
 export const metadata: Metadata = {
   title: "Contacto | SokoShop",
-  description: "Visitanos en García Merou 81, Resistencia, Chaco. Perfumería SokoShop.",
+  description: "Visitanos en nuestro local de Resistencia, Chaco. Perfumería SokoShop.",
   alternates: { canonical: "/contacto" },
 };
 

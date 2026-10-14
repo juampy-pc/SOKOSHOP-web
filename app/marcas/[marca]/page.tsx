@@ -31,7 +31,7 @@ export default async function BrandPage({
     },
   });
 
-  if (!brand || brand.archivedAt) {
+  if (!brand || brand.archivedAt || brand.hidden) {
     const r = await findRedirect(`/marcas/${marca}`);
     if (r?.to) permanentRedirect(r.to);
     notFound();
@@ -39,7 +39,7 @@ export default async function BrandPage({
 
   const promos = await salePromos();
   const originLabel =
-    brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : brand.origin === "nicho" ? "Nicho" : "Independiente";
+    brand.origin === "arabe" ? "Perfumería árabe" : brand.origin === "disenador" ? "Diseñador" : brand.origin === "nicho" ? "Nicho" : brand.origin === "otros" ? "Otros" : "Independiente";
 
   return (
     <main className="min-h-screen bg-[#fafaf9] px-5 py-10 max-w-6xl mx-auto">

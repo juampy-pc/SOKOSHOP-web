@@ -21,6 +21,7 @@ const typeLabel: Record<string, string> = {
   decant: "Decant",
   frasco_completo: "Frasco completo",
   body_splash: "Body Splash",
+  insumo: "Unidad",
 };
 
 export default function VariantSelector({

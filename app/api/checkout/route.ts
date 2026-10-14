@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
       q.discount > 0
         ? [{ id: order.id, title: `Pedido SokoShop ${code} (${paidItems.reduce((s, i) => s + i.qty, 0)} productos${q.promotion ? `, ${q.promotion.name}` : ""})`, quantity: 1, unit_price: q.total, currency_id: "ARS" }]
         : [
-            ...paidItems.map((i) => ({ id: i.variantId, title: `${i.brandName} ${i.productName} — ${i.variantLabel}`, quantity: i.qty, unit_price: i.price, currency_id: "ARS" })),
+            ...paidItems.map((i) => ({ id: i.variantId, title: `${i.brandName} ${i.productName}`.trim() + ` — ${i.variantLabel}`, quantity: i.qty, unit_price: i.price, currency_id: "ARS" })),
             ...(q.shippingCost > 0 ? [{ id: "envio", title: `${deliveryMethod === "retiro" ? "Retiro" : "Envío"} — ${q.zone?.name ?? ""}`, quantity: 1, unit_price: q.shippingCost, currency_id: "ARS" }] : []),
           ];
 

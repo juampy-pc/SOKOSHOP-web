@@ -1,3 +1,6 @@
+/** Marca que se muestra: vacía si la marca está oculta en la tienda ("Sin marca", insumos). */
+export const shownBrand = (b: { name: string; hidden?: boolean }) => (b.hidden ? "" : b.name);
+
 export function cleanProductName(name: string, brandName: string): string {
   const prefix = brandName.trim();
   if (name.toLowerCase().startsWith(prefix.toLowerCase())) {

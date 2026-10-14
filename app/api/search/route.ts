@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   if (q.length < 2) return NextResponse.json([]);
 
   const results = await prisma.$queryRaw<SearchRow[]>`
-    SELECT p.id, p.slug, p.name, b.slug as "brandSlug", b.name as "brandName",
+    SELECT p.id, p.slug, p.name, b.slug as "brandSlug", CASE WHEN b.hidden THEN '' ELSE b.name END as "brandName",
       GREATEST(
         word_similarity(${q}, p.name),
         word_similarity(${q}, b.name),

@@ -23,6 +23,8 @@ model Brand {
   aliases     BrandAlias[]
   promotions  Promotion[]
   archivedAt  DateTime?
+  // Oculta en la tienda: no aparece en menús, listados ni fichas (ej. "Sin marca", insumos). Sus productos se venden igual.
+  hidden      Boolean      @default(false)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 

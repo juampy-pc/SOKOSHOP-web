@@ -9,7 +9,7 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://sokoshop.com.ar";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, brands] = await Promise.all([
     prisma.product.findMany({ where: { status: "publicado" }, select: { slug: true, updatedAt: true, brand: { select: { slug: true } } } }),
-    prisma.brand.findMany({ where: { archivedAt: null, products: { some: { status: "publicado" } } }, select: { slug: true } }),
+    prisma.brand.findMany({ where: { archivedAt: null, hidden: false, products: { some: { status: "publicado" } } }, select: { slug: true } }),
   ]);
   const fixed = ["", "/marcas", "/decants", "/perfumes-a-pedido", "/contacto", ...Object.values(originPages).map((o) => `/${o.slug}`), ...Object.values(GENDER_PAGES).map((g) => `/${g.slug}`)];
   return [

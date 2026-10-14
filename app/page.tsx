@@ -111,7 +111,7 @@ export default async function Home() {
     getSection({ OR: [{ decantAvailable: true }, { variants: { some: { type: "decant", archivedAt: null } } }] }, 40),
     salePromos(),
     getSetting("tienda"),
-    prisma.brand.findMany({ where: { origin: "disenador", products: { some: { status: "publicado" } } }, select: { slug: true, name: true }, orderBy: { name: "asc" }, take: 40 }).catch(() => []),
+    prisma.brand.findMany({ where: { origin: "disenador", hidden: false, products: { some: { status: "publicado" } } }, select: { slug: true, name: true }, orderBy: { name: "asc" }, take: 40 }).catch(() => []),
   ]);
   // Que cada sección muestre perfumes distintos: se saltean los que ya aparecieron más arriba
   // (si quedan menos de 4, se muestran igual los de siempre para no dejar la sección corta).

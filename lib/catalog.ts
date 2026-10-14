@@ -1,3 +1,4 @@
+import { shownBrand } from "@/lib/format";
 // Datos comunes para tarjetas de producto: precio efectivo (con oferta) y foto de portada.
 import type { Prisma } from "@prisma/client";
 
@@ -47,7 +48,7 @@ export function decantStock<T extends { type: string; sizeMl: number | null; sto
   return Math.max(0, Math.floor(decantMl / v.sizeMl));
 }
 
-const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash" };
+const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash", insumo: "Unidad" };
 export const variantText = (v: { type: string; sizeMl: number | null }) => `${TYPE_LABEL[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
 
 type CardVariant = V & { id?: string; type?: string; sizeMl?: number | null; stock?: number | null };
@@ -97,7 +98,7 @@ function decantFrom(variants: CardVariant[], pct: number) {
 }
 
 export function cardData(
-  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; decantMl?: number | null; brand: { slug: string; name: string; origin: string }; variants: CardVariant[]; images?: { url: string; alt: string | null }[] },
+  p: { id?: string; brandId?: string; slug: string; name: string; decantAvailable: boolean; decantMl?: number | null; brand: { slug: string; name: string; origin: string; hidden?: boolean }; variants: CardVariant[]; images?: { url: string; alt: string | null }[] },
   promos?: SalePromo[]
 ) {
   const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.brand.origin });
@@ -108,7 +109,7 @@ export function cardData(
     decantPrice: decantFrom(p.variants, pct),
     slug: p.slug,
     brandSlug: p.brand.slug,
-    brandName: p.brand.name,
+    brandName: shownBrand(p.brand),
     name: p.name,
     decantAvailable: p.decantAvailable,
     origin: p.brand.origin,

@@ -38,14 +38,14 @@ fbq('track', 'PageView');`}
 }
 
 /** Compra confirmada (página de éxito). Se manda una sola vez por pedido aunque recarguen la página. */
-export function PixelPurchase({ orderId, value }: { orderId: string; value: number }) {
+export function PixelPurchase({ orderId, value, ids }: { orderId: string; value: number; ids: string[] }) {
   useEffect(() => {
     const key = `sk_px_${orderId}`;
     try {
       if (localStorage.getItem(key)) return;
       localStorage.setItem(key, "1");
     } catch { /* sin almacenamiento: se manda igual */ }
-    pixel("Purchase", { value, currency: "ARS" }, orderId); // espera sola a que cargue el pixel
-  }, [orderId, value]);
+    pixel("Purchase", { content_ids: ids, content_type: "product", num_items: ids.length, value, currency: "ARS" }, orderId); // espera sola a que cargue el pixel
+  }, [orderId, value, ids]);
   return null;
 }

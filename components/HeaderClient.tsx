@@ -248,7 +248,7 @@ export default function HeaderClient({ groups }: { groups: NavGroup[] }) {
               </div>
               <Link
                 href="/checkout"
-                onClick={() => { track("checkout_start", { v: total }); setCartOpen(false); }}
+                onClick={() => { track("checkout_start", { v: total, ids: items.map((i) => i.variantId) }); setCartOpen(false); }}
                 aria-disabled={items.length === 0}
                 className={`flex items-center justify-center gap-2 w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 shadow-[0_8px_24px_-8px_rgba(29,224,60,0.7)] hover:brightness-105 active:scale-[0.98] transition ${items.length === 0 ? "pointer-events-none opacity-50" : ""}`}
               >

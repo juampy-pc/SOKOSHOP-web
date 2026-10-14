@@ -8,7 +8,7 @@ import VariantSelector from "@/components/VariantSelector";
 import Gallery from "@/components/Gallery";
 import { SelectedVariantProvider } from "@/components/SelectedVariant";
 import { TrackProductView } from "@/components/Analytics";
-import { cleanProductName } from "@/lib/format";
+import { shownBrand, cleanProductName } from "@/lib/format";
 import { decantStock, imageUrl, promoPrice, salePct, sortVariants } from "@/lib/catalog";
 import StockBadge from "@/components/StockBadge";
 
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ marca: st
   const { producto } = await params;
   const p = await load(producto);
   if (!p || p.status !== "publicado") return {};
-  const name = `${p.brand.name} ${cleanProductName(p.name, p.brand.name)}`;
+  const name = `${shownBrand(p.brand)} ${cleanProductName(p.name, shownBrand(p.brand))}`.trim();
   const ogImage = p.images.find((i) => i.kind === "image" && !i.variantId) ?? p.images.find((i) => i.kind === "image");
   return {
     title: `${name} · SokoShop`,
@@ -64,7 +64,8 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
     notFound();
   }
 
-  const title = cleanProductName(product.name, product.brand.name);
+  const brandName = shownBrand(product.brand);
+  const title = cleanProductName(product.name, brandName);
   // Fotos (sin videos): las generales van en la portada, el carrito y los buscadores; las de una presentación, cuando la eligen.
   const photos = product.images.filter((i) => i.kind === "image");
   const cover = photos.find((i) => !i.variantId) ?? photos[0] ?? null;
@@ -88,8 +89,8 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `${product.brand.name} ${title}`,
-    brand: { "@type": "Brand", name: product.brand.name },
+    name: `${brandName} ${title}`.trim(),
+    ...(brandName ? { brand: { "@type": "Brand", name: brandName } } : {}),
     ...(photos.length ? { image: photos.map((i) => imageUrl(i.url, 1200)) } : {}),
     ...(product.descriptionShort ? { description: product.descriptionShort } : {}),
     url,
@@ -108,7 +109,7 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <p className="text-xs text-gray-400 mb-8">
         <Link href="/" className="hover:text-[#17a930]">Inicio</Link> /{" "}
-        <Link href={`/marcas/${product.brand.slug}`} className="text-[#17a930] hover:underline">{product.brand.name}</Link> /{" "}
+        {brandName && <><Link href={`/marcas/${product.brand.slug}`} className="text-[#17a930] hover:underline">{brandName}</Link> /{" "}</>}
         <span>{title}</span>
       </p>
 
@@ -117,17 +118,19 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
       <div className="grid md:grid-cols-2 gap-10">
         <div className="relative min-w-0">
           <StockBadge outOfStock={outOfStock} firstId={variants[0]?.id ?? null} />
-          <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt, kind: i.kind, variantId: i.variantId }))} alt={`${product.brand.name} ${title}`} />
+          <Gallery images={product.images.map((i) => ({ url: i.url, alt: i.alt, kind: i.kind, variantId: i.variantId }))} alt={`${brandName} ${title}`.trim()} />
         </div>
 
         <div>
-          <p className="text-[#17a930] text-sm font-semibold">{product.brand.name}</p>
+          {brandName && <p className="text-[#17a930] text-sm font-semibold">{brandName}</p>}
           <h1 className="text-2xl md:text-3xl font-semibold mt-1 mb-4 text-gray-900">{title}</h1>
 
           <div className="flex flex-wrap gap-2 mb-6">
-            <span className="text-xs bg-white shadow-[0_1px_6px_rgba(0,0,0,0.06)] rounded-full px-3 py-1 text-gray-600">
-              {product.brand.origin === "arabe" ? "Perfumería árabe" : product.brand.origin === "disenador" ? "Diseñador" : product.brand.origin === "nicho" ? "Nicho" : "Independiente"}
-            </span>
+            {product.brand.origin !== "otros" && (
+              <span className="text-xs bg-white shadow-[0_1px_6px_rgba(0,0,0,0.06)] rounded-full px-3 py-1 text-gray-600">
+                {product.brand.origin === "arabe" ? "Perfumería árabe" : product.brand.origin === "disenador" ? "Diseñador" : product.brand.origin === "nicho" ? "Nicho" : "Independiente"}
+              </span>
+            )}
             {product.decantAvailable && <span className="text-xs bg-[#eafbee] text-[#17a930] rounded-full px-3 py-1 font-medium">Con probador</span>}
             {pct > 0 && <span className="text-xs bg-[#1de03c] text-[#06140a] rounded-full px-3 py-1 font-semibold">{pct}% OFF</span>}
           </div>
@@ -135,7 +138,7 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
           <VariantSelector
             variants={variants}
             productName={title}
-            brandName={product.brand.name}
+            brandName={brandName}
             image={cover?.url ?? null}
             imageFor={imageFor}
             href={`/marcas/${product.brand.slug}/${product.slug}`}
@@ -165,7 +168,7 @@ export default async function ProductPage({ params }: { params: Promise<{ marca:
                 </dl>
               )}
             </section>
-          ) : (
+          ) : product.brand.origin === "otros" ? null : (
             <p className="text-xs text-gray-300 mt-10">Ficha olfativa en construcción — todavía no investigamos este producto en detalle.</p>
           )}
           {product.descriptionLong && <div className="mt-8 text-sm text-gray-600 leading-relaxed whitespace-pre-line">{product.descriptionLong}</div>}

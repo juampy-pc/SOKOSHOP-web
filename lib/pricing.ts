@@ -1,7 +1,7 @@
 // Cotización del carrito del lado del servidor: precios, promociones/cupón, regalos y envío o retiro.
 // El navegador solo manda variantes y cantidades; todo lo demás se calcula acá.
 import { prisma } from "@/lib/prisma";
-import { cleanProductName } from "@/lib/format";
+import { cleanProductName, shownBrand } from "@/lib/format";
 import { effectivePrice, decantStock, promoPrice, salePct, variantText } from "@/lib/catalog";
 import { isSalePromo } from "@/lib/sale-promos";
 import { describePromo, evaluatePromos } from "@/lib/promo-engine";
@@ -85,7 +85,7 @@ export async function quote(input: QuoteInput) {
   const items = input.lines.map((l) => {
     const v = byId.get(l.variantId);
     if (!v || v.product.status !== "publicado" || v.archivedAt) throw new QuoteError("Un producto del carrito ya no está disponible.");
-    const productName = cleanProductName(v.product.name, v.product.brand.name);
+    const productName = cleanProductName(v.product.name, shownBrand(v.product.brand));
     const stock = decantStock(v, v.product.decantMl);
     const pct = salePct(sales, { id: v.productId, brandId: v.product.brandId, origin: v.product.brand.origin });
     const sale = promoPrice(v, pct);
@@ -97,7 +97,7 @@ export async function quote(input: QuoteInput) {
       origin: v.product.brand.origin,
       type: v.type,
       sizeMl: v.sizeMl,
-      brandName: v.product.brand.name,
+      brandName: shownBrand(v.product.brand),
       productName,
       variantLabel: variantLabel(v),
       price: pct > 0 ? sale.price : effectivePrice(v),

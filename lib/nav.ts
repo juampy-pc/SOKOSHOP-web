@@ -8,7 +8,7 @@ export { GENDER_PAGES, whatsappLink, type NavGroup } from "@/lib/nav-config";
 export async function navGroups(): Promise<NavGroup[]> {
   const brands = await prisma.brand
     .findMany({
-      where: { archivedAt: null, products: { some: { status: "publicado" } } },
+      where: { archivedAt: null, hidden: false, products: { some: { status: "publicado" } } },
       orderBy: { name: "asc" },
       select: { slug: true, name: true, origin: true },
     })

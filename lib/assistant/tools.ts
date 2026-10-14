@@ -9,7 +9,7 @@ import { salePromos } from "@/lib/sale-promos";
 import { activePromoWhere } from "@/lib/promo-data";
 import { describePromo } from "@/lib/promo-engine";
 import { imageUrl, promoPrice, salePct, variantText, type SalePromo } from "@/lib/catalog";
-import { cleanProductName } from "@/lib/format";
+import { cleanProductName, shownBrand } from "@/lib/format";
 import { whatsappLink } from "@/lib/nav-config";
 
 const GENDER: Record<string, string> = { masculino: "Masculino", femenino: "Femenino", unisex: "Unisex" };
@@ -42,8 +42,8 @@ function summarize(p: Row, promos: SalePromo[]) {
   const decants = variants.filter((v) => v.type === "decant");
   const main = bottles[0] ?? variants[0];
   const card: ProductCardData = {
-    name: cleanProductName(p.name, p.brand.name),
-    brand: p.brand.name,
+    name: cleanProductName(p.name, shownBrand(p.brand)),
+    brand: shownBrand(p.brand),
     url: `/marcas/${p.brand.slug}/${p.slug}`,
     image: p.images[0] ? imageUrl(p.images[0].url, 160, 160) : null,
     price: main?.price ?? 0,
@@ -54,9 +54,9 @@ function summarize(p: Row, promos: SalePromo[]) {
   return {
     card,
     text: {
-      nombre: `${p.brand.name} ${cleanProductName(p.name, p.brand.name)}`,
+      nombre: `${shownBrand(p.brand)} ${cleanProductName(p.name, shownBrand(p.brand))}`.trim(),
       url: card.url,
-      origen: ORIGIN[p.brand.origin] ?? p.brand.origin,
+      origen: ORIGIN[p.brand.origin] ?? "Otros",
       genero: p.gender ? GENDER[p.gender] ?? p.gender : null,
       familia: p.olfactiveFamily,
       notas: p.notes.slice(0, 8).map((n) => n.note.name),

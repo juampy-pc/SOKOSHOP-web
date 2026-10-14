@@ -2,10 +2,10 @@
 // Equivalente a sokoshop-admin/lib/promo-data.ts (allá lo usa el POS).
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { cleanProductName } from "@/lib/format";
+import { cleanProductName, shownBrand } from "@/lib/format";
 import type { EngineItem, EnginePromo, GiftVariant } from "@/lib/promo-engine";
 
-export const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash" };
+export const TYPE_LABEL: Record<string, string> = { decant: "Decant", frasco_completo: "Frasco completo", body_splash: "Body Splash", insumo: "Unidad" };
 export const variantLabel = (v: { type: string; sizeMl: number | null }) => `${TYPE_LABEL[v.type] ?? v.type}${v.sizeMl ? ` ${v.sizeMl}ml` : ""}`;
 
 export function activePromoWhere(now = new Date()): Prisma.PromotionWhereInput {
@@ -16,13 +16,13 @@ export function activePromoWhere(now = new Date()): Prisma.PromotionWhereInput {
   };
 }
 
-type GiftRow = { id: string; productId: string; type: string; sizeMl: number | null; price: number; salePrice: number | null; stock: number | null; product: { name: string; status: string; brand: { name: string } } };
+type GiftRow = { id: string; productId: string; type: string; sizeMl: number | null; price: number; salePrice: number | null; stock: number | null; product: { name: string; status: string; brand: { name: string; hidden?: boolean } } };
 const toGift = (v: GiftRow): GiftVariant => ({
   variantId: v.id,
   productId: v.productId,
   label: variantLabel(v),
-  productName: cleanProductName(v.product.name, v.product.brand.name),
-  brandName: v.product.brand.name,
+  productName: cleanProductName(v.product.name, shownBrand(v.product.brand)),
+  brandName: shownBrand(v.product.brand),
   price: v.salePrice && v.salePrice > 0 && v.salePrice < v.price ? v.salePrice : v.price,
   stock: v.stock,
   sizeMl: v.sizeMl,

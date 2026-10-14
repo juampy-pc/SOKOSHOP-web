@@ -2,7 +2,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { prisma } from "@/lib/prisma";
 import { getSetting } from "@/lib/settings";
-import { cleanProductName } from "@/lib/format";
+import { cleanProductName, shownBrand } from "@/lib/format";
 
 const BASE = `Sos el asesor virtual de SokoShop, una perfumería de Resistencia, Chaco (Argentina) que vende perfumes 100% originales: árabes (el fuerte de la tienda), de diseñador, de nicho y alternativas, en frasco completo y en decants de 5 y 10 ml para probar. Atendés a clientes en la tienda online sokoshop.com.ar. La marca se define por la atención: "Te atendemos como a un amigo, y te asesoramos de verdad."
 
@@ -29,11 +29,11 @@ async function catalogIndex() {
   if (cache && Date.now() - cache.at < 10 * 60_000) return cache.text;
   const rows = await prisma.product.findMany({
     where: { status: "publicado" },
-    select: { slug: true, name: true, gender: true, olfactiveFamily: true, brand: { select: { name: true, slug: true, origin: true } } },
+    select: { slug: true, name: true, gender: true, olfactiveFamily: true, brand: { select: { name: true, slug: true, origin: true, hidden: true } } },
     orderBy: [{ brand: { name: "asc" } }, { name: "asc" }],
   });
   const text = rows
-    .map((p) => `- ${p.brand.name} ${cleanProductName(p.name, p.brand.name)} | ${p.gender ?? "s/d"} | ${p.olfactiveFamily ?? "s/d"} | /marcas/${p.brand.slug}/${p.slug}`)
+    .map((p) => `- ${`${shownBrand(p.brand)} ${cleanProductName(p.name, shownBrand(p.brand))}`.trim()} | ${p.gender ?? "s/d"} | ${p.olfactiveFamily ?? "s/d"} | /marcas/${p.brand.slug}/${p.slug}`)
     .join("\n");
   cache = { at: Date.now(), text };
   return text;

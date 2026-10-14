@@ -66,7 +66,7 @@ export default function VariantSelector({
       href,
     });
     if (buyNow) {
-      track("checkout_start", { v: finalPrice(v) });
+      track("checkout_start", { v: finalPrice(v), ids: [v.id] });
       router.push("/checkout");
       return;
     }

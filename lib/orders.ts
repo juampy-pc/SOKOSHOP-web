@@ -1,5 +1,19 @@
 import { prisma } from "@/lib/prisma";
 
+/**
+ * Pago devuelto o contracargado en Mercado Pago. No toca stock ni caja (eso lo hace la devolución del panel):
+ * deja una nota en el pedido pagado, una sola vez aunque MP repita el aviso. true = se anotó ahora.
+ */
+export async function flagMpRefund(orderId: string, paymentId: string, status: "refunded" | "charged_back"): Promise<boolean> {
+  const tag = `[MP ${status === "charged_back" ? "contracargo" : "reintegro"} ${paymentId}]`;
+  const note = `${tag} Mercado Pago devolvió el pago: registrá la devolución en el panel.`;
+  const n = await prisma.$executeRaw`
+    UPDATE "Order" SET notes = concat_ws(E'\n', notes, ${note}::text), "updatedAt" = now()
+    WHERE id = ${orderId} AND status IN ('pagado', 'pagado_revisar_stock', 'entregado', 'revisar_monto')
+      AND (notes IS NULL OR position(${tag}::text in notes) = 0)`;
+  return n > 0;
+}
+
 // Estados desde los que un pago aprobado puede pasar la orden a pagada.
 // Cualquier otro (pagado, pagado_revisar_stock, revisar_monto) significa que
 // el pago ya se procesó: no se vuelve a descontar stock.

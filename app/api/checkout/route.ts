@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    // Sin la variable, la dirección desde la que compró el cliente (nunca localhost en producción).
+    const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || req.nextUrl.origin).replace(/\/$/, "");
     const code = order.id.slice(-6).toUpperCase();
     // Con descuento, MP recibe una sola línea con el total (no admite ítems negativos).
     // Los regalos (precio 0) no se mandan a MP: MP no acepta ítems sin precio.

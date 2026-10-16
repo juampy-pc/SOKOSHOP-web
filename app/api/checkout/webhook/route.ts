@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { MercadoPagoConfig, Payment } from "mercadopago";
 import { prisma } from "@/lib/prisma";
-import { markPaid } from "@/lib/orders";
-import { sendOrderEmails } from "@/lib/notify";
+import { flagMpRefund, markPaid } from "@/lib/orders";
+import { sendOrderEmails, sendRefundAlert } from "@/lib/notify";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN as string,
@@ -14,7 +14,12 @@ const client = new MercadoPagoConfig({
 // https://www.mercadopago.com.ar/developers/es/docs/your-integrations/notifications/webhooks
 function hasValidSignature(req: NextRequest, dataId: string): boolean {
   const secret = process.env.MP_WEBHOOK_SECRET;
-  if (!secret) return true;
+  if (!secret) {
+    // Sin secreto no se puede verificar la firma. Igual se procesa (el estado real siempre se consulta a MP),
+    // pero queda el error en los logs para que se configure.
+    if (process.env.NODE_ENV === "production") console.error("Falta MP_WEBHOOK_SECRET: el webhook de Mercado Pago no verifica la firma.");
+    return true;
+  }
 
   const header = req.headers.get("x-signature") ?? "";
   const requestId = req.headers.get("x-request-id") ?? "";
@@ -54,11 +59,16 @@ export async function POST(req: NextRequest) {
       revalidatePath("/", "layout"); // el stock cambió: refrescar la caché de la tienda
       // Mails solo la primera vez (MP repite notificaciones). Un error de mail no hace fallar el webhook.
       if (paidNow) await sendOrderEmails(orderId).catch((e) => console.error("Mails del pedido:", e));
-    } else if (paymentInfo.status === "rejected") {
+    } else if (paymentInfo.status === "rejected" || paymentInfo.status === "cancelled") {
       await prisma.order.updateMany({
         where: { id: orderId, status: "pendiente" },
         data: { status: "rechazado", mpPaymentId: paymentId },
       });
+    } else if (paymentInfo.status === "refunded" || paymentInfo.status === "charged_back") {
+      // Devuelto desde Mercado Pago: se anota y se avisa una sola vez; la devolución se registra en el panel.
+      if (await flagMpRefund(orderId, paymentId, paymentInfo.status)) {
+        await sendRefundAlert(orderId, paymentInfo.status).catch((e) => console.error("Aviso de reintegro:", e));
+      }
     }
 
     return NextResponse.json({ received: true });

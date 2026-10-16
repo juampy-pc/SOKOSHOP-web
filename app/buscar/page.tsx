@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import { promoPrice, salePct } from "@/lib/catalog";
+import { salePromos } from "@/lib/sale-promos";
 
 export const revalidate = 0;
 
@@ -8,6 +10,7 @@ type SearchRow = {
   id: string;
   slug: string;
   name: string;
+  brandId: string;
   brandSlug: string;
   brandName: string;
   origin: string;
@@ -25,12 +28,13 @@ export default async function BuscarPage({
   const query = q?.trim() ?? "";
 
   let results: SearchRow[] = [];
+  const promos = await salePromos();
 
   if (query.length >= 2) {
     results = await prisma.$queryRaw<SearchRow[]>`
-      SELECT p.id, p.slug, p.name, b.slug as "brandSlug", b.name as "brandName", b.origin, p."decantAvailable",
+      SELECT p.id, p.slug, p.name, p."brandId", b.slug as "brandSlug", CASE WHEN b.hidden THEN '' ELSE b.name END as "brandName", b.origin, p."decantAvailable",
         (SELECT MIN(CASE WHEN v."salePrice" > 0 AND v."salePrice" < v.price THEN v."salePrice" ELSE v.price END) FROM "ProductVariant" v WHERE v."productId" = p.id AND v."archivedAt" IS NULL) as price,
-        (SELECT i.url FROM "ProductImage" i WHERE i."productId" = p.id ORDER BY i.sort LIMIT 1) as image,
+        (SELECT i.url FROM "ProductImage" i WHERE i."productId" = p.id AND i.kind = 'image' ORDER BY i."variantId" NULLS FIRST, i.sort LIMIT 1) as image,
         GREATEST(
           word_similarity(${query}, p.name),
           word_similarity(${query}, b.name),
@@ -75,9 +79,12 @@ export default async function BuscarPage({
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {results.map((p) => (
-          <ProductCard key={p.id} slug={p.slug} brandSlug={p.brandSlug} brandName={p.brandName} name={p.name} price={p.price === null ? null : Number(p.price)} image={p.image} />
-        ))}
+        {results.map((p) => {
+          // El mismo precio tachado que en las tarjetas del resto de la tienda.
+          const pct = salePct(promos, { id: p.id, brandId: p.brandId, origin: p.origin });
+          const price = p.price === null ? null : promoPrice({ price: Number(p.price), salePrice: null }, pct).price;
+          return <ProductCard key={p.id} slug={p.slug} brandSlug={p.brandSlug} brandName={p.brandName} name={p.name} price={price} image={p.image} />;
+        })}
       </div>
     </main>
   );

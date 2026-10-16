@@ -841,3 +841,15 @@ model WholesaleItem {
   @@index([active, position])
   @@index([variantId])
 }
+
+// Roles del panel: los 4 de fábrica (owner/admin/vendedor/deposito) y los que crea el dueño.
+// Para los de fábrica, una fila reemplaza los permisos por defecto (sin fila = valores de fábrica).
+model RoleDef {
+  key         String   @id // "vendedor", "deposito"… o "c_<nombre>" para los creados a mano
+  name        String
+  description String?
+  permissions String[] @default([])
+  builtin     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}

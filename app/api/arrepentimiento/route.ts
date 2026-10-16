@@ -6,11 +6,13 @@ import { getSetting } from "@/lib/settings";
 
 const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sin 0/O ni 1/I para dictarlo sin errores
+const MAX_CUSTOMER_MAILS_PER_HOUR = 20;
 const newCode = () => "ARR-" + [...randomBytes(6)].map((b) => ALPHABET[b % ALPHABET.length]).join("");
 
 // Botón de arrepentimiento (Res. 424/2020): registra la solicitud y devuelve el código de inmediato.
 export async function POST(req: NextRequest) {
   const b = await req.json().catch(() => null);
+  if (str(b?.website, 100)) return NextResponse.json({ code: newCode() }); // trampa para bots: no se registra ni se manda nada
   const fullName = str(b?.fullName, 120);
   const email = str(b?.email, 120).toLowerCase();
   const phone = str(b?.phone, 40) || null;
@@ -42,7 +44,12 @@ export async function POST(req: NextRequest) {
     orderRef ? `Pedido informado: ${orderRef}.` : "No indicaste número de pedido; te vamos a contactar para identificar la compra.",
     "Te contactamos dentro de las 24 horas hábiles para coordinar la devolución. Los gastos de envío de la devolución corren por nuestra cuenta.",
   ]);
-  await sendMail({ to: email, subject: `Solicitud de arrepentimiento ${w.code}`, html, text, template: "arrepentimiento.recibido", orderId, replyTo: store.email || undefined }).catch(() => {});
+  // Tope global de mails a direcciones escritas en el formulario (evita usarlo para mandar spam desde el dominio).
+  // Pasado el tope la solicitud igual queda registrada y el código se muestra en pantalla.
+  const lastHour = await prisma.withdrawalRequest.count({ where: { createdAt: { gte: new Date(Date.now() - 3_600_000) } } });
+  if (lastHour <= MAX_CUSTOMER_MAILS_PER_HOUR) {
+    await sendMail({ to: email, subject: `Solicitud de arrepentimiento ${w.code}`, html, text, template: "arrepentimiento.recibido", orderId, replyTo: store.email || undefined }).catch(() => {});
+  }
   for (const to of alerts.emails) {
     const a = layout(`Arrepentimiento ${w.code}`, [`${fullName} · ${email}${phone ? ` · ${phone}` : ""}`, `Pedido: ${orderRef ?? "no indicado"}${orderId ? " (vinculado)" : ""}`, ...(message ? [`Mensaje: ${message}`] : [])]);
     await sendMail({ to, subject: `Nueva solicitud de arrepentimiento ${w.code}`, html: a.html, text: a.text, template: "alerta.arrepentimiento", orderId }).catch(() => {});

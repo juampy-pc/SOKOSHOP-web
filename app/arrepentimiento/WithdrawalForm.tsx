@@ -11,12 +11,13 @@ export default function WithdrawalForm() {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setSending(true);
     try {
-      const res = await fetch("/api/arrepentimiento", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(f) });
+      const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement).value; // trampa para bots
+      const res = await fetch("/api/arrepentimiento", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...f, website }) });
       const data = await res.json();
       if (data.code) setCode(data.code);
       else setError(data.error ?? "No se pudo enviar. Probá de nuevo.");
@@ -46,6 +47,7 @@ export default function WithdrawalForm() {
         <div><label htmlFor="w-dni" className={label}>DNI</label><input id="w-dni" inputMode="numeric" value={f.docNumber} onChange={(e) => setF({ ...f, docNumber: e.target.value })} className={input} /></div>
       </div>
       <div><label htmlFor="w-msg" className={label}>Comentario (opcional)</label><textarea id="w-msg" rows={3} value={f.message} onChange={(e) => setF({ ...f, message: e.target.value })} className={input} /></div>
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
       <button disabled={sending} className="w-full bg-[#1de03c] text-[#06140a] font-semibold rounded-full py-3 hover:bg-[#17a930] transition disabled:opacity-50">{sending ? "Enviando…" : "Enviar solicitud de arrepentimiento"}</button>
     </form>

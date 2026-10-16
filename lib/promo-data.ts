@@ -34,8 +34,8 @@ export async function loadGifts(promos: EnginePromo[], items: EngineItem[]) {
   const needDecants = promos.some((p) => p.kind === "regalo" && p.giftMode === "decant_del_producto");
   const include = { product: { include: { brand: true } } } as const;
   const [fixed, decants] = await Promise.all([
-    ids.length ? prisma.productVariant.findMany({ where: { id: { in: ids }, product: { status: { not: "archivado" } } }, include }) : Promise.resolve([]),
-    needDecants ? prisma.productVariant.findMany({ where: { productId: { in: items.map((i) => i.productId) }, type: "decant" }, include }) : Promise.resolve([]),
+    ids.length ? prisma.productVariant.findMany({ where: { id: { in: ids }, archivedAt: null, product: { status: { not: "archivado" } } }, include }) : Promise.resolve([]),
+    needDecants ? prisma.productVariant.findMany({ where: { productId: { in: items.map((i) => i.productId) }, type: "decant", archivedAt: null }, include }) : Promise.resolve([]),
   ]);
   const giftVariants = new Map(fixed.map((v) => [v.id, toGift(v)]));
   const decantsByProduct = new Map<string, GiftVariant[]>();
